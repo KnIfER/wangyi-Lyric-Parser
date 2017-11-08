@@ -8,8 +8,7 @@
 
 	<RelativeLayout
 		android:layout_height="match_parent"
-		android:layout_width="match_parent"
-		>
+		android:layout_width="match_parent">
 
 		<RelativeLayout
 			android:layout_height="50dp"
@@ -53,16 +52,35 @@
 
 		</RelativeLayout>
 
-		<TextView
+		
+<LinearLayout
 			android:layout_height="wrap_content"
-			android:textAppearance="?android:attr/textAppearanceMedium"
 			android:layout_width="wrap_content"
-			android:text="Load files from :"
-			android:layout_below="@id/optionlayoutRelativeLayout1"
-			android:textColor="#1D9DFF"
+			android:orientation="horizontal"
 			android:id="@+id/optionlayoutTextView2"
+			android:layout_below="@id/optionlayoutRelativeLayout1"
 			android:layout_marginLeft="15dp"
-			android:layout_marginTop="15dp"/>
+			android:layout_marginTop="15dp">
+
+			<TextView
+				android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:layout_width="wrap_content"
+				android:text="Load files from :"
+				android:textColor="#1D9DFF"/>
+
+			<Button
+				android:layout_height="15dp"
+				android:layout_width="15dp"
+				android:text=""
+				style="?android:attr/buttonBarButtonStyle"
+				android:id="@+id/pickFromFolder"
+				android:background="@drawable/image_3"
+				android:layout_gravity="center|center_vertical|center_horizontal"
+				android:layout_marginLeft="15dp"
+				android:layout_marginTop="1dp"/>
+
+		</LinearLayout>
 
 		<EditText
 			android:layout_height="wrap_content"
@@ -80,17 +98,37 @@
 			android:textSize="14sp"
 			android:id="@+id/load_path_text"/>
 
-		<TextView
+	
+<LinearLayout
 			android:layout_height="wrap_content"
-			android:textAppearance="?android:attr/textAppearanceMedium"
 			android:layout_width="wrap_content"
-			android:text="Save lrc file to :"
-			android:textColor="#1D9DFF"
+			android:orientation="horizontal"
 			android:id="@+id/optionlayoutTextView3"
+			android:layout_below="@id/load_path_text"
 			android:layout_marginLeft="15dp"
-			android:layout_marginTop="15dp"
-			android:layout_below="@id/load_path_text"/>
+			android:layout_marginTop="15dp">
+			
+			<TextView
+				android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:layout_width="wrap_content"
+				android:text="Save lrc file to :"
+				android:textColor="#1D9DFF"
+				/>
+		
+			<Button
+				android:layout_height="15dp"
+				android:layout_width="15dp"
+				android:text=""
+				style="?android:attr/buttonBarButtonStyle"
+				android:id="@+id/pickToFolder"
+				android:background="@drawable/image_3"
+				android:layout_gravity="center|center_vertical|center_horizontal"
+				android:layout_marginLeft="15dp"
+				android:layout_marginTop="1dp"/>
 
+		</LinearLayout>
+		
 		<EditText
 			android:layout_height="wrap_content"
 			android:layout_width="match_parent"
@@ -114,7 +152,7 @@
 			android:layout_margin="15dp"
 			android:id="@+id/opt_layout">
 
-			<CheckBox
+<CheckBox
 				android:layout_height="wrap_content"
 				android:layout_width="wrap_content"
 				android:text="总是从网上获取歌曲信息"
@@ -122,7 +160,7 @@
 				android:shadowColor="#000000"
 				android:id="@+id/check_forcegettagfromnet"/>
 
-			<CheckBox
+<CheckBox
 				android:layout_height="wrap_content"
 				android:layout_width="wrap_content"
 				android:layout_below="@id/check_forcegettagfromnet"
@@ -131,7 +169,7 @@
 				android:textColor="#1D9DFF"
 				android:id="@+id/check_forcegetlrcfromnet"/>
 
-			<CheckBox
+<CheckBox
 				android:layout_height="wrap_content"
 				android:layout_width="wrap_content"
 				android:layout_below="@id/check_forcegetlrcfromnet"
@@ -140,7 +178,7 @@
 				android:textColor="#1D9DFF"
 				android:id="@+id/check_normaltag"/>
 
-			<CheckBox
+<CheckBox
 				android:layout_height="wrap_content"
 				android:layout_width="wrap_content"
 				android:layout_below="@id/check_normaltag"
@@ -153,35 +191,8 @@
 				android:layout_height="wrap_content"
 				android:textAppearance="?android:attr/textAppearanceMedium"
 				android:layout_width="wrap_content"
-				android:text="要写入的歌词的类型"
-				android:layout_below="@id/check_extratag"
-				android:layout_marginTop="10dp"
-				android:id="@+id/optionlayoutTextView4"
-				android:textColor="#1D9DFF"
-				android:textSize="15sp"/>
-
-			<RelativeLayout
-				android:layout_height="wrap_content"
-				android:layout_width="wrap_content"
-				android:layout_below="@id/optionlayoutTextView4"
-				android:id="@+id/lleu"
-				android:layout_alignRight="@id/check_extratag">
-
-				<Spinner
-					android:layout_height="wrap_content"
-					android:layout_width="match_parent"
-					android:id="@+id/lrc_type"
-					android:entries="@array/lrc_type"
-					android:popupBackground="#E5E5E5"/>
-
-			</RelativeLayout>
-
-			<TextView
-				android:layout_height="wrap_content"
-				android:textAppearance="?android:attr/textAppearanceMedium"
-				android:layout_width="wrap_content"
 				android:text="要合并的歌词的方式"
-				android:layout_below="@id/lleu"
+				android:layout_below="@id/check_extratag"
 				android:layout_marginTop="10dp"
 				android:id="@+id/TextView5"
 				android:textColor="#1D9DFF"
@@ -197,6 +208,36 @@
 				android:entries="@array/lrc_combine"
 				android:popupBackground="#E5E5E5"
 				android:layout_alignParentBottom="false"/>
+
+<Button
+				style="?android:attr/buttonBarButtonStyle"
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="清除app处理的Lrc缓存历史"
+				android:layout_below="@id/spn_lrc_combine"
+				android:gravity="center_vertical|center_horizontal|fill_vertical|fill_horizontal"
+				android:layout_centerHorizontal="true"
+				android:id="@+id/myClrBtn1"/>
+
+<Button
+				style="?android:attr/buttonBarButtonStyle"
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="清除云音乐下载的json-Lrc"
+				android:layout_below="@id/myClrBtn1"
+				android:gravity="center_vertical|center_horizontal|fill_vertical|fill_horizontal"
+				android:layout_centerHorizontal="true"
+				android:id="@+id/myClrBtn2"/>
+
+<Button
+				style="?android:attr/buttonBarButtonStyle"
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="清除云音乐缓存的json-Lrc"
+				android:layout_below="@id/myClrBtn2"
+				android:gravity="center_vertical|center_horizontal|fill_vertical|fill_horizontal"
+				android:layout_centerHorizontal="true"
+				android:id="@+id/myClrBtn3"/>
 
 		</RelativeLayout>
 

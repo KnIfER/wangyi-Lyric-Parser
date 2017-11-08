@@ -20,6 +20,9 @@ import org.json.JSONObject;
 import android.location.*;
 import android.text.method.*;
 import com.fenwjian.sdcardutil.*;
+import com.github.angads25.filepicker.model.*;
+import com.github.angads25.filepicker.view.*;
+import com.github.angads25.filepicker.controller.*;
 
 public class MainActivity extends Activity
 {
@@ -51,8 +54,8 @@ public class MainActivity extends Activity
 
 		opt.ctx=getApplicationContext();
 		opt.controller_button=run_button;
-		opt.load_path="/storage/emulated/0/netease/cloudmusic/Cache/Lyric/";
-		opt.save_path="/storage/emulated/0/netease/cloudmusic/Music/";
+		opt.load_path="/sdcard/netease/cloudmusic/Cache/Lyric/";
+		opt.save_path="/sdcard/netease/cloudmusic/Music/";
 		opt.opt.ForceGetTagFormNet=false;
 		opt.opt.ForceGetLrcFromNet=false;
 		opt.opt.NomalTag=true;
@@ -63,6 +66,19 @@ public class MainActivity extends Activity
 		run_button.setOnClickListener(new Run_OnClickListener((RelativeLayout)findViewById((R.id.main_layout)),opt));
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public void OnOptionButtonClick(View viewer){
 		ScrollView.LayoutParams lp = new ScrollView.LayoutParams(-1,-1);
 		ScrollView rl=(ScrollView)inflater.inflate(R.layout.option_layout,null);
@@ -72,8 +88,6 @@ public class MainActivity extends Activity
 		save_button.setOnClickListener(new Save_OnClickListener(main,rl,opt));
 
 		Spinner _spn=(Spinner)rl.findViewById(R.id.spn_lrc_combine);
-		Spinner spn=(Spinner)rl.findViewById(R.id.lrc_type);
-		spn.setOnItemSelectedListener(new LPExOnItemSelectedListener(opt,_spn));
 		_spn.setOnItemSelectedListener(new LPExOnItemSelectedListener2(opt));
 
 
@@ -83,7 +97,49 @@ public class MainActivity extends Activity
 		((CheckBox)findViewById(R.id.check_normaltag)).setChecked(opt.opt.NomalTag);
 		((CheckBox)findViewById(R.id.check_forcegetlrcfromnet)).setChecked(opt.opt.ForceGetLrcFromNet);
 		((CheckBox)findViewById(R.id.check_forcegettagfromnet)).setChecked(opt.opt.ForceGetTagFormNet);
+((Button)findViewById(R.id.pickToFolder)).setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v){
+				DialogProperties properties = new DialogProperties();
+				properties.selection_mode = DialogConfigs.SINGLE_MODE;
+				properties.selection_type = DialogConfigs.DIR_SELECT; 
+				properties.root = new File(DialogConfigs.DEFAULT_DIR);
+				properties.error_dir = new File(DialogConfigs.DEFAULT_DIR);
+				properties.offset = new File(opt.save_path);
+				properties.extensions = null;
+				FilePickerDialog dialog = new FilePickerDialog(MainActivity.this,properties);
+				dialog.setTitle("请选择保存目录");
+				
+				dialog.setDialogSelectionListener(new DialogSelectionListener() {
+						@Override public void
+						onSelectedFilePaths(String[] files) { //files is the array of the paths of files selected by the Application User. 
+					} });
+				dialog.show();
+				
+			}
+		});
+((Button)findViewById(R.id.pickFromFolder)).setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View v){
+					DialogProperties properties = new DialogProperties();
+					properties.selection_mode = DialogConfigs.SINGLE_MODE;
+					properties.selection_type = DialogConfigs.DIR_SELECT; 
+					properties.root = new File(DialogConfigs.DEFAULT_DIR);
+					properties.error_dir = new File(DialogConfigs.DEFAULT_DIR);
+					properties.offset = new File(opt.load_path);
+					
+					properties.extensions = null;
+					FilePickerDialog dialog = new FilePickerDialog(MainActivity.this,properties);
+					dialog.setTitle("请选择来源目录");
+					dialog.setDialogSelectionListener(new DialogSelectionListener() {
+							@Override public void
+							onSelectedFilePaths(String[] files) { //files is the array of the paths of files selected by the Application User. 
+							} });
+					dialog.show();
 
+				}
+			});
+			
 		if(opt.save_path.length()!=0)
 			((TextView)findViewById(R.id.save_path_text)).setText(opt.save_path);
 
@@ -143,6 +199,8 @@ class LPExOnItemSelectedListener implements OnItemSelectedListener{
 	}
 
 }
+
+
 
 class Save_OnClickListener implements OnClickListener{
 	RelativeLayout src;
