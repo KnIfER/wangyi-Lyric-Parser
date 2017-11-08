@@ -24,6 +24,7 @@ import com.github.angads25.filepicker.model.*;
 import com.github.angads25.filepicker.view.*;
 import com.github.angads25.filepicker.controller.*;
 import android.widget.CompoundButton.*;
+import java.nio.*;
 
 public class MainActivity extends Activity
 {
@@ -295,8 +296,10 @@ class Run_OnClickListener implements OnClickListener{
 	@Override
 	public void onClick(View p1)
 	{
-		p1.setEnabled(false);
+		//p1.setEnabled(false);
 		manager=new LPWorkerThreadManager(option.save_path,option.load_path,option.opt,main_layout,option.handler);
+	
+		//manager.stop();
 		manager.start();
 	}
 }
@@ -377,10 +380,10 @@ class LPWorkerThread extends Thread{
 	{
 		//alive_count--;
 		try{
-
+			//System.out.println("srtsrt");
 			//mycode
-			String str = new String(readParse(load_path));
-			//System.out.println("str = " + str);
+			String str = readParse(load_path);
+			System.out.println("run!!!!!!!!!!!str = " + str);
 
 			JSONArray jsonArray = new JSONArray("["+str+"]");
 			JSONObject ducoj = jsonArray.getJSONObject(0);
@@ -393,7 +396,7 @@ class LPWorkerThread extends Thread{
 				ArrayList<myCpr> lst1_texts = new ArrayList<myCpr>();
 				String lst1_textsStr = "";
 				if(ducoj.has("translateLyric"))
-					for(String i:lst2){//处理外语歌词 没有的话应该可以自动跳过
+					for(String i:lst2){//处理翻译的歌词 没有的话应该可以自动跳过
 						int offa = i.indexOf("[");
 						int offb = i.indexOf("]");
 						if(offa==-1||offb==-1)
@@ -403,12 +406,14 @@ class LPWorkerThread extends Thread{
 						String boli = i.substring(offa+1,offb);
 						String[] tmp = boli.split("[: .]");
 						if(tmp.length!=3) continue;
-						if(tmp[0].equals("by")) continue;//简单处理非歌词部分[by:XXX]
+						if(tmp[0].length()!=2 || tmp[1].length()!=2) continue;
 						if(tmp[2].length()==2) tmp[2] = tmp[2]+"0";
+						if(tmp[2].length()!=3) continue;
 						int time = Integer.valueOf(tmp[0])*60000+Integer.valueOf(tmp[1])*1000+Integer.valueOf(tmp[2]);
 						lst2_texts.put(time,i.substring(offb+1));
 					}
-				for(String i:lst1){//处理母语歌词
+				for(String i:lst1){//处理原版歌词
+					boolean isLyric=true;
 					int offa = i.indexOf("[");
 					int offb = i.indexOf("]");
 					if(offa==-1||offb==-1)
@@ -418,36 +423,47 @@ class LPWorkerThread extends Thread{
 
 					String boli = i.substring(offa+1,offb);
 					String[] tmp = boli.split("[: .]");
-					if(tmp.length!=3) continue;
-					if(tmp[0].equals("by")) continue;//简单处理非歌词部分[by:XXX]
-					int time = Integer.valueOf(tmp[0])*60000+Integer.valueOf(tmp[1])*1000+Integer.valueOf(tmp[2]);//时间码
-					String text = (offb+1)<i.length()?i.substring(offb+1):"";//母语歌词
-					if(!"".equals(text)) {//跳过冗余
-						if(lst2_texts.containsKey(time))
-							//lst1_texts.add(new myCpr(time,i.substring(offb+1)+"\r\n"+lst2_texts.get(time)));
-							lst1_textsStr += ms2ffmTime(Long.valueOf(time))+" "+i.substring(offb+1)+"\r\n"+lst2_texts.get(time)+"\r\n";
-						else
-							//lst1_texts.add(new myCpr(time,i.substring(offb+1)));
-							lst1_textsStr += ms2ffmTime(Long.valueOf(time))+" "+i.substring(offb+1)+"\r\n";
+					//格式检查
+					if(tmp.length!=3) 
+						isLyric=false;
+					else{
+						if(tmp[0].length()!=2 || tmp[1].length()!=2) isLyric=false;
+						if(tmp[2].length()==2) tmp[2] = tmp[2]+"0";
+						if(tmp[2].length()!=3) isLyric=false;
 					}
-
-
+					if(isLyric){
+						int time = Integer.valueOf(tmp[0])*60000+Integer.valueOf(tmp[1])*1000+Integer.valueOf(tmp[2]);//时间码
+						String text = (offb+1)<i.length()?i.substring(offb+1):"";//原版歌词
+						if(!"".equals(text)) {//跳过冗余
+							if(lst2_texts.containsKey(time))
+								//lst1_texts.add(new myCpr(time,i.substring(offb+1)+"\r\n"+lst2_texts.get(time)));
+								lst1_textsStr += ms2ffmTime(Long.valueOf(time))+" "+i.substring(offb+1)+"\r\n"+lst2_texts.get(time)+"\r\n";
+							else
+								//lst1_texts.add(new myCpr(time,i.substring(offb+1)));
+								lst1_textsStr += ms2ffmTime(Long.valueOf(time))+" "+i.substring(offb+1)+"\r\n";
+						}
+					}else{
+						lst1_textsStr += i+"\n";
+					}
 				}
 				//for(myCpr i:lst1_texts){
 				// System.out.println(i);
 				//}
 				//获取文件名
-				String fn = "";
+				String fn,title = "";
+				
 				Lrc_Parser lprs=new Lrc_Parser(option,new Lrc_Parser_Expr());
-				if(ducoj.has("musicId")){
-					System.out.println("strt");
-					int	_id=Integer.parseInt(ducoj.optString("musicId"));
-					Object lp;
-					Lrc_Parser_Info info = lprs.GetTagFromNet(_id,"");
-					//System.out.println(info.Artist.replace("单曲 - 网易云音乐", "")+info.Title+".lrc");
-					fn = info.Artist.replace("/", " ").replace("单曲 - 网易云音乐", "")+info.Title+".lrc";
+				if(ducoj.has("musicId")==false){
+					
 				}
-
+					
+				System.out.println("strt");
+				int	_id=Integer.parseInt(ducoj.optString("musicId"));
+				Object lp;
+				Lrc_Parser_Info info = lprs.GetTagFromNet(_id,"");
+				title = info.Title;
+				//System.out.println(info.Artist.replace("单曲 - 网易云音乐", "")+info.Title+".lrc");
+				fn = info.Artist.replace("/", " ").replace("单曲 - 网易云音乐", "")+title+".lrc";
 				
 				//最终写入
 				lst1_textsStr = "[is:songLrc]\r\n" + lst1_textsStr;
@@ -462,7 +478,7 @@ class LPWorkerThread extends Thread{
 
 
 				//Handler handler=new Handler();
-				ResultUpdateRunnable updater=new ResultUpdateRunnable(displayer,save_path+fn);
+				ResultUpdateRunnable updater=new ResultUpdateRunnable(displayer,save_path+fn,title);
 				handler.post(updater);
 
 
@@ -479,16 +495,19 @@ class LPWorkerThread extends Thread{
 	}
 
 
-	public static byte[] readParse(String fn) throws Exception {
+	public static String readParse(String fn) throws Exception {
+		charsetDec cd = new charsetDec();
 		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-		byte[] data = new byte[1024];
+		CharBuffer data = CharBuffer.allocate(1024);
 		int len = 0;
-		InputStream inStream = new FileInputStream(new File(fn));
-		while ((len = inStream.read(data)) != -1) {
-			outStream.write(data, 0, len);
+		StringBuilder sb = new StringBuilder();
+		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(fn),cd.guessFileEncoding(new File(fn)).split(",")[0]));
+		while ((len = br.read(data)) != -1) {
+			data.flip();
+			sb.append(data.toString());
 		}
-		inStream.close();
-		return outStream.toByteArray();
+		br.close();
+		return sb.toString();
 	}
 
 }
@@ -496,7 +515,7 @@ class LPWorkerThread extends Thread{
 class ResultUpdateRunnable implements Runnable{
 	Lrc_Parser_Result result;
 	RelativeLayout displayer;
-	String abs_path;
+	String abs_path,title;
 	private ResultUpdateRunnable(){}
 	public ResultUpdateRunnable(Lrc_Parser_Result _result,RelativeLayout _displayer,String _abs_path){
 		displayer=_displayer;
@@ -505,20 +524,23 @@ class ResultUpdateRunnable implements Runnable{
 	}
 	
 	//mycode2
-	public ResultUpdateRunnable(RelativeLayout _displayer,String _abs_path){
+	public ResultUpdateRunnable(RelativeLayout _displayer,String _abs_path,String title){
 		displayer=_displayer;
 		abs_path=_abs_path;
+		this.title=title;
 	}
 	@Override
 	public void run()
 	{
 		//mycode2
 		ResultListAdapter adapter=(ResultListAdapter)((ListView)displayer.findViewById(R.id.main_list)).getAdapter();
-		adapter.addItem(adapter.getCount()+": "+new File(abs_path).getName(),"呵呵哒",abs_path);
+		adapter.addItem(adapter.getCount()+": "+new File(abs_path).getName(),title,abs_path);
 	}
 
 }
 
+
+//adaptermy
 class ResultListAdapter extends BaseAdapter{
 	public static Context ctx;
 	ArrayList<Item> list;
@@ -534,9 +556,6 @@ class ResultListAdapter extends BaseAdapter{
 		mInflater = (LayoutInflater)ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		
 	}
-
-	
-	
 	
 	public void addItem(String text,String SongName,String abs_path){
 		Item i=new Item();
@@ -551,21 +570,18 @@ class ResultListAdapter extends BaseAdapter{
 	@Override
 	public long getItemId(int p1)
 	{
-		// TODO: Implement this method
 		return p1;
 	}
 
 	@Override
 	public int getCount()
 	{
-		// TODO: Implement this method
 		return list.size();
 	}
 
 	@Override
 	public Object getItem(int p1)
 	{
-		// TODO: Implement this method
 		return list.get(p1);
 	}
 
@@ -616,8 +632,8 @@ class ItemOnClickListener implements OnClickListener{
 		lyric_layout=(LinearLayout)inflater.inflate(R.layout.lyric,null);
 		try{
 			charsetDec cd = new charsetDec();
+			//载入缓存好的转换的lrc歌词。
 			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(((Item)p1.getTag()).abs_full_path),cd.guessFileEncoding(new File(((Item)p1.getTag()).abs_full_path)).split(",")[0]));
-			
 			CharSequence chars="";
 			int c;
 			while((c=br.read())!=-1)
@@ -627,14 +643,16 @@ class ItemOnClickListener implements OnClickListener{
 			TextView tv = (TextView)lyric_layout.findViewById(R.id.lrc_text);
 			tv.setText(chars);
 			((TextView)lyric_layout.findViewById(R.id.lrc_text)).setTextColor(Color.rgb(0,0,0));
-			((TextView)lyric_layout.findViewById(R.id.lrc_text)).setMovementMethod(ScrollingMovementMethod.getInstance());
+			//((TextView)lyric_layout.findViewById(R.id.lrc_text)).setMovementMethod(ScrollingMovementMethod.getInstance());
 			lyric_layout.setAlpha(0.85f);
+			//提取
 			((Button)lyric_layout.findViewById(R.id.lyric_back)).setOnClickListener(new OnClickListener(){
 				@Override
 				public void onClick(View h){
 					
 				}
 			});
+			//返回
 			tv.setOnClickListener(new OnClickListener(){
 					@Override
 					public void onClick(View h){
