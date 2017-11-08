@@ -32,13 +32,14 @@ public class MainActivity extends Activity
 	
 	LayoutInflater inflater;
 	LP_Option opt;
+	RelativeLayout main;
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.main);
-
+		main=(RelativeLayout)findViewById(R.id.main_layout);
 		opt=new LP_Option();
 		opt.handler=new Handler();
 
@@ -46,7 +47,6 @@ public class MainActivity extends Activity
 		ItemOnClickListener.inflater=inflater;
 		ItemOnClickListener.main_layout=(RelativeLayout)findViewById(R.id.main_layout);
 		ResultListAdapter adaptet=new ResultListAdapter(getApplicationContext());
-		//ResultListAdapter.ctx=;
 
 		ListView lv=(ListView)findViewById(R.id.main_list);
 		lv.setAdapter(adaptet);
@@ -82,7 +82,8 @@ public class MainActivity extends Activity
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){  
-			if(rl==null || !rl.isAttachedToWindow()){
+			int count = main.getChildCount();
+			if(count<=3){
 				if((System.currentTimeMillis()-exitTime) > 2000){  
 					Toast.makeText(getApplicationContext(), "有种再按一次！", Toast.LENGTH_SHORT).show();                                
 					exitTime = System.currentTimeMillis();   
@@ -91,7 +92,8 @@ public class MainActivity extends Activity
 					System.exit(0);
 				}
 			}else{
-				((RelativeLayout)rl.getParent()).removeView(rl);
+				if(count==4) main.removeViewAt(3);
+				else main.removeViews(3,count-1);
 			}
 			return true;   
 		}
@@ -99,13 +101,11 @@ public class MainActivity extends Activity
 	}
 	
 	
-	ScrollView rl;
 	
 	public void OnOptionButtonClick(View viewer){
 		ScrollView.LayoutParams lp = new ScrollView.LayoutParams(-1,-1);
-		rl=(ScrollView)inflater.inflate(R.layout.option_layout,null);
+		ScrollView rl=(ScrollView)inflater.inflate(R.layout.option_layout,null);
 		rl.setLayoutParams(lp);
-		RelativeLayout main=(RelativeLayout)findViewById(R.id.main_layout);
 		Button save_button=(Button)rl.findViewById(R.id.save_button);
 		save_button.setOnClickListener(new Save_OnClickListener(main,rl,opt));
 
@@ -612,8 +612,7 @@ class ItemOnClickListener implements OnClickListener{
 	@Override
 	public void onClick(View p1)
 	{
-		if(lyric_layout!=null)
-			return;
+		if(lyric_layout==null)
 		lyric_layout=(LinearLayout)inflater.inflate(R.layout.lyric,null);
 		try{
 			charsetDec cd = new charsetDec();
@@ -625,17 +624,24 @@ class ItemOnClickListener implements OnClickListener{
 				chars=chars+String.valueOf((char)c);
 			br.close();
 			main_layout.addView(lyric_layout);
-			((TextView)lyric_layout.findViewById(R.id.lrc_text)).setText(chars);
+			TextView tv = (TextView)lyric_layout.findViewById(R.id.lrc_text);
+			tv.setText(chars);
 			((TextView)lyric_layout.findViewById(R.id.lrc_text)).setTextColor(Color.rgb(0,0,0));
 			((TextView)lyric_layout.findViewById(R.id.lrc_text)).setMovementMethod(ScrollingMovementMethod.getInstance());
 			lyric_layout.setAlpha(0.85f);
 			((Button)lyric_layout.findViewById(R.id.lyric_back)).setOnClickListener(new OnClickListener(){
 				@Override
 				public void onClick(View h){
-					main_layout.removeView(lyric_layout);
-					lyric_layout=null;
+					
 				}
 			});
+			tv.setOnClickListener(new OnClickListener(){
+					@Override
+					public void onClick(View h){
+						main_layout.removeView(lyric_layout);
+						lyric_layout=null;
+					}
+				});
 			((TextView)lyric_layout.findViewById(R.id.file_name_text)).setText(((Item)p1.getTag()).Songname);
 		}catch(Exception e){
 			e.fillInStackTrace();

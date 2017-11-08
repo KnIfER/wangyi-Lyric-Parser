@@ -4,7 +4,6 @@
 	android:layout_height="match_parent"
 	android:layout_width="match_parent"
 	android:id="@+id/lrc_layout"
-	
 	android:background="#FFFFFF"
 	android:alpha="0.85"
 	android:orientation="vertical">
@@ -32,7 +31,7 @@
 			style="?android:attr/buttonBarButtonStyle"
 			android:layout_height="match_parent"
 			android:layout_width="75dp"
-			android:text="返回"
+			android:text="提取"
 			android:textColor="#1D9DFF"
 			android:layout_alignParentRight="true"
 			android:background="#FFFFFF"
@@ -55,6 +54,5 @@
 
 	</ScrollView>
 
-	
 </LinearLayout>
 
