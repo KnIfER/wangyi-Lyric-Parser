@@ -52,8 +52,7 @@
 
 		</RelativeLayout>
 
-		
-<LinearLayout
+		<LinearLayout
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:orientation="horizontal"
@@ -98,8 +97,7 @@
 			android:textSize="14sp"
 			android:id="@+id/load_path_text"/>
 
-	
-<LinearLayout
+		<LinearLayout
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:orientation="horizontal"
@@ -107,15 +105,14 @@
 			android:layout_below="@id/load_path_text"
 			android:layout_marginLeft="15dp"
 			android:layout_marginTop="15dp">
-			
+
 			<TextView
 				android:layout_height="wrap_content"
 				android:textAppearance="?android:attr/textAppearanceMedium"
 				android:layout_width="wrap_content"
 				android:text="Save lrc file to :"
-				android:textColor="#1D9DFF"
-				/>
-		
+				android:textColor="#1D9DFF"/>
+
 			<Button
 				android:layout_height="15dp"
 				android:layout_width="15dp"
@@ -128,7 +125,7 @@
 				android:layout_marginTop="1dp"/>
 
 		</LinearLayout>
-		
+
 		<EditText
 			android:layout_height="wrap_content"
 			android:layout_width="match_parent"
@@ -152,7 +149,7 @@
 			android:layout_margin="15dp"
 			android:id="@+id/opt_layout">
 
-<CheckBox
+			<CheckBox
 				android:layout_height="wrap_content"
 				android:layout_width="wrap_content"
 				android:text="总是从网上获取歌曲信息"
@@ -160,7 +157,7 @@
 				android:shadowColor="#000000"
 				android:id="@+id/check_forcegettagfromnet"/>
 
-<CheckBox
+			<CheckBox
 				android:layout_height="wrap_content"
 				android:layout_width="wrap_content"
 				android:layout_below="@id/check_forcegettagfromnet"
@@ -169,7 +166,7 @@
 				android:textColor="#1D9DFF"
 				android:id="@+id/check_forcegetlrcfromnet"/>
 
-<CheckBox
+			<CheckBox
 				android:layout_height="wrap_content"
 				android:layout_width="wrap_content"
 				android:layout_below="@id/check_forcegetlrcfromnet"
@@ -178,7 +175,7 @@
 				android:textColor="#1D9DFF"
 				android:id="@+id/check_normaltag"/>
 
-<CheckBox
+			<CheckBox
 				android:layout_height="wrap_content"
 				android:layout_width="wrap_content"
 				android:layout_below="@id/check_normaltag"
@@ -209,17 +206,17 @@
 				android:popupBackground="#E5E5E5"
 				android:layout_alignParentBottom="false"/>
 
-<Button
+			<Button
 				style="?android:attr/buttonBarButtonStyle"
 				android:layout_height="wrap_content"
 				android:layout_width="wrap_content"
-				android:text="清除app处理的Lrc缓存历史"
+				android:text="清除app处理的Lrc历史缓存"
 				android:layout_below="@id/spn_lrc_combine"
 				android:gravity="center_vertical|center_horizontal|fill_vertical|fill_horizontal"
 				android:layout_centerHorizontal="true"
 				android:id="@+id/myClrBtn1"/>
 
-<Button
+			<Button
 				style="?android:attr/buttonBarButtonStyle"
 				android:layout_height="wrap_content"
 				android:layout_width="wrap_content"
@@ -229,7 +226,7 @@
 				android:layout_centerHorizontal="true"
 				android:id="@+id/myClrBtn2"/>
 
-<Button
+			<Button
 				style="?android:attr/buttonBarButtonStyle"
 				android:layout_height="wrap_content"
 				android:layout_width="wrap_content"

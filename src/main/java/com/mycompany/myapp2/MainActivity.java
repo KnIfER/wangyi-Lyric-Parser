@@ -23,6 +23,7 @@ import com.fenwjian.sdcardutil.*;
 import com.github.angads25.filepicker.model.*;
 import com.github.angads25.filepicker.view.*;
 import com.github.angads25.filepicker.controller.*;
+import android.widget.CompoundButton.*;
 
 public class MainActivity extends Activity
 {
@@ -44,8 +45,8 @@ public class MainActivity extends Activity
 		inflater=LayoutInflater.from(getApplicationContext());
 		ItemOnClickListener.inflater=inflater;
 		ItemOnClickListener.main_layout=(RelativeLayout)findViewById(R.id.main_layout);
-		ResultListAdapter adaptet=new ResultListAdapter();
-		ResultListAdapter.ctx=getApplicationContext();
+		ResultListAdapter adaptet=new ResultListAdapter(getApplicationContext());
+		//ResultListAdapter.ctx=;
 
 		ListView lv=(ListView)findViewById(R.id.main_list);
 		lv.setAdapter(adaptet);
@@ -76,12 +77,33 @@ public class MainActivity extends Activity
 	
 	
 	
+	private long exitTime = 0;
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){  
+			if(!rl.isAttachedToWindow()){
+				if((System.currentTimeMillis()-exitTime) > 2000){  
+					Toast.makeText(getApplicationContext(), "有种再按一次！", Toast.LENGTH_SHORT).show();                                
+					exitTime = System.currentTimeMillis();   
+				} else {
+					finish();
+					System.exit(0);
+				}
+			}else{
+				((RelativeLayout)rl.getParent()).removeView(rl);
+			}
+			return true;   
+		}
+		return super.onKeyDown(keyCode, event);
+	}
 	
 	
+	ScrollView rl;
 	
 	public void OnOptionButtonClick(View viewer){
 		ScrollView.LayoutParams lp = new ScrollView.LayoutParams(-1,-1);
-		ScrollView rl=(ScrollView)inflater.inflate(R.layout.option_layout,null);
+		rl=(ScrollView)inflater.inflate(R.layout.option_layout,null);
 		rl.setLayoutParams(lp);
 		RelativeLayout main=(RelativeLayout)findViewById(R.id.main_layout);
 		Button save_button=(Button)rl.findViewById(R.id.save_button);
@@ -500,13 +522,22 @@ class ResultUpdateRunnable implements Runnable{
 class ResultListAdapter extends BaseAdapter{
 	public static Context ctx;
 	ArrayList<Item> list;
+	public ArrayList<Item> phenoList;
 	Random rand;
-	public ResultListAdapter()
+	private LayoutInflater mInflater;
+	public ResultListAdapter(Context ctx)
 	{
 		list = new ArrayList<Item>();
+		phenoList = new ArrayList<Item>();
 		rand = new Random();
+		this.ctx = ctx;
+		mInflater = (LayoutInflater)ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		
 	}
 
+	
+	
+	
 	public void addItem(String text,String SongName,String abs_path){
 		Item i=new Item();
 		i.color=Color.rgb(rand.nextInt(255),rand.nextInt(255),rand.nextInt(255));
@@ -539,22 +570,31 @@ class ResultListAdapter extends BaseAdapter{
 	}
 
 	@Override
-	public View getView(int p1, View p2, ViewGroup p3)
+	public View getView(final int pos, View p2, ViewGroup p3)
 	{
-		TextView tv=null;
-		if(p2==null){
-			tv=new TextView(ctx);
-		}else{
-			tv=(TextView)p2;
-		}
-		Item i=list.get(p1);
+		View item = mInflater.inflate(R.layout.list_item, null);
+		TextView tv=(TextView) item.findViewById(R.id.text);
+		((CheckBox) item.findViewById(R.id.check)).setOnCheckedChangeListener(new OnCheckedChangeListener(){
+			@Override
+			public void onCheckedChanged(CompoundButton box,boolean checked){
+				Item it = (Item)getItem(pos);
+				it.isItemSelected=checked;
+				if(checked)
+					phenoList.add(it);
+				else
+					phenoList.remove(it);
+			}
+		});
+
+			
+		Item i=list.get(pos);
 		tv.setTextColor(i.color);
 		//tv.setTextSize(13);
 		tv.setText(i.text);
 		//tv.setTextColor(Color.rgb(0,0,0));
 		tv.setTag(i);
 		tv.setOnClickListener(new ItemOnClickListener());
-		return tv;
+		return item;
 	}
 
 }
@@ -562,6 +602,7 @@ class ResultListAdapter extends BaseAdapter{
 class Item{
 	int color;
 	String text,Songname,abs_full_path;
+	boolean isItemSelected=false;
 }
 
 class ItemOnClickListener implements OnClickListener{
