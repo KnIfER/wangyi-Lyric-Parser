@@ -393,7 +393,7 @@ class LPWorkerThread extends Thread{
 		//alive_count--;
 		try{
 			//mycode
-			String str = readParse(load_path);
+			String str = new String(readParse(load_path));
 			System.out.println("run!!!!!!!!!!!str = " + str);
 
 			JSONArray jsonArray = new JSONArray("["+str+"]");
@@ -508,19 +508,24 @@ class LPWorkerThread extends Thread{
 	}
 
 
-	public static String readParse(String fn) throws Exception {
+
+	public static byte[] readParse(String fn) throws Exception {
+
 		charsetDec cd = new charsetDec();
+
 		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-		CharBuffer data = CharBuffer.allocate(1024);
+
+		byte[] data = new byte[1024];
+
 		int len = 0;
-		StringBuilder sb = new StringBuilder();
-		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(fn),cd.guessFileEncoding(new File(fn)).split(",")[0]));
-		while ((len = br.read(data)) != -1) {
-			data.flip();
-			sb.append(data.toString());
+
+		InputStream inStream = new FileInputStream(new File(fn));
+		while ((len = inStream.read(data)) != -1) {
+			outStream.write(data, 0, len);
 		}
-		br.close();
-		return sb.toString();
+		inStream.close();
+		return outStream.toByteArray();
+		
 	}
 
 }
