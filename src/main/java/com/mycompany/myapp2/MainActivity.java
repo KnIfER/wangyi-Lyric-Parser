@@ -313,7 +313,7 @@ class LPWorkerThreadManager extends Thread{
 	Button controller;
 	Context ctx;*/
 	public LPWorkerThreadManager(String _save_path,String _load_path,Lrc_Parser_Option _option,RelativeLayout _displayer,Handler h){
-		LPWorkerThread.alive_count=1;
+		LPWorkerThread.alive_count=3;
 		displayer=_displayer;
 		save_path=_save_path;
 		load_path=_load_path;
@@ -329,9 +329,16 @@ class LPWorkerThreadManager extends Thread{
 		LPWorkerThread t;
 		File[] files=path.listFiles();
 		System.gc();
-		for(File f:files){
+		for(int i = 0;i<files.length;i++){
+			File f = files[i];
+			int a;
 			while(LPWorkerThread.alive_count<=0){
-				continue;
+				System.out.println("locking!!!!!!!" + f.getName());
+				try{
+					this.sleep(5);
+				}catch(Exception e){System.out.println("" + e);}
+				
+				//continue;
 			}
 			if(f.isDirectory())
 				continue;
@@ -339,7 +346,12 @@ class LPWorkerThreadManager extends Thread{
 			t=new LPWorkerThread(save_path,f.getAbsolutePath(),option,displayer,handler);
 
 			t.start();
+			/*try{
+			this.sleep(5);
+			}catch(Exception e){System.out.println("" + e);}
+			*/
 		}
+		
 	}
 
 }
@@ -350,7 +362,7 @@ class LPWorkerThread extends Thread{
 	String save_path,load_path;
 	Handler handler;
 
-	public static int alive_count=1;
+	public static  int alive_count=5;
 
 	private LPWorkerThread(){}
 	public LPWorkerThread(String _save_path,String _load_path,Lrc_Parser_Option _option,RelativeLayout _displayer,Handler h){
@@ -370,7 +382,7 @@ class LPWorkerThread extends Thread{
 		long seconds = totalSeconds % 60;
 		long minutes = (totalSeconds / 60) % 60;
 		long hours   = totalSeconds / 3600;
-		mFormatBuilder.setLength(0);
+	   	mFormatBuilder.setLength(0);
 		return mFormatter.format("[%02d:%02d.%03d]", minutes, seconds,ms).toString();
 
 	}
@@ -380,7 +392,6 @@ class LPWorkerThread extends Thread{
 	{
 		//alive_count--;
 		try{
-			//System.out.println("srtsrt");
 			//mycode
 			String str = readParse(load_path);
 			System.out.println("run!!!!!!!!!!!str = " + str);
@@ -485,12 +496,14 @@ class LPWorkerThread extends Thread{
 			}
 		}catch(Exception e){
 			e.fillInStackTrace();
-			System.out.println(e);
+			System.out.println("eeeeeeeeenjjjjjjjdfg!!!!!!!!"+e);
 		}finally{
 			alive_count++;
+			System.out.println("++++++++++"+alive_count);
+			super.run();
 		}
 
-		super.run();
+		
 		//alive_count++;
 	}
 
