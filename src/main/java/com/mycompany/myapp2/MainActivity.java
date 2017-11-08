@@ -1,4 +1,4 @@
-﻿package com.mycompany.myapp2;
+package com.mycompany.myapp2;
 
 import android.app.*;
 import android.os.*;
@@ -64,7 +64,9 @@ public class MainActivity extends Activity
 	}
 
 	public void OnOptionButtonClick(View viewer){
-		RelativeLayout rl=(RelativeLayout)inflater.inflate(R.layout.option_layout,null);
+		ScrollView.LayoutParams lp = new ScrollView.LayoutParams(-1,-1);
+		ScrollView rl=(ScrollView)inflater.inflate(R.layout.option_layout,null);
+		rl.setLayoutParams(lp);
 		RelativeLayout main=(RelativeLayout)findViewById(R.id.main_layout);
 		Button save_button=(Button)rl.findViewById(R.id.save_button);
 		save_button.setOnClickListener(new Save_OnClickListener(main,rl,opt));
@@ -82,7 +84,6 @@ public class MainActivity extends Activity
 		((CheckBox)findViewById(R.id.check_forcegetlrcfromnet)).setChecked(opt.opt.ForceGetLrcFromNet);
 		((CheckBox)findViewById(R.id.check_forcegettagfromnet)).setChecked(opt.opt.ForceGetTagFormNet);
 
-		//TextView tv=(TextView)findViewById(R.id.save_path_text);
 		if(opt.save_path.length()!=0)
 			((TextView)findViewById(R.id.save_path_text)).setText(opt.save_path);
 
@@ -107,17 +108,7 @@ class LPExOnItemSelectedListener2 implements OnItemSelectedListener{
 	public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4)
 	{
 
-		String select_text=(String)p1.getItemAtPosition(p3);
-
-		if(select_text.compareTo("闅旇,鍘熺増姝岃瘝鍦ㄥ墠")==0){
-			lp_option.opt.Lrc_Combine_Type=Option_Lrc_Combine_Type.New_Line_And_Raw_Lrc_First;
-		}else{if(select_text.compareTo("闅旇,缈昏瘧姝岃瘝鍦ㄥ墠")==0){
-			lp_option.opt.Lrc_Combine_Type=Option_Lrc_Combine_Type.New_Line_And_Trans_Lrc_First;
-		}else{if(select_text.compareTo("骞惰,鍘熺増姝岃瘝鍦ㄥ墠")==0){
-			lp_option.opt.Lrc_Combine_Type=Option_Lrc_Combine_Type.Side_By_Side_And_Raw_Lrc_First;
-		}else{if(select_text.compareTo("骞惰,缈昏瘧姝岃瘝鍦ㄥ墠")==0){
-			lp_option.opt.Lrc_Combine_Type=Option_Lrc_Combine_Type.Side_By_Side_And_Trans_Lrc_First;
-		}}}}
+		
 	}
 
 	@Override
@@ -142,18 +133,7 @@ class LPExOnItemSelectedListener implements OnItemSelectedListener{
 	public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4)
 	{
 
-		String select_text=(String)p1.getItemAtPosition(p3);
-
-		if(select_text.compareTo("鍘熺増姝岃瘝")==0){
-			spn.setEnabled(false);
-			lp_option.opt.Lrc_Type=Option_Lrc_Type.Raw_Lrc;
-		}else{if(select_text.compareTo("缈昏瘧姝岃瘝")==0){
-			spn.setEnabled(false);
-			lp_option.opt.Lrc_Type=Option_Lrc_Type.Trans_Lrc;
-		}else{if(select_text.compareTo("鎵�鏈夋瓕璇�")==0){
-			spn.setEnabled((true));
-			lp_option.opt.Lrc_Type=Option_Lrc_Type.Both_Raw_And_Trans_Lrc;
-		}}}
+		
 	}
 
 	@Override
@@ -165,16 +145,17 @@ class LPExOnItemSelectedListener implements OnItemSelectedListener{
 }
 
 class Save_OnClickListener implements OnClickListener{
-	RelativeLayout src,back;
+	RelativeLayout src;
+	ScrollView back;
 	LP_Option  opt;
 	public Save_OnClickListener(View _src,View _back,LP_Option _opt){
 		src=(RelativeLayout)_src;
-		back=(RelativeLayout)_back;
+		back=(ScrollView)_back;
 		opt=_opt;
 	}
 	private Save_OnClickListener()
 	{}
-
+ 
 	@Override
 	public void onClick(View p1)
 	{
