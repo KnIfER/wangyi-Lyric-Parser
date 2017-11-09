@@ -43,7 +43,8 @@
 		android:layout_alignParentEnd="false"
 		android:layout_centerHorizontal="true"
 		android:layout_alignParentBottom="true"
-		style="?android:attr/buttonBarButtonStyle"/>
+		style="?android:attr/buttonBarButtonStyle"
+		android:id="@+id/extractor"/>
 
 </RelativeLayout>
 

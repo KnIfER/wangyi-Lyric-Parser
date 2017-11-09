@@ -30,7 +30,7 @@ public class MainActivity extends Activity
 {
 
 
-	
+	Button run_button;
 	LayoutInflater inflater;
 	LP_Option opt;
 	RelativeLayout main;
@@ -42,9 +42,11 @@ public class MainActivity extends Activity
 		setContentView(R.layout.main);
 		main=(RelativeLayout)findViewById(R.id.main_layout);
 		opt=new LP_Option();
+		
 		opt.handler=new Handler();
 
 		inflater=LayoutInflater.from(getApplicationContext());
+	
 		ItemOnClickListener.inflater=inflater;
 		ItemOnClickListener.main_layout=(RelativeLayout)findViewById(R.id.main_layout);
 		ResultListAdapter adaptet=new ResultListAdapter(getApplicationContext());
@@ -52,8 +54,9 @@ public class MainActivity extends Activity
 		ListView lv=(ListView)findViewById(R.id.main_list);
 		lv.setAdapter(adaptet);
 
-		Button run_button=(Button)findViewById((R.id.run_button));
-
+		run_button=(Button)findViewById((R.id.run_button));
+		Button extractButton = (Button)findViewById(R.id.extractor);
+		
 		opt.ctx=getApplicationContext();
 		opt.controller_button=run_button;
 		opt.load_path="/sdcard/netease/cloudmusic/Cache/Lyric/";
@@ -66,6 +69,25 @@ public class MainActivity extends Activity
 
 
 		run_button.setOnClickListener(new Run_OnClickListener((RelativeLayout)findViewById((R.id.main_layout)),opt));
+		extractButton.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v){
+				View dialog = inflater.inflate(R.layout.dialog,(ViewGroup) findViewById(R.id.dialog)); 
+				final EditText  editText = (EditText) dialog.findViewById(R.id.et);
+
+				AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+				builder.setTitle("这里是Title"); 
+				builder.setPositiveButton("确定", new DialogInterface.OnClickListener() { 
+						@Override 
+						public void onClick(DialogInterface dialog, int which) {
+							Toast.makeText(MainActivity.this, editText.getText().toString(), 
+										   Toast.LENGTH_SHORT).show(); 
+						} });
+				builder.setView(dialog); 
+				builder.setIcon(R.mipmap.ic_directory_parent); 
+				builder.show();
+				}
+		});
 	}
 
 	
@@ -110,7 +132,7 @@ public class MainActivity extends Activity
 		Button save_button=(Button)rl.findViewById(R.id.save_button);
 		save_button.setOnClickListener(new Save_OnClickListener(main,rl,opt));
 
-		Spinner _spn=(Spinner)rl.findViewById(R.id.spn_lrc_combine);
+		Spinner _spn=(Spinner)rl.findViewById(R.id.pickMTNum);
 		_spn.setOnItemSelectedListener(new LPExOnItemSelectedListener2(opt));
 
 
@@ -296,11 +318,15 @@ class Run_OnClickListener implements OnClickListener{
 	@Override
 	public void onClick(View p1)
 	{
-		//p1.setEnabled(false);
+		Button btn = (Button)p1;
+		if("Run".equals(btn.getText())){
+			btn.setText("Stop");
 		manager=new LPWorkerThreadManager(option.save_path,option.load_path,option.opt,main_layout,option.handler);
-	
-		//manager.stop();
 		manager.start();
+		}else{
+			manager.interrupt();
+		}	
+		
 	}
 }
 
@@ -309,6 +335,7 @@ class LPWorkerThreadManager extends Thread{
 	RelativeLayout displayer;
 	String save_path,load_path;
 	Handler handler;
+	private boolean inter=false;
 	/*
 	Button controller;
 	Context ctx;*/
@@ -321,36 +348,53 @@ class LPWorkerThreadManager extends Thread{
 		handler=h;
 	}
 
+	private void resetText(){
+		handler.post(new Runnable(){
+				@Override
+				public void run(){
+					((Button)displayer.findViewById(R.id.run_button)).setText("Run");
+				}
+			});
+	}
+	
+	public void interrupt(){
+		inter = true;
+		super.interrupt();
+	 }
+	
 	@Override
 	public void run(){
-
 		File path=new File(load_path);
 
 		LPWorkerThread t;
 		File[] files=path.listFiles();
 		System.gc();
-		for(int i = 0;i<files.length;i++){
+		for(int i = 0;i<files.length && !inter;i++){
 			File f = files[i];
-			int a;
-			while(LPWorkerThread.alive_count<=0){
-				System.out.println("locking!!!!!!!" + f.getName());
-				try{
-					this.sleep(5);
-				}catch(Exception e){System.out.println("" + e);}
-				
-				//continue;
-			}
 			if(f.isDirectory())
 				continue;
 			LPWorkerThread.alive_count--;
 			t=new LPWorkerThread(save_path,f.getAbsolutePath(),option,displayer,handler);
-
+			
 			t.start();
-			/*try{
-			this.sleep(5);
-			}catch(Exception e){System.out.println("" + e);}
-			*/
+			while(LPWorkerThread.alive_count<=0 && !inter){
+				//System.out.println("locking!!!!!!!" + f.getName());
+				try{
+					this.sleep(5);
+				}catch(InterruptedException e){
+					System.out.println(getName()+"从阻塞中退出...");
+					System.out.println("this.isInterrupted()="+this.isInterrupted());
+					resetText();
+				}
+
+				//continue;
+			}
 		}
+		//System.out.println("all thread done.!!!!!!!");
+		
+		resetText();
+		
+	
 		
 	}
 
@@ -362,7 +406,7 @@ class LPWorkerThread extends Thread{
 	String save_path,load_path;
 	Handler handler;
 
-	public static  int alive_count=5;
+	public static  volatile int alive_count=5;
 
 	private LPWorkerThread(){}
 	public LPWorkerThread(String _save_path,String _load_path,Lrc_Parser_Option _option,RelativeLayout _displayer,Handler h){
@@ -556,6 +600,9 @@ class ResultUpdateRunnable implements Runnable{
 	}
 
 }
+
+
+
 
 
 //adaptermy
