@@ -12,7 +12,7 @@ class Lrc_Parser_Result
 	int id;
 	boolean is_Finish_Parse;
 }
-
+ 
 class Lrc_Parser_Info
 {
 	String Artist=null,Title=null,Album=null;

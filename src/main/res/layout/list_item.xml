@@ -4,13 +4,16 @@
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:orientation="horizontal">
-
+	
 	<TextView
 		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
+		android:layout_width="match_parent"
 		android:text="Text"
 		android:layout_centerVertical="true"
-		android:id="@+id/text"/>
+		android:id="@+id/text"
+		android:layout_marginRight="28dp"
+		android:background="@drawable/listselector2"
+		/>
 
 	<CheckBox
 		android:layout_height="wrap_content"

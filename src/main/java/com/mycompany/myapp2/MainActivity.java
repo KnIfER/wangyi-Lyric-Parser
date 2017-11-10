@@ -25,6 +25,12 @@ import com.github.angads25.filepicker.view.*;
 import com.github.angads25.filepicker.controller.*;
 import android.widget.CompoundButton.*;
 import java.nio.*;
+import android.text.*;
+import android.text.style.*;
+import eightbitlab.com.blurview.*;
+import android.graphics.drawable.*;
+import android.animation.*;
+import android.transition.*;
 
 public class MainActivity extends Activity
 {
@@ -34,6 +40,33 @@ public class MainActivity extends Activity
 	LayoutInflater inflater;
 	LP_Option opt;
 	RelativeLayout main;
+	private long exitTime = 0;
+	BlurView.ControllerSettings topViewSettings;
+	BlurView topBlurView;
+	BlurView bottomBlurView;
+	ListView lv;
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){  
+			int count = main.getChildCount();
+			if(count<=3){
+				if((System.currentTimeMillis()-exitTime) > 2000){  
+					Toast.makeText(getApplicationContext(), "有种再按一次！", Toast.LENGTH_SHORT).show();                                
+					exitTime = System.currentTimeMillis();   
+				} else {
+					finish();
+					System.exit(0);
+				}
+			}else{
+				if(count==4) main.removeViewAt(3);
+				//else main.removeViews(3,count-1);
+				bottomBlurView.setVisibility(View.VISIBLE);
+				topBlurView.updateBlur();
+			}
+			return true;   
+		}
+		return super.onKeyDown(keyCode, event);
+	}
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -51,7 +84,7 @@ public class MainActivity extends Activity
 		ItemOnClickListener.main_layout=(RelativeLayout)findViewById(R.id.main_layout);
 		ResultListAdapter adaptet=new ResultListAdapter(getApplicationContext());
 
-		ListView lv=(ListView)findViewById(R.id.main_list);
+		lv=(ListView)findViewById(R.id.main_list);
 		lv.setAdapter(adaptet);
 
 		run_button=(Button)findViewById((R.id.run_button));
@@ -66,7 +99,7 @@ public class MainActivity extends Activity
 		opt.opt.NomalTag=true;
 		opt.opt.ExtraTag=true;
 
-
+	    
 
 		run_button.setOnClickListener(new Run_OnClickListener((RelativeLayout)findViewById((R.id.main_layout)),opt));
 		extractButton.setOnClickListener(new OnClickListener(){
@@ -84,12 +117,21 @@ public class MainActivity extends Activity
 										   Toast.LENGTH_SHORT).show(); 
 						} });
 				builder.setView(dialog); 
-				builder.setIcon(R.mipmap.ic_directory_parent); 
+				builder.setIcon(R.mipmap.ic_directory_parent);
 				builder.show();
 				}
 		});
+		
+		final Drawable windowBackground = getWindow().getDecorView().getBackground();
+		final RelativeLayout root = (RelativeLayout) findViewById(R.id.main_layout);
+		topBlurView = (BlurView) findViewById(R.id.topBlurView);
+		bottomBlurView = (BlurView) findViewById(R.id.bottomBlurView);
+		bottomBlurView.setupWith(root).windowBackground(windowBackground).blurRadius(2f);
+		ItemOnClickListener.bottomBlurView = bottomBlurView;
+		ItemOnClickListener.topBlurView = topBlurView;
+		
 	}
-
+	//onCreate结束
 	
 	
 	
@@ -100,48 +142,52 @@ public class MainActivity extends Activity
 	
 	
 	
-	private long exitTime = 0;
-
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){  
-			int count = main.getChildCount();
-			if(count<=3){
-				if((System.currentTimeMillis()-exitTime) > 2000){  
-					Toast.makeText(getApplicationContext(), "有种再按一次！", Toast.LENGTH_SHORT).show();                                
-					exitTime = System.currentTimeMillis();   
-				} else {
-					finish();
-					System.exit(0);
-				}
-			}else{
-				if(count==4) main.removeViewAt(3);
-				else main.removeViews(3,count-1);
-			}
-			return true;   
-		}
-		return super.onKeyDown(keyCode, event);
-	}
 	
 	
 	
+	//配置界面
 	public void OnOptionButtonClick(View viewer){
+		bottomBlurView.setVisibility(View.INVISIBLE);
 		ScrollView.LayoutParams lp = new ScrollView.LayoutParams(-1,-1);
 		ScrollView rl=(ScrollView)inflater.inflate(R.layout.option_layout,null);
 		rl.setLayoutParams(lp);
 		Button save_button=(Button)rl.findViewById(R.id.save_button);
 		save_button.setOnClickListener(new Save_OnClickListener(main,rl,opt));
 
-		Spinner _spn=(Spinner)rl.findViewById(R.id.pickMTNum);
-		_spn.setOnItemSelectedListener(new LPExOnItemSelectedListener2(opt));
+		Spinner _spn=(Spinner)rl.findViewById(R.id.mtnPickerspn);
+		Spinner spn=(Spinner)rl.findViewById(R.id.ToastsHiderspn);
+		//spn.setAdapter( new ArrayAdapter<String>(this, R.layout.simple_spinner_item, new String[]{"禁用toast1","禁用toast1","禁用toast1","禁用toast1","禁用toast1","禁用toast1","禁用toast1"}));
+		spn.setAdapter(new adaptermy(this));
+		//btn to maxium hide toasts.
+		((Button)rl.findViewById(R.id.ToastsHider)).setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v){
+				((Spinner)((RelativeLayout) v.getParent()).findViewById(R.id.ToastsHiderspn)).performClick();
+			}
+		});
+		//btn for maxium sub-threads number
+		((Button)rl.findViewById(R.id.mtnPicker)).setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View v){
+					((Spinner)((RelativeLayout) v.getParent()).findViewById(R.id.mtnPickerspn)).performClick();
+				}
+			});
+		//
+		Button numberbtn = ((Button)rl.findViewById(R.id.mtnPicker));
+		String[] texts = numberbtn.getText().toString().split("）：");
+		SpannableStringBuilder style=new SpannableStringBuilder(numberbtn.getText()); 
+		style.setSpan(new ForegroundColorSpan(Color.RED),11,12,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+		numberbtn.setText(style);
+		//spn.setOnItemSelectedListener(new LPExOnItemSelectedListener2(opt));
 
-
-		main.addView(rl);
+		//黏附至窗口
+		main.addView(rl,3);
 
 		((CheckBox)findViewById(R.id.check_extratag)).setChecked(opt.opt.ExtraTag);
 		((CheckBox)findViewById(R.id.check_normaltag)).setChecked(opt.opt.NomalTag);
 		((CheckBox)findViewById(R.id.check_forcegetlrcfromnet)).setChecked(opt.opt.ForceGetLrcFromNet);
 		((CheckBox)findViewById(R.id.check_forcegettagfromnet)).setChecked(opt.opt.ForceGetTagFormNet);
+//目的目录
 ((Button)findViewById(R.id.pickToFolder)).setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v){
@@ -163,6 +209,8 @@ public class MainActivity extends Activity
 				
 			}
 		});
+		
+//来源目录
 ((Button)findViewById(R.id.pickFromFolder)).setOnClickListener(new OnClickListener(){
 				@Override
 				public void onClick(View v){
@@ -196,6 +244,59 @@ public class MainActivity extends Activity
 	public void OnSavePostData(LP_Option _opt){
 		opt=_opt;
 	}
+	
+	
+	
+	class Run_OnClickListener implements OnClickListener{
+		RelativeLayout main_layout;
+		LP_Option option;
+		LPWorkerThreadManager manager;
+		//Handler handle;
+
+		private Run_OnClickListener(){}
+		public Run_OnClickListener(RelativeLayout _main_layout,LP_Option _option){
+			option=_option;
+			main_layout=_main_layout;
+			//handle=h;
+		}
+
+		@Override
+		public void onClick(View p1)
+		{
+			Button btn = (Button)p1;
+			if("Run".equals(btn.getText())){
+				btn.setText("Stop");
+				manager=new LPWorkerThreadManager(option.save_path,option.load_path,option.opt,main_layout,option.handler);
+				manager.start();
+				topBlurView = (BlurView) findViewById(R.id.topBlurView);
+
+				final float radius = 25f;
+				final float minBlurRadius = 10f;
+				final float step = 4f;
+
+				//set background, if your root layout doesn't have one
+				final Drawable windowBackground = getWindow().getDecorView().getBackground();
+				final RelativeLayout root = (RelativeLayout) findViewById(R.id.main_layout);
+				
+				topViewSettings = topBlurView.setupWith(root).windowBackground(windowBackground).blurRadius(0.1f);
+				
+				final ValueAnimator animator = ValueAnimator.ofFloat(1f, 16f); 
+				animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() { 
+						@Override 
+						public void onAnimationUpdate(ValueAnimator animation) {
+							topViewSettings.blurRadius((float) animator.getAnimatedValue()); 
+							topBlurView.updateBlur(); 
+							
+						} }); 
+				animator.setDuration(500); animator.start();
+
+			}else{
+				manager.interrupt();
+			}	
+
+		}
+	}
+	
 }
 
 class LPExOnItemSelectedListener2 implements OnItemSelectedListener{
@@ -208,7 +309,7 @@ class LPExOnItemSelectedListener2 implements OnItemSelectedListener{
 	@Override
 	public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4)
 	{
-
+		
 		
 	}
 
@@ -283,6 +384,7 @@ class Save_OnClickListener implements OnClickListener{
 		opt.opt.ExtraTag=((CheckBox)back.findViewById(R.id.check_extratag)).isChecked();
 		opt.controller_button.setEnabled((true));
 		src.removeView(back);
+		src.findViewById(R.id.bottomBlurView).setVisibility(View.VISIBLE);
 	}
 
 }
@@ -302,33 +404,7 @@ class LP_Option{
 	}
 }
 
-class Run_OnClickListener implements OnClickListener{
-	RelativeLayout main_layout;
-	LP_Option option;
-	LPWorkerThreadManager manager;
-	//Handler handle;
 
-	private Run_OnClickListener(){}
-	public Run_OnClickListener(RelativeLayout _main_layout,LP_Option _option){
-		option=_option;
-		main_layout=_main_layout;
-		//handle=h;
-	}
-
-	@Override
-	public void onClick(View p1)
-	{
-		Button btn = (Button)p1;
-		if("Run".equals(btn.getText())){
-			btn.setText("Stop");
-		manager=new LPWorkerThreadManager(option.save_path,option.load_path,option.opt,main_layout,option.handler);
-		manager.start();
-		}else{
-			manager.interrupt();
-		}	
-		
-	}
-}
 
 class LPWorkerThreadManager extends Thread{
 	Lrc_Parser_Option option;
@@ -606,6 +682,69 @@ class ResultUpdateRunnable implements Runnable{
 
 
 //adaptermy
+class adaptermy extends BaseAdapter{
+	public static Context ctx;
+	ArrayList<Item> list=new ArrayList<Item>();
+	public ArrayList<Item> phenoList;
+	Random rand;
+	private LayoutInflater mInflater;
+	public adaptermy(Context ctx)
+	{
+		for(int i=0;i<7;i++)
+		list.add(new Item());
+		phenoList = new ArrayList<Item>();
+		rand = new Random();
+		this.ctx = ctx;
+		mInflater = (LayoutInflater)ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	}
+
+
+
+	@Override
+	public long getItemId(int p1)
+	{
+		return p1;
+	}
+
+	@Override
+	public int getCount()
+	{
+		return 7;
+	}
+
+	@Override
+	public Object getItem(int p)
+	{
+		return list.get(p);
+	}
+
+	@Override
+	public View getView(final int pos, View p2, ViewGroup p3)
+	{
+		View item = mInflater.inflate(R.layout.list_item2, null);
+		TextView tv=(TextView) item.findViewById(R.id.text);
+		CheckBox cb = (CheckBox) item.findViewById(R.id.check);
+		cb.setChecked(list.get(pos).isItemSelected);
+		cb.setOnCheckedChangeListener(new OnCheckedChangeListener(){
+				@Override
+				public void onCheckedChanged(CompoundButton box,boolean checked){
+					list.get(pos).isItemSelected = checked;
+				}
+			});
+
+
+		//tv.setTextColor(i.color);
+		//tv.setTextSize(13);
+		tv.setText("禁用Toast"+1);
+		//tv.setTextColor(Color.rgb(0,0,0));
+		//tv.setOnClickListener(new ItemOnClickListener());
+		return item;
+	}
+
+}
+
+
+
 class ResultListAdapter extends BaseAdapter{
 	public static Context ctx;
 	ArrayList<Item> list;
@@ -690,9 +829,12 @@ class ItemOnClickListener implements OnClickListener{
 	public static RelativeLayout main_layout;
 	public static LayoutInflater inflater;
 	public static LinearLayout lyric_layout;
+	public static BlurView topBlurView;
+	public static BlurView bottomBlurView;
 	@Override
 	public void onClick(View p1)
 	{
+		bottomBlurView.setVisibility(View.INVISIBLE);
 		if(lyric_layout==null)
 		lyric_layout=(LinearLayout)inflater.inflate(R.layout.lyric,null);
 		try{
@@ -704,7 +846,7 @@ class ItemOnClickListener implements OnClickListener{
 			while((c=br.read())!=-1)
 				chars=chars+String.valueOf((char)c);
 			br.close();
-			main_layout.addView(lyric_layout);
+			main_layout.addView(lyric_layout,3);
 			TextView tv = (TextView)lyric_layout.findViewById(R.id.lrc_text);
 			tv.setText(chars);
 			((TextView)lyric_layout.findViewById(R.id.lrc_text)).setTextColor(Color.rgb(0,0,0));
@@ -722,7 +864,12 @@ class ItemOnClickListener implements OnClickListener{
 					@Override
 					public void onClick(View h){
 						main_layout.removeView(lyric_layout);
+						topBlurView.updateBlur();
+						bottomBlurView.setVisibility(View.VISIBLE);
+						//lyric_layout.onKeyDown(KeyEvent.KEYCODE_BACK, new KeyEvent(KeyEvent.KEYCODE_BACK,KeyEvent.ACTION_DOWN));
+
 						lyric_layout=null;
+						
 					}
 				});
 			((TextView)lyric_layout.findViewById(R.id.file_name_text)).setText(((Item)p1.getTag()).Songname);
