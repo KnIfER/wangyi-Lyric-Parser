@@ -156,7 +156,7 @@ public class MainActivity extends Activity
 
 		Spinner _spn=(Spinner)rl.findViewById(R.id.mtnPickerspn);
 		Spinner spn=(Spinner)rl.findViewById(R.id.ToastsHiderspn);
-		//spn.setAdapter( new ArrayAdapter<String>(this, R.layout.simple_spinner_item, new String[]{"禁用toast1","禁用toast1","禁用toast1","禁用toast1","禁用toast1","禁用toast1","禁用toast1"}));
+		//_spn.setAdapter( new ArrayAdapter<String>(this, R.layout.simple_spinner_item, new String[]{"禁用toast1","禁用toast1","禁用toast1","禁用toast1","禁用toast1","禁用toast1","禁用toast1"}));
 		spn.setAdapter(new adaptermy(this));
 		//btn to maxium hide toasts.
 		((Button)rl.findViewById(R.id.ToastsHider)).setOnClickListener(new OnClickListener(){
@@ -751,6 +751,52 @@ class ResultListAdapter extends BaseAdapter{
 	public ArrayList<Item> phenoList;
 	Random rand;
 	private LayoutInflater mInflater;
+	
+	/* 
+	 * 想构造一系列平滑过渡的颜色，用HSV颜色空间容易，用RGB较难。 
+	 *  
+	 * 将色彩由HSV空间转换到RGB空间 
+	 *  
+	 * h  颜色      用角度表示，范围：0到360度 
+	 * s  色度      0.0到1.0   0为白色，越高颜色越“纯” 
+	 * v  亮度      0.0到1.0   0为黑色，越高越亮 
+	 */  
+	public static int HSVtoRGB(float h /* 0~360 degrees */, float s /* 0 ~ 1.0 */, float v /* 0 ~ 1.0 */ )  
+	{  
+		float f, p, q, t;  
+		if( s == 0 ) { // achromatic (grey)  
+			return makeColor(v,v,v);   
+		}  
+
+		h /= 60;      // sector 0 to 5  
+		int i = (int) Math.floor( h );  
+		f = h - i;      // factorial part of h  
+		p = v * ( 1 - s );  
+		q = v * ( 1 - s * f );  
+		t = v * ( 1 - s * ( 1 - f ) );  
+		switch( i ) {  
+			case 0:  
+				return makeColor(v,t,p);  
+			case 1:  
+				return makeColor(q,v,p);  
+			case 2:  
+				return makeColor(p,v,t);  
+			case 3:  
+				return makeColor(p,q,v);  
+			case 4:  
+				return makeColor(t,p,v);  
+			default:    // case 5:  
+				return makeColor(v,p,q);  
+		}  
+	}
+
+	private static int makeColor(float v, float t, float p)
+	{
+		// TODO: Implement this method
+		return Color.rgb((int)(v*255),(int)(255*t),(int)(255*p));
+	}  
+	
+	
 	public ResultListAdapter(Context ctx)
 	{
 		list = new ArrayList<Item>();
@@ -808,7 +854,7 @@ class ResultListAdapter extends BaseAdapter{
 
 			
 		Item i=list.get(pos);
-		tv.setTextColor(i.color);
+		tv.setTextColor((int)(HSVtoRGB((pos%20+30)*5,0.1f,1.f)+i.color*0.0005f/100));
 		//tv.setTextSize(13);
 		tv.setText(i.text);
 		//tv.setTextColor(Color.rgb(0,0,0));

@@ -2141,7 +2141,7 @@ containing a value of this type.
         public static final int alertTitle=0x7f0a0035;
         public static final int always=0x7f0a0019;
         public static final int beginning=0x7f0a001e;
-        public static final int bgbg=0x7f0a0099;
+        public static final int bgbg=0x7f0a009a;
         public static final int bottomBlurView=0x7f0a0073;
         public static final int buttonPanel=0x7f0a0030;
         public static final int cancel=0x7f0a005d;
@@ -2252,6 +2252,7 @@ containing a value of this type.
         public static final int showCustom=0x7f0a0010;
         public static final int showHome=0x7f0a0011;
         public static final int showTitle=0x7f0a0012;
+        public static final int simple_list_item_1=0x7f0a0099;
         public static final int single_mode=0x7f0a0022;
         public static final int spacer=0x7f0a0031;
         public static final int split_action_bar=0x7f0a0004;
@@ -2359,8 +2360,9 @@ containing a value of this type.
         public static final int select_dialog_item_material=0x7f04002c;
         public static final int select_dialog_multichoice_material=0x7f04002d;
         public static final int select_dialog_singlechoice_material=0x7f04002e;
-        public static final int simple_spinner_item=0x7f04002f;
-        public static final int support_simple_spinner_dropdown_item=0x7f040030;
+        public static final int simple_list_item_1=0x7f04002f;
+        public static final int simple_spinner_item=0x7f040030;
+        public static final int support_simple_spinner_dropdown_item=0x7f040031;
     }
     public static final class mipmap {
         public static final int ic_directory_parent=0x7f030000;

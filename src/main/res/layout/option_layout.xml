@@ -201,7 +201,7 @@
 				android:textColor="#1D9DFF"
 				android:textSize="15sp"
 				android:layout_centerHorizontal="true"
-				android:textAllCaps="false" />
+				android:textAllCaps="false"/>
 
 			<Spinner
 				android:layout_height="0dp"
@@ -214,7 +214,9 @@
 				android:layout_alignParentBottom="false"
 				android:layout_alignEnd="@id/mtnPicker"
 				android:layout_marginTop="-15dp"
-				android:popupBackground="#E5E5E5"/>
+				android:textColor="#000000"
+				android:popupBackground="#E5E5E5"
+				style="android:Theme.Holo.Black"/>
 
 			<Button
 				android:layout_height="wrap_content"
@@ -236,7 +238,9 @@
 				android:entries="@array/pickMTNum"
 				android:popupBackground="#E5E5E5"
 				android:layout_alignEnd="@id/ToastsHider"
-				android:layout_marginTop="-15dp"/>
+				android:layout_marginTop="-15dp"
+				
+				/>
 
 			<Button
 				style="?android:attr/buttonBarButtonStyle"
