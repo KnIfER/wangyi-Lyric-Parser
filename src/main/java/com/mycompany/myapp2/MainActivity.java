@@ -25,61 +25,26 @@ import com.github.angads25.filepicker.view.*;
 import com.github.angads25.filepicker.controller.*;
 import android.widget.CompoundButton.*;
 import java.nio.*;
+import android.text.*;
+import android.text.style.*;
+import eightbitlab.com.blurview.*;
+import android.graphics.drawable.*;
+import android.animation.*;
+import android.transition.*;
 
 public class MainActivity extends Activity
 {
 
 
-	
+	Button run_button;
 	LayoutInflater inflater;
 	LP_Option opt;
 	RelativeLayout main;
-	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.main);
-		main=(RelativeLayout)findViewById(R.id.main_layout);
-		opt=new LP_Option();
-		opt.handler=new Handler();
-
-		inflater=LayoutInflater.from(getApplicationContext());
-		ItemOnClickListener.inflater=inflater;
-		ItemOnClickListener.main_layout=(RelativeLayout)findViewById(R.id.main_layout);
-		ResultListAdapter adaptet=new ResultListAdapter(getApplicationContext());
-
-		ListView lv=(ListView)findViewById(R.id.main_list);
-		lv.setAdapter(adaptet);
-
-		Button run_button=(Button)findViewById((R.id.run_button));
-
-		opt.ctx=getApplicationContext();
-		opt.controller_button=run_button;
-		opt.load_path="/sdcard/netease/cloudmusic/Cache/Lyric/";
-		opt.save_path="/sdcard/netease/cloudmusic/Music/";
-		opt.opt.ForceGetTagFormNet=false;
-		opt.opt.ForceGetLrcFromNet=false;
-		opt.opt.NomalTag=true;
-		opt.opt.ExtraTag=true;
-
-
-
-		run_button.setOnClickListener(new Run_OnClickListener((RelativeLayout)findViewById((R.id.main_layout)),opt));
-	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	private long exitTime = 0;
-
+	BlurView.ControllerSettings topViewSettings;
+	BlurView topBlurView;
+	BlurView bottomBlurView;
+	ListView lv;
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){  
@@ -94,32 +59,135 @@ public class MainActivity extends Activity
 				}
 			}else{
 				if(count==4) main.removeViewAt(3);
-				else main.removeViews(3,count-1);
+				//else main.removeViews(3,count-1);
+				bottomBlurView.setVisibility(View.VISIBLE);
+				topBlurView.updateBlur();
 			}
 			return true;   
 		}
 		return super.onKeyDown(keyCode, event);
 	}
+	@Override
+	protected void onCreate(Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		setContentView(R.layout.main);
+		main=(RelativeLayout)findViewById(R.id.main_layout);
+		opt=new LP_Option();
+		
+		opt.handler=new Handler();
+
+		inflater=LayoutInflater.from(getApplicationContext());
+	
+		ItemOnClickListener.inflater=inflater;
+		ItemOnClickListener.main_layout=(RelativeLayout)findViewById(R.id.main_layout);
+		ResultListAdapter adaptet=new ResultListAdapter(getApplicationContext());
+
+		lv=(ListView)findViewById(R.id.main_list);
+		lv.setAdapter(adaptet);
+
+		run_button=(Button)findViewById((R.id.run_button));
+		Button extractButton = (Button)findViewById(R.id.extractor);
+		
+		opt.ctx=getApplicationContext();
+		opt.controller_button=run_button;
+		opt.load_path="/sdcard/netease/cloudmusic/Cache/Lyric/";
+		opt.save_path="/sdcard/netease/cloudmusic/Music/";
+		opt.opt.ForceGetTagFormNet=false;
+		opt.opt.ForceGetLrcFromNet=false;
+		opt.opt.NomalTag=true;
+		opt.opt.ExtraTag=true;
+
+	    
+
+		run_button.setOnClickListener(new Run_OnClickListener((RelativeLayout)findViewById((R.id.main_layout)),opt));
+		extractButton.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v){
+				View dialog = inflater.inflate(R.layout.dialog,(ViewGroup) findViewById(R.id.dialog)); 
+				final EditText  editText = (EditText) dialog.findViewById(R.id.et);
+
+				AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+				builder.setTitle("这里是Title"); 
+				builder.setPositiveButton("确定", new DialogInterface.OnClickListener() { 
+						@Override 
+						public void onClick(DialogInterface dialog, int which) {
+							Toast.makeText(MainActivity.this, editText.getText().toString(), 
+										   Toast.LENGTH_SHORT).show(); 
+						} });
+				builder.setView(dialog); 
+				builder.setIcon(R.mipmap.ic_directory_parent);
+				builder.show();
+				}
+		});
+		
+		final Drawable windowBackground = getWindow().getDecorView().getBackground();
+		final RelativeLayout root = (RelativeLayout) findViewById(R.id.main_layout);
+		topBlurView = (BlurView) findViewById(R.id.topBlurView);
+		bottomBlurView = (BlurView) findViewById(R.id.bottomBlurView);
+		bottomBlurView.setupWith(root).windowBackground(windowBackground).blurRadius(2f);
+		ItemOnClickListener.bottomBlurView = bottomBlurView;
+		ItemOnClickListener.topBlurView = topBlurView;
+		
+	}
+	//onCreate结束
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//配置界面
 	public void OnOptionButtonClick(View viewer){
+		bottomBlurView.setVisibility(View.INVISIBLE);
 		ScrollView.LayoutParams lp = new ScrollView.LayoutParams(-1,-1);
 		ScrollView rl=(ScrollView)inflater.inflate(R.layout.option_layout,null);
 		rl.setLayoutParams(lp);
 		Button save_button=(Button)rl.findViewById(R.id.save_button);
 		save_button.setOnClickListener(new Save_OnClickListener(main,rl,opt));
 
-		Spinner _spn=(Spinner)rl.findViewById(R.id.spn_lrc_combine);
-		_spn.setOnItemSelectedListener(new LPExOnItemSelectedListener2(opt));
+		Spinner _spn=(Spinner)rl.findViewById(R.id.mtnPickerspn);
+		Spinner spn=(Spinner)rl.findViewById(R.id.ToastsHiderspn);
+		//_spn.setAdapter( new ArrayAdapter<String>(this, R.layout.simple_spinner_item, new String[]{"禁用toast1","禁用toast1","禁用toast1","禁用toast1","禁用toast1","禁用toast1","禁用toast1"}));
+		spn.setAdapter(new adaptermy(this));
+		//btn to maxium hide toasts.
+		((Button)rl.findViewById(R.id.ToastsHider)).setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v){
+				((Spinner)((RelativeLayout) v.getParent()).findViewById(R.id.ToastsHiderspn)).performClick();
+			}
+		});
+		//btn for maxium sub-threads number
+		((Button)rl.findViewById(R.id.mtnPicker)).setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View v){
+					((Spinner)((RelativeLayout) v.getParent()).findViewById(R.id.mtnPickerspn)).performClick();
+				}
+			});
+		//
+		Button numberbtn = ((Button)rl.findViewById(R.id.mtnPicker));
+		String[] texts = numberbtn.getText().toString().split("）：");
+		SpannableStringBuilder style=new SpannableStringBuilder(numberbtn.getText()); 
+		style.setSpan(new ForegroundColorSpan(Color.RED),11,12,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+		numberbtn.setText(style);
+		//spn.setOnItemSelectedListener(new LPExOnItemSelectedListener2(opt));
 
-
-		main.addView(rl);
+		//黏附至窗口
+		main.addView(rl,3);
 
 		((CheckBox)findViewById(R.id.check_extratag)).setChecked(opt.opt.ExtraTag);
 		((CheckBox)findViewById(R.id.check_normaltag)).setChecked(opt.opt.NomalTag);
 		((CheckBox)findViewById(R.id.check_forcegetlrcfromnet)).setChecked(opt.opt.ForceGetLrcFromNet);
 		((CheckBox)findViewById(R.id.check_forcegettagfromnet)).setChecked(opt.opt.ForceGetTagFormNet);
+//目的目录
 ((Button)findViewById(R.id.pickToFolder)).setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v){
@@ -141,6 +209,8 @@ public class MainActivity extends Activity
 				
 			}
 		});
+		
+//来源目录
 ((Button)findViewById(R.id.pickFromFolder)).setOnClickListener(new OnClickListener(){
 				@Override
 				public void onClick(View v){
@@ -174,6 +244,59 @@ public class MainActivity extends Activity
 	public void OnSavePostData(LP_Option _opt){
 		opt=_opt;
 	}
+	
+	
+	
+	class Run_OnClickListener implements OnClickListener{
+		RelativeLayout main_layout;
+		LP_Option option;
+		LPWorkerThreadManager manager;
+		//Handler handle;
+
+		private Run_OnClickListener(){}
+		public Run_OnClickListener(RelativeLayout _main_layout,LP_Option _option){
+			option=_option;
+			main_layout=_main_layout;
+			//handle=h;
+		}
+
+		@Override
+		public void onClick(View p1)
+		{
+			Button btn = (Button)p1;
+			if("Run".equals(btn.getText())){
+				btn.setText("Stop");
+				manager=new LPWorkerThreadManager(option.save_path,option.load_path,option.opt,main_layout,option.handler);
+				manager.start();
+				topBlurView = (BlurView) findViewById(R.id.topBlurView);
+
+				final float radius = 25f;
+				final float minBlurRadius = 10f;
+				final float step = 4f;
+
+				//set background, if your root layout doesn't have one
+				final Drawable windowBackground = getWindow().getDecorView().getBackground();
+				final RelativeLayout root = (RelativeLayout) findViewById(R.id.main_layout);
+				
+				topViewSettings = topBlurView.setupWith(root).windowBackground(windowBackground).blurRadius(0.1f);
+				
+				final ValueAnimator animator = ValueAnimator.ofFloat(1f, 16f); 
+				animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() { 
+						@Override 
+						public void onAnimationUpdate(ValueAnimator animation) {
+							topViewSettings.blurRadius((float) animator.getAnimatedValue()); 
+							topBlurView.updateBlur(); 
+							
+						} }); 
+				animator.setDuration(500); animator.start();
+
+			}else{
+				manager.interrupt();
+			}	
+
+		}
+	}
+	
 }
 
 class LPExOnItemSelectedListener2 implements OnItemSelectedListener{
@@ -186,7 +309,7 @@ class LPExOnItemSelectedListener2 implements OnItemSelectedListener{
 	@Override
 	public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4)
 	{
-
+		
 		
 	}
 
@@ -261,6 +384,7 @@ class Save_OnClickListener implements OnClickListener{
 		opt.opt.ExtraTag=((CheckBox)back.findViewById(R.id.check_extratag)).isChecked();
 		opt.controller_button.setEnabled((true));
 		src.removeView(back);
+		src.findViewById(R.id.bottomBlurView).setVisibility(View.VISIBLE);
 	}
 
 }
@@ -280,40 +404,19 @@ class LP_Option{
 	}
 }
 
-class Run_OnClickListener implements OnClickListener{
-	RelativeLayout main_layout;
-	LP_Option option;
-	LPWorkerThreadManager manager;
-	//Handler handle;
 
-	private Run_OnClickListener(){}
-	public Run_OnClickListener(RelativeLayout _main_layout,LP_Option _option){
-		option=_option;
-		main_layout=_main_layout;
-		//handle=h;
-	}
-
-	@Override
-	public void onClick(View p1)
-	{
-		//p1.setEnabled(false);
-		manager=new LPWorkerThreadManager(option.save_path,option.load_path,option.opt,main_layout,option.handler);
-	
-		//manager.stop();
-		manager.start();
-	}
-}
 
 class LPWorkerThreadManager extends Thread{
 	Lrc_Parser_Option option;
 	RelativeLayout displayer;
 	String save_path,load_path;
 	Handler handler;
+	private boolean inter=false;
 	/*
 	Button controller;
 	Context ctx;*/
 	public LPWorkerThreadManager(String _save_path,String _load_path,Lrc_Parser_Option _option,RelativeLayout _displayer,Handler h){
-		LPWorkerThread.alive_count=1;
+		LPWorkerThread.alive_count=3;
 		displayer=_displayer;
 		save_path=_save_path;
 		load_path=_load_path;
@@ -321,25 +424,54 @@ class LPWorkerThreadManager extends Thread{
 		handler=h;
 	}
 
+	private void resetText(){
+		handler.post(new Runnable(){
+				@Override
+				public void run(){
+					((Button)displayer.findViewById(R.id.run_button)).setText("Run");
+				}
+			});
+	}
+	
+	public void interrupt(){
+		inter = true;
+		super.interrupt();
+	 }
+	
 	@Override
 	public void run(){
-
 		File path=new File(load_path);
 
 		LPWorkerThread t;
 		File[] files=path.listFiles();
 		System.gc();
-		for(File f:files){
-			while(LPWorkerThread.alive_count<=0){
-				continue;
-			}
+		for(int i = 0;i<files.length && !inter;i++){
+			File f = files[i];
 			if(f.isDirectory())
 				continue;
 			LPWorkerThread.alive_count--;
 			t=new LPWorkerThread(save_path,f.getAbsolutePath(),option,displayer,handler);
-
+			
 			t.start();
+			while(LPWorkerThread.alive_count<=0 && !inter){
+				//System.out.println("locking!!!!!!!" + f.getName());
+				try{
+					this.sleep(5);
+				}catch(InterruptedException e){
+					System.out.println(getName()+"从阻塞中退出...");
+					System.out.println("this.isInterrupted()="+this.isInterrupted());
+					resetText();
+				}
+
+				//continue;
+			}
 		}
+		//System.out.println("all thread done.!!!!!!!");
+		
+		resetText();
+		
+	
+		
 	}
 
 }
@@ -350,7 +482,7 @@ class LPWorkerThread extends Thread{
 	String save_path,load_path;
 	Handler handler;
 
-	public static int alive_count=1;
+	public static  volatile int alive_count=5;
 
 	private LPWorkerThread(){}
 	public LPWorkerThread(String _save_path,String _load_path,Lrc_Parser_Option _option,RelativeLayout _displayer,Handler h){
@@ -370,7 +502,7 @@ class LPWorkerThread extends Thread{
 		long seconds = totalSeconds % 60;
 		long minutes = (totalSeconds / 60) % 60;
 		long hours   = totalSeconds / 3600;
-		mFormatBuilder.setLength(0);
+	   	mFormatBuilder.setLength(0);
 		return mFormatter.format("[%02d:%02d.%03d]", minutes, seconds,ms).toString();
 
 	}
@@ -380,9 +512,8 @@ class LPWorkerThread extends Thread{
 	{
 		//alive_count--;
 		try{
-			//System.out.println("srtsrt");
 			//mycode
-			String str = readParse(load_path);
+			String str = new String(readParse(load_path));
 			System.out.println("run!!!!!!!!!!!str = " + str);
 
 			JSONArray jsonArray = new JSONArray("["+str+"]");
@@ -485,29 +616,36 @@ class LPWorkerThread extends Thread{
 			}
 		}catch(Exception e){
 			e.fillInStackTrace();
-			System.out.println(e);
+			System.out.println("eeeeeeeeenjjjjjjjdfg!!!!!!!!"+e);
 		}finally{
 			alive_count++;
+			System.out.println("++++++++++"+alive_count);
+			super.run();
 		}
 
-		super.run();
+		
 		//alive_count++;
 	}
 
 
-	public static String readParse(String fn) throws Exception {
+
+	public static byte[] readParse(String fn) throws Exception {
+
 		charsetDec cd = new charsetDec();
+
 		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-		CharBuffer data = CharBuffer.allocate(1024);
+
+		byte[] data = new byte[1024];
+
 		int len = 0;
-		StringBuilder sb = new StringBuilder();
-		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(fn),cd.guessFileEncoding(new File(fn)).split(",")[0]));
-		while ((len = br.read(data)) != -1) {
-			data.flip();
-			sb.append(data.toString());
+
+		InputStream inStream = new FileInputStream(new File(fn));
+		while ((len = inStream.read(data)) != -1) {
+			outStream.write(data, 0, len);
 		}
-		br.close();
-		return sb.toString();
+		inStream.close();
+		return outStream.toByteArray();
+		
 	}
 
 }
@@ -540,13 +678,125 @@ class ResultUpdateRunnable implements Runnable{
 }
 
 
+
+
+
 //adaptermy
+class adaptermy extends BaseAdapter{
+	public static Context ctx;
+	ArrayList<Item> list=new ArrayList<Item>();
+	public ArrayList<Item> phenoList;
+	Random rand;
+	private LayoutInflater mInflater;
+	public adaptermy(Context ctx)
+	{
+		for(int i=0;i<7;i++)
+		list.add(new Item());
+		phenoList = new ArrayList<Item>();
+		rand = new Random();
+		this.ctx = ctx;
+		mInflater = (LayoutInflater)ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	}
+
+
+
+	@Override
+	public long getItemId(int p1)
+	{
+		return p1;
+	}
+
+	@Override
+	public int getCount()
+	{
+		return 7;
+	}
+
+	@Override
+	public Object getItem(int p)
+	{
+		return list.get(p);
+	}
+
+	@Override
+	public View getView(final int pos, View p2, ViewGroup p3)
+	{
+		View item = mInflater.inflate(R.layout.list_item2, null);
+		TextView tv=(TextView) item.findViewById(R.id.text);
+		CheckBox cb = (CheckBox) item.findViewById(R.id.check);
+		cb.setChecked(list.get(pos).isItemSelected);
+		cb.setOnCheckedChangeListener(new OnCheckedChangeListener(){
+				@Override
+				public void onCheckedChanged(CompoundButton box,boolean checked){
+					list.get(pos).isItemSelected = checked;
+				}
+			});
+
+
+		//tv.setTextColor(i.color);
+		//tv.setTextSize(13);
+		tv.setText("禁用Toast"+1);
+		//tv.setTextColor(Color.rgb(0,0,0));
+		//tv.setOnClickListener(new ItemOnClickListener());
+		return item;
+	}
+
+}
+
+
+
 class ResultListAdapter extends BaseAdapter{
 	public static Context ctx;
 	ArrayList<Item> list;
 	public ArrayList<Item> phenoList;
 	Random rand;
 	private LayoutInflater mInflater;
+	
+	/* 
+	 * 想构造一系列平滑过渡的颜色，用HSV颜色空间容易，用RGB较难。 
+	 *  
+	 * 将色彩由HSV空间转换到RGB空间 
+	 *  
+	 * h  颜色      用角度表示，范围：0到360度 
+	 * s  色度      0.0到1.0   0为白色，越高颜色越“纯” 
+	 * v  亮度      0.0到1.0   0为黑色，越高越亮 
+	 */  
+	public static int HSVtoRGB(float h /* 0~360 degrees */, float s /* 0 ~ 1.0 */, float v /* 0 ~ 1.0 */ )  
+	{  
+		float f, p, q, t;  
+		if( s == 0 ) { // achromatic (grey)  
+			return makeColor(v,v,v);   
+		}  
+
+		h /= 60;      // sector 0 to 5  
+		int i = (int) Math.floor( h );  
+		f = h - i;      // factorial part of h  
+		p = v * ( 1 - s );  
+		q = v * ( 1 - s * f );  
+		t = v * ( 1 - s * ( 1 - f ) );  
+		switch( i ) {  
+			case 0:  
+				return makeColor(v,t,p);  
+			case 1:  
+				return makeColor(q,v,p);  
+			case 2:  
+				return makeColor(p,v,t);  
+			case 3:  
+				return makeColor(p,q,v);  
+			case 4:  
+				return makeColor(t,p,v);  
+			default:    // case 5:  
+				return makeColor(v,p,q);  
+		}  
+	}
+
+	private static int makeColor(float v, float t, float p)
+	{
+		// TODO: Implement this method
+		return Color.rgb((int)(v*255),(int)(255*t),(int)(255*p));
+	}  
+	
+	
 	public ResultListAdapter(Context ctx)
 	{
 		list = new ArrayList<Item>();
@@ -604,7 +854,7 @@ class ResultListAdapter extends BaseAdapter{
 
 			
 		Item i=list.get(pos);
-		tv.setTextColor(i.color);
+		tv.setTextColor((int)(HSVtoRGB((pos%20+30)*5,0.1f,1.f)+i.color*0.0005f/100));
 		//tv.setTextSize(13);
 		tv.setText(i.text);
 		//tv.setTextColor(Color.rgb(0,0,0));
@@ -625,9 +875,12 @@ class ItemOnClickListener implements OnClickListener{
 	public static RelativeLayout main_layout;
 	public static LayoutInflater inflater;
 	public static LinearLayout lyric_layout;
+	public static BlurView topBlurView;
+	public static BlurView bottomBlurView;
 	@Override
 	public void onClick(View p1)
 	{
+		bottomBlurView.setVisibility(View.INVISIBLE);
 		if(lyric_layout==null)
 		lyric_layout=(LinearLayout)inflater.inflate(R.layout.lyric,null);
 		try{
@@ -639,7 +892,7 @@ class ItemOnClickListener implements OnClickListener{
 			while((c=br.read())!=-1)
 				chars=chars+String.valueOf((char)c);
 			br.close();
-			main_layout.addView(lyric_layout);
+			main_layout.addView(lyric_layout,3);
 			TextView tv = (TextView)lyric_layout.findViewById(R.id.lrc_text);
 			tv.setText(chars);
 			((TextView)lyric_layout.findViewById(R.id.lrc_text)).setTextColor(Color.rgb(0,0,0));
@@ -657,7 +910,12 @@ class ItemOnClickListener implements OnClickListener{
 					@Override
 					public void onClick(View h){
 						main_layout.removeView(lyric_layout);
+						topBlurView.updateBlur();
+						bottomBlurView.setVisibility(View.VISIBLE);
+						//lyric_layout.onKeyDown(KeyEvent.KEYCODE_BACK, new KeyEvent(KeyEvent.KEYCODE_BACK,KeyEvent.ACTION_DOWN));
+
 						lyric_layout=null;
+						
 					}
 				});
 			((TextView)lyric_layout.findViewById(R.id.file_name_text)).setText(((Item)p1.getTag()).Songname);
