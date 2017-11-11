@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/blurView/blurView.iml" filepath="$PROJECT_DIR$/blurView/blurView.iml" />
+      <module fileurl="file://$PROJECT_DIR$/filepicker/filepicker.iml" filepath="$PROJECT_DIR$/filepicker/filepicker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wangyi-lyric-parser-As.iml" filepath="$PROJECT_DIR$/wangyi-lyric-parser-As.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wangyilyricparser/wangyilyricparser.iml" filepath="$PROJECT_DIR$/wangyilyricparser/wangyilyricparser.iml" />
+    </modules>
+  </component>
+</project>

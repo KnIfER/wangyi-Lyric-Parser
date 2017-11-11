@@ -1,0 +1,296 @@
+ECLIPSE ANDROID PROJECT IMPORT SUMMARY
+======================================
+
+Manifest Merging:
+-----------------
+Your project uses libraries that provide manifests, and your Eclipse
+project did not explicitly turn on manifest merging. In Android Gradle
+projects, manifests are always merged (meaning that contents from your
+libraries' manifests will be merged into the app manifest. If you had
+manually copied contents from library manifests into your app manifest
+you may need to remove these for the app to build correctly.
+
+Ignored Files:
+--------------
+The following files were *not* copied into the new Gradle project; you
+should evaluate whether these are still needed in your project and if
+so manually move them:
+
+* libraryProjs\
+* libraryProjs\blurView\
+* libraryProjs\blurView\.classpath
+* libraryProjs\blurView\.project
+* libraryProjs\blurView\.settings\
+* libraryProjs\blurView\.settings\org.eclipse.jdt.core.prefs
+* libraryProjs\blurView\AndroidManifest.xml
+* libraryProjs\blurView\bin\
+* libraryProjs\blurView\bin\AndroidManifest.xml
+* libraryProjs\blurView\bin\R.txt
+* libraryProjs\blurView\bin\blurview.jar
+* libraryProjs\blurView\bin\classes\
+* libraryProjs\blurView\bin\classes\eightbitlab\
+* libraryProjs\blurView\bin\classes\eightbitlab\com\
+* libraryProjs\blurView\bin\classes\eightbitlab\com\blurview\
+* libraryProjs\blurView\bin\classes\eightbitlab\com\blurview\BlockingBlurController$1.class
+* libraryProjs\blurView\bin\classes\eightbitlab\com\blurview\BlockingBlurController$2.class
+* libraryProjs\blurView\bin\classes\eightbitlab\com\blurview\BlockingBlurController$3.class
+* libraryProjs\blurView\bin\classes\eightbitlab\com\blurview\BlockingBlurController.class
+* libraryProjs\blurView\bin\classes\eightbitlab\com\blurview\BlurAlgorithm.class
+* libraryProjs\blurView\bin\classes\eightbitlab\com\blurview\BlurController.class
+* libraryProjs\blurView\bin\classes\eightbitlab\com\blurview\BlurView$1.class
+* libraryProjs\blurView\bin\classes\eightbitlab\com\blurview\BlurView$2.class
+* libraryProjs\blurView\bin\classes\eightbitlab\com\blurview\BlurView$3.class
+* libraryProjs\blurView\bin\classes\eightbitlab\com\blurview\BlurView$ControllerSettings.class
+* libraryProjs\blurView\bin\classes\eightbitlab\com\blurview\BlurView.class
+* libraryProjs\blurView\bin\classes\eightbitlab\com\blurview\BuildConfig.class
+* libraryProjs\blurView\bin\classes\eightbitlab\com\blurview\R$anim.class
+* libraryProjs\blurView\bin\classes\eightbitlab\com\blurview\R$attr.class
+* libraryProjs\blurView\bin\classes\eightbitlab\com\blurview\R$bool.class
+* libraryProjs\blurView\bin\classes\eightbitlab\com\blurview\R$color.class
+* libraryProjs\blurView\bin\classes\eightbitlab\com\blurview\R$dimen.class
+* libraryProjs\blurView\bin\classes\eightbitlab\com\blurview\R$drawable.class
+* libraryProjs\blurView\bin\classes\eightbitlab\com\blurview\R$id.class
+* libraryProjs\blurView\bin\classes\eightbitlab\com\blurview\R$integer.class
+* libraryProjs\blurView\bin\classes\eightbitlab\com\blurview\R$layout.class
+* libraryProjs\blurView\bin\classes\eightbitlab\com\blurview\R$string.class
+* libraryProjs\blurView\bin\classes\eightbitlab\com\blurview\R$style.class
+* libraryProjs\blurView\bin\classes\eightbitlab\com\blurview\R$styleable.class
+* libraryProjs\blurView\bin\classes\eightbitlab\com\blurview\R.class
+* libraryProjs\blurView\bin\classes\eightbitlab\com\blurview\RenderScriptBlur.class
+* libraryProjs\blurView\bin\jarlist.cache
+* libraryProjs\blurView\gen\
+* libraryProjs\blurView\gen\eightbitlab\
+* libraryProjs\blurView\gen\eightbitlab\com\
+* libraryProjs\blurView\gen\eightbitlab\com\blurview\
+* libraryProjs\blurView\gen\eightbitlab\com\blurview\BuildConfig.java
+* libraryProjs\blurView\gen\eightbitlab\com\blurview\R.java
+* libraryProjs\blurView\project.properties
+* libraryProjs\blurView\res\
+* libraryProjs\blurView\res\values\
+* libraryProjs\blurView\res\values\styles.xml
+* libraryProjs\blurView\src\
+* libraryProjs\blurView\src\eightbitlab\
+* libraryProjs\blurView\src\eightbitlab\com\
+* libraryProjs\blurView\src\eightbitlab\com\blurview\
+* libraryProjs\blurView\src\eightbitlab\com\blurview\BlockingBlurController.java
+* libraryProjs\blurView\src\eightbitlab\com\blurview\BlurAlgorithm.java
+* libraryProjs\blurView\src\eightbitlab\com\blurview\BlurController.java
+* libraryProjs\blurView\src\eightbitlab\com\blurview\BlurView.java
+* libraryProjs\blurView\src\eightbitlab\com\blurview\RenderScriptBlur.java
+* libraryProjs\filepicker\
+* libraryProjs\filepicker\.classpath
+* libraryProjs\filepicker\.project
+* libraryProjs\filepicker\.settings\
+* libraryProjs\filepicker\.settings\org.eclipse.jdt.core.prefs
+* libraryProjs\filepicker\AndroidManifest.xml
+* libraryProjs\filepicker\bin\
+* libraryProjs\filepicker\bin\AndroidManifest.xml
+* libraryProjs\filepicker\bin\R.txt
+* libraryProjs\filepicker\bin\classes\
+* libraryProjs\filepicker\bin\classes\com\
+* libraryProjs\filepicker\bin\classes\com\github\
+* libraryProjs\filepicker\bin\classes\com\github\angads25\
+* libraryProjs\filepicker\bin\classes\com\github\angads25\filepicker\
+* libraryProjs\filepicker\bin\classes\com\github\angads25\filepicker\BuildConfig.class
+* libraryProjs\filepicker\bin\classes\com\github\angads25\filepicker\R$anim.class
+* libraryProjs\filepicker\bin\classes\com\github\angads25\filepicker\R$attr.class
+* libraryProjs\filepicker\bin\classes\com\github\angads25\filepicker\R$color.class
+* libraryProjs\filepicker\bin\classes\com\github\angads25\filepicker\R$dimen.class
+* libraryProjs\filepicker\bin\classes\com\github\angads25\filepicker\R$drawable.class
+* libraryProjs\filepicker\bin\classes\com\github\angads25\filepicker\R$id.class
+* libraryProjs\filepicker\bin\classes\com\github\angads25\filepicker\R$layout.class
+* libraryProjs\filepicker\bin\classes\com\github\angads25\filepicker\R$mipmap.class
+* libraryProjs\filepicker\bin\classes\com\github\angads25\filepicker\R$string.class
+* libraryProjs\filepicker\bin\classes\com\github\angads25\filepicker\R$styleable.class
+* libraryProjs\filepicker\bin\classes\com\github\angads25\filepicker\R.class
+* libraryProjs\filepicker\bin\classes\com\github\angads25\filepicker\controller\
+* libraryProjs\filepicker\bin\classes\com\github\angads25\filepicker\controller\DialogSelectionListener.class
+* libraryProjs\filepicker\bin\classes\com\github\angads25\filepicker\controller\NotifyItemChecked.class
+* libraryProjs\filepicker\bin\classes\com\github\angads25\filepicker\controller\adapters\
+* libraryProjs\filepicker\bin\classes\com\github\angads25\filepicker\controller\adapters\FileListAdapter$1.class
+* libraryProjs\filepicker\bin\classes\com\github\angads25\filepicker\controller\adapters\FileListAdapter$ViewHolder.class
+* libraryProjs\filepicker\bin\classes\com\github\angads25\filepicker\controller\adapters\FileListAdapter.class
+* libraryProjs\filepicker\bin\classes\com\github\angads25\filepicker\model\
+* libraryProjs\filepicker\bin\classes\com\github\angads25\filepicker\model\DialogConfigs.class
+* libraryProjs\filepicker\bin\classes\com\github\angads25\filepicker\model\DialogProperties.class
+* libraryProjs\filepicker\bin\classes\com\github\angads25\filepicker\model\FileListItem.class
+* libraryProjs\filepicker\bin\classes\com\github\angads25\filepicker\model\MarkedItemList.class
+* libraryProjs\filepicker\bin\classes\com\github\angads25\filepicker\utils\
+* libraryProjs\filepicker\bin\classes\com\github\angads25\filepicker\utils\ExtensionFilter.class
+* libraryProjs\filepicker\bin\classes\com\github\angads25\filepicker\utils\Utility.class
+* libraryProjs\filepicker\bin\classes\com\github\angads25\filepicker\view\
+* libraryProjs\filepicker\bin\classes\com\github\angads25\filepicker\view\FilePickerDialog$1.class
+* libraryProjs\filepicker\bin\classes\com\github\angads25\filepicker\view\FilePickerDialog$2.class
+* libraryProjs\filepicker\bin\classes\com\github\angads25\filepicker\view\FilePickerDialog$3.class
+* libraryProjs\filepicker\bin\classes\com\github\angads25\filepicker\view\FilePickerDialog.class
+* libraryProjs\filepicker\bin\classes\com\github\angads25\filepicker\view\FilePickerPreference$SavedState$1.class
+* libraryProjs\filepicker\bin\classes\com\github\angads25\filepicker\view\FilePickerPreference$SavedState.class
+* libraryProjs\filepicker\bin\classes\com\github\angads25\filepicker\view\FilePickerPreference.class
+* libraryProjs\filepicker\bin\classes\com\github\angads25\filepicker\widget\
+* libraryProjs\filepicker\bin\classes\com\github\angads25\filepicker\widget\MaterialCheckbox$1.class
+* libraryProjs\filepicker\bin\classes\com\github\angads25\filepicker\widget\MaterialCheckbox.class
+* libraryProjs\filepicker\bin\classes\com\github\angads25\filepicker\widget\OnCheckedChangeListener.class
+* libraryProjs\filepicker\bin\filepicker.jar
+* libraryProjs\filepicker\bin\res\
+* libraryProjs\filepicker\bin\res\crunch\
+* libraryProjs\filepicker\bin\res\crunch\drawable\
+* libraryProjs\filepicker\bin\res\crunch\drawable\bottom_shadow.9.png
+* libraryProjs\filepicker\bin\res\crunch\mipmap-hdpi\
+* libraryProjs\filepicker\bin\res\crunch\mipmap-hdpi\ic_directory_parent.png
+* libraryProjs\filepicker\bin\res\crunch\mipmap-hdpi\ic_type_file.png
+* libraryProjs\filepicker\bin\res\crunch\mipmap-hdpi\ic_type_folder.png
+* libraryProjs\filepicker\bin\res\crunch\mipmap-mdpi\
+* libraryProjs\filepicker\bin\res\crunch\mipmap-mdpi\ic_directory_parent.png
+* libraryProjs\filepicker\bin\res\crunch\mipmap-mdpi\ic_type_file.png
+* libraryProjs\filepicker\bin\res\crunch\mipmap-mdpi\ic_type_folder.png
+* libraryProjs\filepicker\bin\res\crunch\mipmap-xhdpi\
+* libraryProjs\filepicker\bin\res\crunch\mipmap-xhdpi\ic_directory_parent.png
+* libraryProjs\filepicker\bin\res\crunch\mipmap-xhdpi\ic_type_file.png
+* libraryProjs\filepicker\bin\res\crunch\mipmap-xhdpi\ic_type_folder.png
+* libraryProjs\filepicker\bin\res\crunch\mipmap-xxhdpi\
+* libraryProjs\filepicker\bin\res\crunch\mipmap-xxhdpi\ic_directory_parent.png
+* libraryProjs\filepicker\bin\res\crunch\mipmap-xxhdpi\ic_type_file.png
+* libraryProjs\filepicker\bin\res\crunch\mipmap-xxhdpi\ic_type_folder.png
+* libraryProjs\filepicker\gen\
+* libraryProjs\filepicker\gen\com\
+* libraryProjs\filepicker\gen\com\github\
+* libraryProjs\filepicker\gen\com\github\angads25\
+* libraryProjs\filepicker\gen\com\github\angads25\filepicker\
+* libraryProjs\filepicker\gen\com\github\angads25\filepicker\BuildConfig.java
+* libraryProjs\filepicker\gen\com\github\angads25\filepicker\R.java
+* libraryProjs\filepicker\project.properties
+* libraryProjs\filepicker\res\
+* libraryProjs\filepicker\res\anim\
+* libraryProjs\filepicker\res\anim\marked_item_animation.xml
+* libraryProjs\filepicker\res\anim\unmarked_item_animation.xml
+* libraryProjs\filepicker\res\drawable\
+* libraryProjs\filepicker\res\drawable\bottom_shadow.9.png
+* libraryProjs\filepicker\res\layout-v11\
+* libraryProjs\filepicker\res\layout-v11\dialog_footer.xml
+* libraryProjs\filepicker\res\layout-v21\
+* libraryProjs\filepicker\res\layout-v21\dialog_file_list_item.xml
+* libraryProjs\filepicker\res\layout\
+* libraryProjs\filepicker\res\layout\dialog_file_list.xml
+* libraryProjs\filepicker\res\layout\dialog_file_list_item.xml
+* libraryProjs\filepicker\res\layout\dialog_footer.xml
+* libraryProjs\filepicker\res\layout\dialog_header.xml
+* libraryProjs\filepicker\res\layout\dialog_main.xml
+* libraryProjs\filepicker\res\mipmap-hdpi\
+* libraryProjs\filepicker\res\mipmap-hdpi\ic_directory_parent.png
+* libraryProjs\filepicker\res\mipmap-hdpi\ic_type_file.png
+* libraryProjs\filepicker\res\mipmap-hdpi\ic_type_folder.png
+* libraryProjs\filepicker\res\mipmap-mdpi\
+* libraryProjs\filepicker\res\mipmap-mdpi\ic_directory_parent.png
+* libraryProjs\filepicker\res\mipmap-mdpi\ic_type_file.png
+* libraryProjs\filepicker\res\mipmap-mdpi\ic_type_folder.png
+* libraryProjs\filepicker\res\mipmap-xhdpi\
+* libraryProjs\filepicker\res\mipmap-xhdpi\ic_directory_parent.png
+* libraryProjs\filepicker\res\mipmap-xhdpi\ic_type_file.png
+* libraryProjs\filepicker\res\mipmap-xhdpi\ic_type_folder.png
+* libraryProjs\filepicker\res\mipmap-xxhdpi\
+* libraryProjs\filepicker\res\mipmap-xxhdpi\ic_directory_parent.png
+* libraryProjs\filepicker\res\mipmap-xxhdpi\ic_type_file.png
+* libraryProjs\filepicker\res\mipmap-xxhdpi\ic_type_folder.png
+* libraryProjs\filepicker\res\values-de\
+* libraryProjs\filepicker\res\values-de\strings.xml
+* libraryProjs\filepicker\res\values-es\
+* libraryProjs\filepicker\res\values-es\strings.xml
+* libraryProjs\filepicker\res\values-fr\
+* libraryProjs\filepicker\res\values-fr\strings.xml
+* libraryProjs\filepicker\res\values-ru\
+* libraryProjs\filepicker\res\values-ru\strings.xml
+* libraryProjs\filepicker\res\values-w820dp\
+* libraryProjs\filepicker\res\values-w820dp\dimens.xml
+* libraryProjs\filepicker\res\values-zh-rTW\
+* libraryProjs\filepicker\res\values-zh-rTW\strings.xml
+* libraryProjs\filepicker\res\values\
+* libraryProjs\filepicker\res\values\attrs.xml
+* libraryProjs\filepicker\res\values\colors.xml
+* libraryProjs\filepicker\res\values\dimens.xml
+* libraryProjs\filepicker\res\values\strings.xml
+* libraryProjs\filepicker\src\
+* libraryProjs\filepicker\src\com\
+* libraryProjs\filepicker\src\com\github\
+* libraryProjs\filepicker\src\com\github\angads25\
+* libraryProjs\filepicker\src\com\github\angads25\filepicker\
+* libraryProjs\filepicker\src\com\github\angads25\filepicker\controller\
+* libraryProjs\filepicker\src\com\github\angads25\filepicker\controller\DialogSelectionListener.java
+* libraryProjs\filepicker\src\com\github\angads25\filepicker\controller\NotifyItemChecked.java
+* libraryProjs\filepicker\src\com\github\angads25\filepicker\controller\adapters\
+* libraryProjs\filepicker\src\com\github\angads25\filepicker\controller\adapters\FileListAdapter.java
+* libraryProjs\filepicker\src\com\github\angads25\filepicker\model\
+* libraryProjs\filepicker\src\com\github\angads25\filepicker\model\DialogConfigs.java
+* libraryProjs\filepicker\src\com\github\angads25\filepicker\model\DialogProperties.java
+* libraryProjs\filepicker\src\com\github\angads25\filepicker\model\FileListItem.java
+* libraryProjs\filepicker\src\com\github\angads25\filepicker\model\MarkedItemList.java
+* libraryProjs\filepicker\src\com\github\angads25\filepicker\utils\
+* libraryProjs\filepicker\src\com\github\angads25\filepicker\utils\ExtensionFilter.java
+* libraryProjs\filepicker\src\com\github\angads25\filepicker\utils\Utility.java
+* libraryProjs\filepicker\src\com\github\angads25\filepicker\view\
+* libraryProjs\filepicker\src\com\github\angads25\filepicker\view\FilePickerDialog.java
+* libraryProjs\filepicker\src\com\github\angads25\filepicker\view\FilePickerPreference.java
+* libraryProjs\filepicker\src\com\github\angads25\filepicker\widget\
+* libraryProjs\filepicker\src\com\github\angads25\filepicker\widget\MaterialCheckbox.java
+* libraryProjs\filepicker\src\com\github\angads25\filepicker\widget\OnCheckedChangeListener.java
+
+Replaced Jars with Dependencies:
+--------------------------------
+The importer recognized the following .jar files as third party
+libraries and replaced them with Gradle dependencies instead. This has
+the advantage that more explicit version information is known, and the
+libraries can be updated automatically. However, it is possible that
+the .jar file in your project was of an older version than the
+dependency we picked, which could render the project not compileable.
+You can disable the jar replacement in the import wizard and try again:
+
+android-support-v4.jar => com.android.support:support-v4:22.2.1
+android-support-v7-appcompat.jar => com.android.support:appcompat-v7:22.2.1
+
+Replaced Libraries with Dependencies:
+-------------------------------------
+The importer recognized the following library projects as third party
+libraries and replaced them with Gradle dependencies instead. This has
+the advantage that more explicit version information is known, and the
+libraries can be updated automatically. However, it is possible that
+the source files in your project were of an older version than the
+dependency we picked, which could render the project not compileable.
+You can disable the library replacement in the import wizard and try
+again:
+
+android-support-v7-appcompat => [com.android.support:appcompat-v7:22.2.1]
+
+Moved Files:
+------------
+Android Gradle projects use a different directory structure than ADT
+Eclipse projects. Here's how the projects were restructured:
+
+In blurView:
+* AndroidManifest.xml => blurView\src\main\AndroidManifest.xml
+* assets\ => blurView\src\main\assets
+* res\ => blurView\src\main\res\
+* src\ => blurView\src\main\java\
+In filepicker:
+* AndroidManifest.xml => filepicker\src\main\AndroidManifest.xml
+* assets\ => filepicker\src\main\assets
+* res\ => filepicker\src\main\res\
+* src\ => filepicker\src\main\java\
+In wangyi-lyric-parser:
+* AndroidManifest.xml => wangyilyricparser\src\main\AndroidManifest.xml
+* libs\chardet.jar => wangyilyricparser\libs\chardet.jar
+* res\ => wangyilyricparser\src\main\res\
+* src\ => wangyilyricparser\src\main\java\
+
+Next Steps:
+-----------
+You can now build the project. The Gradle project needs network
+connectivity to download dependencies.
+
+Bugs:
+-----
+If for some reason your project does not build, and you determine that
+it is due to a bug or limitation of the Eclipse to Gradle importer,
+please file a bug at http://b.android.com with category
+Component-Tools.
+
+(This import summary is for your information only, and can be deleted
+after import once you are satisfied with the results.)
