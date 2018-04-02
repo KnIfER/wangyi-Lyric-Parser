@@ -1,0 +1,9 @@
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/ripple_light">
+    <item>
+        <!--前面罩住的圆圈-->
+        <shape android:shape="oval">
+            <solid android:color="@color/main_dark_blue"/>
+        </shape>
+    </item>
+</ripple>

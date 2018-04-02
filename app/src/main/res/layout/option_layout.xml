@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/option_layout"
+	android:layout_height="match_parent"
+	android:layout_width="match_parent"
+	android:background="#E5E5E5">
+
+	<RelativeLayout
+		android:layout_height="match_parent"
+		android:layout_width="match_parent">
+
+		<RelativeLayout
+			android:layout_height="50dp"
+			android:layout_width="match_parent"
+			android:background="#E5E5E5"
+			android:id="@+id/optionlayoutRelativeLayout1">
+
+			<TextView
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:text="设置"
+				android:textSize="25sp"
+				android:gravity="center_vertical"
+				android:paddingLeft="20dp"
+				android:layout_toLeftOf="@+id/save_button"
+				android:id="@+id/optionlayoutTextView1"
+				android:textColor="#E5E5E5"
+				android:background="#1D9DFF"
+				android:textAlignment="textStart"/>
+
+			<Button
+				style="?android:attr/buttonBarButtonStyle"
+				android:layout_height="match_parent"
+				android:id="@+id/save_button"
+				android:layout_width="75dp"
+				android:text="确定"
+				android:textColor="#1D9DFF"
+				android:layout_alignParentRight="true"
+				android:background="@drawable/listselector2"
+				android:textAlignment="center"
+				/>
+
+			<Button
+				android:id="@+id/help"
+				style="?android:attr/buttonBarButtonStyle"
+				android:layout_height="match_parent"
+				android:layout_width="wrap_content"
+				android:text="\?"
+				android:layout_toLeftOf="@id/save_button"
+				android:textSize="30sp"
+				android:textColor="#E5E5E5"
+				android:textStyle="bold"/>
+
+		</RelativeLayout>
+
+		<RelativeLayout
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:orientation="horizontal"
+			android:id="@+id/optionlayoutTextView2"
+			android:layout_below="@id/optionlayoutRelativeLayout1"
+			android:layout_marginLeft="15dp"
+			android:layout_marginTop="15dp">
+
+			<TextView
+				android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:layout_width="wrap_content"
+				android:text="Load files from :"
+				android:textColor="#1D9DFF"/>
+
+			<Button
+				android:layout_height="25dp"
+				android:layout_width="25dp"
+				android:text=""
+				style="?android:attr/buttonBarButtonStyle"
+				android:id="@+id/pickFromFolder"
+				android:background="@drawable/btn_selector"
+				android:layout_gravity="center|center_vertical|center_horizontal"
+				android:layout_marginTop="1dp"
+				android:layout_alignParentEnd="true"
+				android:layout_marginRight="75dp"/>
+
+		</RelativeLayout>
+
+		<EditText
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:ems="10"
+			android:layout_below="@id/optionlayoutTextView2"
+			android:textColor="#000000"
+			android:layout_alignLeft="@id/optionlayoutTextView2"
+			android:layout_marginRight="15dp"
+			android:hint="example : /sdcard/Netease/Lyric/"
+			android:background="#B1DEFF"
+			android:maxLines="1"
+			android:lines="1"
+			android:textColorHint="#787878"
+			android:textSize="14sp"
+			android:id="@+id/load_path_text"/>
+
+		<RelativeLayout
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:orientation="horizontal"
+			android:id="@+id/optionlayoutTextView3"
+			android:layout_below="@id/load_path_text"
+			android:layout_marginLeft="15dp"
+			android:layout_marginTop="15dp">
+
+			<TextView
+				android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:layout_width="wrap_content"
+				android:text="Save lrc file to :"
+				android:textColor="#1D9DFF"/>
+
+			<Button
+				android:layout_height="25dp"
+				android:layout_width="25dp"
+				android:text=""
+				style="?android:attr/buttonBarButtonStyle"
+				android:id="@+id/pickToFolder"
+				android:background="@drawable/btn_selector"
+				android:layout_gravity="center|center_vertical|center_horizontal"
+				android:layout_marginTop="1dp"
+				android:layout_alignParentEnd="true"
+				android:layout_marginRight="75dp"
+				android:layout_alignParentRight="true" />
+
+		</RelativeLayout>
+
+		<EditText
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:ems="10"
+			android:layout_below="@id/optionlayoutTextView3"
+			android:textColor="#000000"
+			android:layout_alignLeft="@id/optionlayoutTextView3"
+			android:layout_marginRight="15dp"
+			android:hint="example : /sdcard/Music/Lyric/"
+			android:background="#B1DEFF"
+			android:maxLines="1"
+			android:lines="1"
+			android:textColorHint="#787878"
+			android:textSize="14sp"
+			android:id="@+id/save_path_text"/>
+
+		<RelativeLayout
+			android:layout_height="match_parent"
+			android:layout_width="match_parent"
+			android:layout_below="@id/save_path_text"
+			android:layout_margin="15dp"
+			android:id="@+id/opt_layout">
+
+			<TextView
+				android:id="@+id/txtpickCharset"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_alignLeft="@+id/check_ForbidGetTagFormNet"
+				android:text="字符集:"
+				android:layout_marginTop="3dp"
+				android:layout_marginLeft="-8dp"
+				android:textColor="#1D9DFF"
+				android:textSize="15sp"/>
+			<Spinner
+				android:id="@+id/spn_pickCharset"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="36dp"
+				android:entries="@array/charsetNames"
+				android:layout_toRightOf="@+id/txtpickCharset"
+				android:overlapAnchor="false"
+				android:theme="@style/spnStyle"/>
+
+			<TextView
+				android:id="@+id/txtpickGeshi1"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_alignLeft="@+id/check_ForbidGetTagFormNet"
+				android:text="时间格式:"
+				android:layout_marginTop="3dp"
+				android:layout_marginLeft="-8dp"
+				android:textColor="#1D9DFF"
+				android:textSize="15sp"
+				android:layout_below="@id/spn_pickCharset"/>
+			<Spinner
+				android:id="@+id/spn_pickGeshi1"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="36dp"
+				android:entries="@array/geshi2"
+				android:layout_toRightOf="@+id/txtpickCharset"
+				android:overlapAnchor="false"
+				android:layout_below="@id/spn_pickCharset"
+                android:theme="@style/spnStyle"/>
+			<TextView
+				android:id="@+id/txtpickGeshi2"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_alignLeft="@+id/check_ForbidGetTagFormNet"
+				android:text="翻译格式:"
+				android:layout_marginTop="3dp"
+				android:layout_marginLeft="-8dp"
+				android:textColor="#1D9DFF"
+				android:textSize="15sp"
+				android:layout_below="@id/spn_pickGeshi1"/>
+			<Spinner
+				android:id="@+id/spn_pickGeshi2"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="36dp"
+				android:entries="@array/geshi1"
+				android:layout_toRightOf="@+id/txtpickCharset"
+				android:overlapAnchor="false"
+				android:layout_below="@id/spn_pickGeshi1"
+				android:theme="@style/spnStyle"/>
+			<CheckBox
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="默认全选"
+				android:textColor="#1D9DFF"
+				android:shadowColor="#000000"
+				android:id="@+id/check_SelectAll"
+				android:layout_alignLeft="@+id/check_ForbidGetTagFormNet"
+				android:layout_below="@id/spn_pickGeshi2"/>
+			<CheckBox
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="覆盖写入"
+				android:textColor="#1D9DFF"
+				android:shadowColor="#000000"
+				android:id="@+id/check_Overwrite"
+				android:layout_centerHorizontal="true"
+				android:layout_alignEnd="@id/check_ForbidGetTagFormNet"
+				android:layout_alignRight="@id/check_ForbidGetTagFormNet"
+				android:layout_below="@id/spn_pickGeshi2"/>
+
+			<CheckBox
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="禁止从网上获取歌曲信息"
+				android:textColor="#1D9DFF"
+				android:shadowColor="#000000"
+				android:id="@+id/check_ForbidGetTagFormNet"
+				android:layout_centerHorizontal="true"
+				android:layout_below="@id/check_Overwrite"
+				/>
+
+			<CheckBox
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:layout_below="@id/check_ForbidGetTagFormNet"
+				android:layout_marginTop="10dp"
+				android:text="预览未处理过的原版歌词"
+				android:textColor="#1D9DFF"
+				android:id="@+id/check_PreviewRawJsonLyric"
+				android:layout_centerHorizontal="true"/>
+
+			<CheckBox
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:layout_below="@+id/check_PreviewRawJsonLyric"
+				android:layout_marginTop="10dp"
+				android:text="加入isSongLyric头部标志"
+				android:textColor="#1D9DFF"
+				android:id="@+id/addisSongLyricHeader"
+				android:layout_centerHorizontal="true"/>
+
+			<CheckBox
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:layout_below="@id/addisSongLyricHeader"
+				android:layout_marginTop="10dp"
+				android:text="加入其他非歌词头部信息"
+				android:textColor="#1D9DFF"
+				android:id="@+id/addOtherNoneLyricInfos"
+				android:layout_centerHorizontal="true"/>
+
+			<Button
+				android:layout_height="wrap_content"
+				style="?android:attr/buttonBarButtonStyle"
+				android:layout_width="wrap_content"
+				android:text="选择并发数：（当前）：5"
+				android:layout_below="@id/addOtherNoneLyricInfos"
+				android:layout_marginTop="3dp"
+				android:id="@+id/mtnPicker"
+				android:textColor="#1D9DFF"
+				android:textSize="15sp"
+				android:layout_centerHorizontal="true"
+				android:textAllCaps="false"/>
+
+			<Spinner
+				android:layout_height="0dp"
+				android:layout_width="wrap_content"
+				android:layout_below="@+id/mtnPicker"
+				android:layout_alignParentLeft="true"
+				android:layout_alignRight="@+id/addOtherNoneLyricInfos"
+				android:id="@+id/mtnPickerspn"
+				android:entries="@array/pickMTNum"
+				android:layout_alignParentBottom="false"
+				android:layout_alignEnd="@id/mtnPicker"
+				android:layout_marginTop="-15dp"
+				android:textColor="#000000"
+				android:popupBackground="#E5E5E5"
+				style="android:Theme.Holo.Black"
+				android:gravity="top"
+				android:overlapAnchor="false" 
+				android:spinnerMode="dropdown"/>
+
+			<Button
+				style="?android:attr/buttonBarButtonStyle"
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="清除app处理的Lrc历史缓存"
+				android:layout_below="@id/mtnPicker"
+				android:gravity="center_vertical|center_horizontal|fill_vertical|fill_horizontal"
+				android:layout_centerHorizontal="true"
+				android:id="@+id/myClrBtn1"/>
+
+			<Button
+				style="?android:attr/buttonBarButtonStyle"
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="清除云音乐下载的json-Lrc"
+				android:layout_below="@id/myClrBtn1"
+				android:gravity="center_vertical|center_horizontal|fill_vertical|fill_horizontal"
+				android:layout_centerHorizontal="true"
+				android:id="@+id/myClrBtn2"/>
+
+			<Button
+				style="?android:attr/buttonBarButtonStyle"
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="清除云音乐缓存的json-Lrc"
+				android:layout_below="@id/myClrBtn2"
+				android:gravity="center_vertical|center_horizontal|fill_vertical|fill_horizontal"
+				android:layout_centerHorizontal="true"
+				android:id="@+id/myClrBtn3"/>
+
+			<Button
+				android:id="@+id/mySettingsDumpBtn"
+				style="?android:attr/buttonBarButtonStyle"
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="当前配置另存为…"
+				android:layout_below="@id/myClrBtn3"
+				android:gravity="center_vertical|center_horizontal|fill_vertical|fill_horizontal"
+				android:layout_centerHorizontal="true"/>
+
+			<Button
+				android:id="@+id/mySettingsPicker"
+				style="?android:attr/buttonBarButtonStyle"
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="选择配置…"
+				android:layout_below="@id/mySettingsDumpBtn"
+				android:gravity="center_vertical|center_horizontal|fill_vertical|fill_horizontal"
+				android:layout_centerHorizontal="true"/>
+
+		</RelativeLayout>
+
+	</RelativeLayout>
+
+</ScrollView>
+

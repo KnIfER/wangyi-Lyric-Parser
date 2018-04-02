@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">网易云歌词助手</string>
+    <string name="hello_world">Hello world!</string>
+    <string-array name="planets_array">
+        <item>全选</item>
+        <item>全不选</item>
+        <item>反选</item>
+    </string-array>
+    <item type="id" name="refresh_main_list"/>
+    <item type="id" name="position"/>
+</resources>

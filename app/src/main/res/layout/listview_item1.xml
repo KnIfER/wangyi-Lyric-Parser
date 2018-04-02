@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout  
+    xmlns:android="http://schemas.android.com/apk/res/android"  
+    
+	 xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"  
+    android:layout_height="wrap_content"  
+    android:clickable="true"  
+    android:gravity="center_vertical"
+    android:foreground="@drawable/listviewselector0">
+
+	<TextView
+		android:id="@+id/tv0"
+		android:layout_width="wrap_content"
+		android:layout_height="match_parent"
+		android:layout_gravity="center_vertical|left"
+		android:gravity="center_vertical|left"
+		android:text="99"
+		android:textColor="#00FA9A"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="55dp"
+		android:layout_toLeftOf="@+id/tv1"
+		android:layout_marginLeft="12dp"
+		>
+
+		<EditText
+			android:id="@+id/et"
+            android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_alignParentLeft="true"
+			android:layout_toRightOf="@+id/tv0"
+			android:paddingLeft="10dp"
+			android:singleLine="true"
+			android:gravity="center_vertical|left"
+			android:text="Lyrics"
+			android:textColor="#dddddd"
+			android:textCursorDrawable="@drawable/text_cursor" />
+	</ScrollView>
+	<TextView
+		android:id="@+id/tv3"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginRight="45dp"
+		android:layout_marginTop="5dp"
+		android:layout_gravity="center_vertical|right"
+		android:text="..."
+		android:textColor="#ffffff"
+		android:background="@drawable/shape2"/>
+    <TextView
+        android:id="@+id/tv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|right"
+        android:text="00:00:00" 
+        android:textColor="#dddddd"/>
+
+
+</FrameLayout>
+

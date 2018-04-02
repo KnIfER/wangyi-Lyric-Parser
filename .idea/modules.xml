@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/网易歌词.iml" filepath="$PROJECT_DIR$/网易歌词.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/blurView/blurView.iml" filepath="$PROJECT_DIR$/blurView/blurView.iml" />
+      <module fileurl="file://$PROJECT_DIR$/filepicker/filepicker.iml" filepath="$PROJECT_DIR$/filepicker/filepicker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wangyi-Lyric-Parser.iml" filepath="$PROJECT_DIR$/wangyi-Lyric-Parser.iml" />
     </modules>
   </component>
 </project>

@@ -1,0 +1,9 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="eightbitlab.com.blurview">
+    <uses-sdk android:minSdkVersion="14"
+        android:targetSdkVersion="22"/>
+    <application android:allowBackup="true"
+                 android:supportsRtl="true">
+    </application>
+
+</manifest>

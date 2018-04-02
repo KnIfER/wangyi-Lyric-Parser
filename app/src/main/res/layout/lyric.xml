@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_height="match_parent"
+	android:layout_width="match_parent"
+	android:id="@+id/lrc_layout"
+	android:background="#FFFFFF"
+	android:alpha="0.85"
+	android:orientation="vertical">
+
+	<RelativeLayout
+		android:layout_height="50dp"
+		android:layout_width="match_parent"
+		android:id="@+id/main_lrc_layout">
+		<HorizontalScrollView
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:background="#1D9DFF"
+			android:layout_toLeftOf="@+id/lyric_back"
+			android:paddingLeft="20dp"
+			android:scrollbars="none"
+			>
+		<TextView
+			android:id="@+id/file_name_text"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:text="N/A"
+			android:textSize="15sp"
+			android:gravity="center_vertical"
+			android:paddingRight="20dp"
+			android:textColor="#E5E5E5"
+			android:singleLine="true"/>
+		</HorizontalScrollView>
+		<Button
+			style="?android:attr/buttonBarButtonStyle"
+			android:id="@+id/lyric_back"
+			android:layout_height="match_parent"
+			android:layout_width="75dp"
+			android:text="提取"
+			android:textColor="#1D9DFF"
+			android:layout_alignParentRight="true"
+			android:background="@drawable/listselector2"
+			android:textAlignment="center"/>
+
+	</RelativeLayout>
+
+	<ScrollView
+		android:layout_height="match_parent"
+		android:layout_width="match_parent">
+
+		<TextView
+			android:layout_height="match_parent"
+			android:layout_width="match_parent"
+			android:text="fdeegghbnnnqw"
+			android:textSize="20sp"
+			android:scrollbars="vertical"
+			android:id="@+id/lrc_text"/>
+
+	</ScrollView>
+
+</LinearLayout>
+

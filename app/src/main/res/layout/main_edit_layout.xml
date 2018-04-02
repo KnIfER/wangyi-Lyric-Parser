@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.knizha.wangYiLP.RelativeLayoutmy
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#777777"
+    android:theme="@style/AppTheme"
+    >
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabLayout"
+        android:theme="@style/AppTheme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabGravity="center">
+    </android.support.design.widget.TabLayout>
+    <com.knizha.plod.ui.BaseToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-4dp"
+        android:layout_alignTop="@+id/tabLayout"
+        android:layout_alignBottom="@+id/tabLayout"
+        android:layout_alignParentRight="true"
+        android:theme="@style/toobarTheme"
+        android:background="#000000ff"
+        >
+    </com.knizha.plod.ui.BaseToolbar>
+
+    <ScrollView
+        android:id="@+id/sv"
+        android:background="#00666666"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:layout_below="@+id/tabLayout"
+        android:focusableInTouchMode="false">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.fenwjian.sdcardutil.TextViewmy
+                android:id="@+id/webview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="45dp"
+                android:background="#00ffffff"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:hardwareAccelerated="false"
+                android:textIsSelectable="true"
+                android:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/breakABLoop"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/shape2"
+                android:visibility="invisible" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/main_lyric_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#666666"
+        android:layout_below="@+id/tabLayout"
+        android:layout_above="@+id/bottomtop"
+        />
+    <android.widget.ImageView
+        android:id="@+id/play"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_above="@+id/bottomtop"
+        android:background="@drawable/ic_play_arrow_black_24dp"
+        android:clickable="true" />
+
+    <android.widget.ImageView
+        android:id="@+id/splitTime"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_above="@+id/bottomtop"
+        android:layout_alignParentRight="true"
+        android:clickable="true"
+        android:background="@drawable/ic_location_searching_black_24dp" />
+
+    <RelativeLayout
+        android:id="@+id/bottomtop"
+        android:background="#666666"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom"
+        android:gravity="center_vertical|fill_horizontal"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/currentT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:text="00:00"
+            android:textColor="#aaaaaa" />
+        <com.fenwjian.sdcardutil.SeekBarmy
+            android:id="@+id/progress"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:max="100"
+            android:progress="0"
+            android:thumbOffset="0dp"
+            android:paddingLeft="-2dp"
+            android:paddingRight="-2dp"
+            android:layout_toRightOf="@+id/currentT"
+            android:layout_toLeftOf="@+id/totalT"
+            android:visibility="visible" />
+        <TextView
+            android:id="@+id/totalT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:text="00:10"
+            android:textColor="#aaaaaa" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/bottom"
+        android:background="#666666"
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center|center_horizontal|center_vertical">
+
+        <android.widget.ImageView
+            android:id="@+id/browser_widget1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/ic_library_music_black_24dp"
+            android:clickable="true"
+            android:paddingLeft="3dp"
+            android:paddingRight="10dp"
+            android:layout_alignParentLeft="true"/>
+
+        <android.widget.ImageView
+            android:id="@+id/browser_widget2"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/browser_widget3"
+            android:layout_weight="1"
+            android:src="@drawable/ic_arrow_back_black_24dp"
+            android:clickable="true"
+            android:layout_marginRight="25dp"/>
+
+        <android.widget.ImageView
+            android:id="@+id/browser_widget3"
+            android:layout_width="72dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_centerInParent="true"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:src="@drawable/ic_add_circle_black_24dp" />
+
+        <android.widget.ImageView
+            android:id="@+id/browser_widget4"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="25dp"
+            android:layout_toRightOf="@id/browser_widget3"
+            android:layout_weight="2"
+            android:clickable="true"
+            android:src="@drawable/ic_arrow_forward_black_24dp" />
+
+        <android.widget.ImageView
+            android:id="@+id/browser_widget5"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_alignParentRight="true"
+            android:clickable="true"
+            android:src="@drawable/ic_insert_drive_file_black_24dp" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/seekScroll"
+        android:background="#00666666"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="20dp"
+        android:layout_alignBottom="@+id/bottomtop"
+        android:focusableInTouchMode="false"
+        >
+        <com.knizha.wangYiLP.ui.ListViewmy
+            android:id="@+id/lv_seekbars"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/cst2"
+            android:divider="#00000000"
+
+            >
+        </com.knizha.wangYiLP.ui.ListViewmy>
+    </ScrollView>
+</com.knizha.wangYiLP.RelativeLayoutmy>

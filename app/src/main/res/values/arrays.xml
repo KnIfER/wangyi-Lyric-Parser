@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pickMTNum">
+        <item>1</item>
+        <item>3</item>
+        <item>5</item>
+		<item>7</item>
+		<item>9</item>
+		<item>11</item>
+		<item>其他...</item>
+    </string-array>
+	<string-array name="charsetNames">
+		<item>UTF-8</item>
+		<item>GBK</item>
+		<item>ASCII</item>
+	</string-array>
+	<string-array name="geshi1">
+		<item>[line] 换行 [翻译]</item>
+		<item>[line] 空格 [翻译]</item>
+		<item>[无翻译]</item>
+	</string-array>
+	<string-array name="geshi2">
+		<item>[00:00.000]</item>
+		<item>[00:00.00]</item>
+	</string-array>
+</resources>
+	
