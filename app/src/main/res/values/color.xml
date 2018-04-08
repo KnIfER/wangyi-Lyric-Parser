@@ -25,4 +25,5 @@
     <color name="cst">#4F7FDF</color>
     <color name="cst2">#aaa0f0f0</color>
 
+   <color name="colorSeekBarDefault">#c3c3c3</color>
  </resources>

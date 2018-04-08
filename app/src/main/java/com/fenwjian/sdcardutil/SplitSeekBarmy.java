@@ -26,6 +26,7 @@ import android.util.AttributeSet;
 import android.widget.SeekBar;
 
 import com.fenwjian.sdcardutil.chineseNumber.cnn;
+import com.knizha.wangYiLP.CMN;
 import com.knizha.wangYiLP.R;
 
 
@@ -45,6 +46,8 @@ public class SplitSeekBarmy extends SeekBar {
     private float mRight; // space between right of track and left of the view
     private Paint mPaint;
     public  RBTree<myCpr<Integer,Integer>> tree;
+    public RBTree<myCpr<Integer, Integer>> tree2;//行-时间
+    public int[] cs;
     //public long timeLength;
     private float xLeft;
     private float xRight;
@@ -117,8 +120,8 @@ public class SplitSeekBarmy extends SeekBar {
 
         super.onDraw(canvas);
         
-        xLeft = getPaddingLeft()+thumbDelta/2;
-        xRight = getMeasuredWidth() - getPaddingRight() -thumbDelta/2;
+        xLeft = getPaddingLeft();
+        xRight = getMeasuredWidth() - getPaddingRight() ;
 		
 		
 
@@ -126,7 +129,6 @@ public class SplitSeekBarmy extends SeekBar {
        // canvas.drawCircle(x_, yTop, 10.0f, mPaint);
 
 
-        mPaint.setColor(Color.RED);
         if(tree!=null)
             drawSubSet(canvas);
         //inOrderDraw(tree.getRoot(),canvas);
@@ -135,15 +137,21 @@ public class SplitSeekBarmy extends SeekBar {
     private void  drawSubSet(Canvas canvas){
         if(getTag(R.id.position)==null)
             return;
-        int tmp = (int) getTag(R.id.position);
-        RBTNode<myCpr<Integer,Integer>> curr = tree.sxing(new myCpr(tmp,0));
+        int PosTmp = (int) getTag(R.id.position);
+        RBTNode<myCpr<Integer,Integer>> curr = tree.sxing(new myCpr(PosTmp*(60*1000),0));
         while(curr!=null){
+            if(cs!=null)
+                mPaint.setColor(cs[curr.getKey().value%cs.length]);
             int tmp2 = curr.key.key;
-            if(tmp2>=tmp*(60*1000)+getMax())
+            //if(tmp*(60*1000)>tmp2) CMN.showT("error!!!"+tmp*(60*1000)+"should smaller than searched"+tmp2);
+            if(tmp2>=PosTmp*(60*1000)+getMax())
                 break;
-            canvas.drawCircle((float)xLeft+(float)(tmp2-tmp*(60*1000) )/(float)getMax()*(-xLeft + xRight), 25, 3.0f, mPaint);
+            //canvas.drawCircle((float)xLeft+(float)(tmp2-tmp*(60*1000) )/(float)getMax()*(-xLeft + xRight), 25, 3.0f, mPaint);
+            float tmp3 = (float)xLeft+(float)(tmp2-PosTmp*(60*1000) )/(float)getMax()*(-xLeft + xRight);
+            canvas.drawOval(tmp3-3,0,tmp3+3,getHeight() , mPaint);
             curr = tree.successor(curr);
         }
+        mPaint.setColor(Color.RED);
     }
 
     private void inOrderDraw(RBTNode<myCpr<Integer,Integer>> tree,Canvas canvas) {

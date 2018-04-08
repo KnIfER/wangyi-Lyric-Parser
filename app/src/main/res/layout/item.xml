@@ -13,8 +13,7 @@
         android:layout_height="20dp"
         android:visibility="visible"
         android:thumbOffset="0dp"
-        android:paddingLeft ="-12dp"
-        android:paddingRight="-12dp"
+        android:splitTrack="false"
         />
 
 </RelativeLayout>

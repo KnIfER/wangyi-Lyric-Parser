@@ -8,6 +8,14 @@
         <item>全不选</item>
         <item>反选</item>
     </string-array>
+    <string-array name="markArray">
+        <item>0</item>
+        <item>30</item>
+        <item>60</item>
+        <item>90</item>
+        <item>100</item>
+    </string-array>
+
     <item type="id" name="refresh_main_list"/>
     <item type="id" name="position"/>
 </resources>

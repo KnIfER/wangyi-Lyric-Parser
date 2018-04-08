@@ -6,8 +6,9 @@
     android:layout_height="match_parent"
     android:background="#777777"
     android:theme="@style/AppTheme"
+    android:focusable="false"
+    android:focusableInTouchMode="false"
     >
-
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayout"
         android:theme="@style/AppTheme"
@@ -28,14 +29,17 @@
         >
     </com.knizha.plod.ui.BaseToolbar>
 
-    <ScrollView
+
+    <com.fenwjian.sdcardutil.ScrollViewmy
         android:id="@+id/sv"
         android:background="#00666666"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="bottom"
+        android:focusableInTouchMode="false"
         android:layout_below="@+id/tabLayout"
-        android:focusableInTouchMode="false">
+        android:layout_above="@+id/bottomtop"
+        android:visibility="invisible">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -45,14 +49,12 @@
                 android:id="@+id/webview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="45dp"
                 android:background="#00ffffff"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
+                android:gravity="center"
                 android:hardwareAccelerated="false"
-                android:textIsSelectable="true"
-                android:visibility="invisible" />
+                android:textIsSelectable="true" />
 
             <ImageView
                 android:id="@+id/breakABLoop"
@@ -63,7 +65,60 @@
                 android:visibility="invisible" />
 
         </RelativeLayout>
-    </ScrollView>
+    </com.fenwjian.sdcardutil.ScrollViewmy>
+
+    <RelativeLayout
+        android:id="@+id/splitterrl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_gravity="center_vertical"
+        android:visibility="visible"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="100dp">
+
+
+        <TextView
+            android:id="@+id/splitter"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_centerInParent="true"
+            android:layout_toRightOf="@+id/jumpTo"
+            android:layout_toLeftOf="@+id/splitterCT"
+            android:background="#80aaaaaa" />
+
+        <TextView
+            android:id="@+id/previewLineIdx"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_centerInParent="true"
+            android:layout_alignParentLeft="true"
+            android:gravity="center"
+            android:text="999"
+            android:textColor="#00FA9A"/>
+
+        <ImageView
+            android:id="@+id/jumpTo"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerInParent="true"
+            android:layout_toRightOf="@+id/previewLineIdx"
+            android:background="@drawable/jumpto" />
+
+        <TextView
+            android:id="@+id/splitterCT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="false"
+            android:text="00:00"
+            android:layout_marginTop="7dp"
+            android:paddingBottom="7dp"
+            android:textColor="#80ffffff"/>
+
+    </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/main_lyric_list"
@@ -72,7 +127,10 @@
         android:background="#666666"
         android:layout_below="@+id/tabLayout"
         android:layout_above="@+id/bottomtop"
+        android:descendantFocusability="beforeDescendants"
+        android:visibility="invisible"
         />
+
     <android.widget.ImageView
         android:id="@+id/play"
         android:layout_width="50dp"
@@ -88,7 +146,9 @@
         android:layout_above="@+id/bottomtop"
         android:layout_alignParentRight="true"
         android:clickable="true"
-        android:background="@drawable/ic_location_searching_black_24dp" />
+        android:padding="-15dp"
+        android:gravity="center"
+        android:src="@drawable/ic_location_searching_black_24dp" />
 
     <RelativeLayout
         android:id="@+id/bottomtop"
@@ -189,13 +249,91 @@
 
     </RelativeLayout>
 
+    <ImageView
+        android:id="@+id/adjustBar_toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/ic_vertical_align_center_black_24dp"
+        android:visibility="invisible"
+        />
+
+    <RelativeLayout
+        android:id="@+id/DingLayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#00ff0000"
+        android:visibility="invisible"
+        >
+        <com.jaygoo.widget.RangeSeekBar
+            android:id="@+id/adjustBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:rsb_markTextArray="@array/markArray"
+            app:rsb_lineColorSelected="@color/colorAccent"
+            app:rsb_thumbResId="@drawable/ic_smartphone_black_24dp"
+            app:rsb_lineColorEdge="@color/colorSeekBarDefault"
+            app:rsb_cellMode="number"
+            app:rsb_seekBarMode="range"
+            app:rsb_seekBarHeight="12dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            />
+        <TextView
+            android:id="@+id/jingShi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:textColor="@color/white"
+            android:text="00:00.000"
+            />
+        <ToggleButton
+            android:id="@+id/toptoggle_loop"
+            android:layout_width="15dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/jingShi"
+            android:layout_alignTop="@+id/jingShi"
+            android:textOff="L"
+            android:textOn="L"
+            android:textColor="#4F7FDF"
+            android:background="@drawable/toggle_selector"
+            />
+        <ToggleButton
+            android:id="@+id/toptoggle_follow"
+            android:layout_width="15dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/toptoggle_loop"
+            android:layout_alignTop="@+id/jingShi"
+            android:textOff="F"
+            android:textOn= "F"
+            android:textColor="#4F7FDF"
+            android:background="@drawable/toggle_selector"
+            />
+        <ToggleButton
+            android:id="@+id/toptoggle_release"
+            android:layout_width="15dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/toptoggle_follow"
+            android:layout_alignTop="@+id/jingShi"
+            android:textOff="R"
+            android:textOn= "R"
+            android:textColor="#4F7FDF"
+            android:background="@drawable/toggle_selector"
+            />
+
+    </RelativeLayout>
+
+
     <ScrollView
         android:id="@+id/seekScroll"
         android:background="#00666666"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
+        android:layout_marginLeft= "35dp"
+        android:layout_marginRight="35dp"
         android:layout_marginBottom="20dp"
         android:layout_alignBottom="@+id/bottomtop"
         android:focusableInTouchMode="false"

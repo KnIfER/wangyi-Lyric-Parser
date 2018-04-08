@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout  
-    xmlns:android="http://schemas.android.com/apk/res/android"  
-    
+    xmlns:android="http://schemas.android.com/apk/res/android"
+	android:focusable="true"
 	 xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"  
     android:layout_height="wrap_content"  
-    android:clickable="true"  
+    android:clickable="true"
+	android:focusableInTouchMode="true"
     android:gravity="center_vertical"
     android:foreground="@drawable/listviewselector0">
 
 	<TextView
 		android:id="@+id/tv0"
-		android:layout_width="wrap_content"
+		android:layout_width="24dp"
 		android:layout_height="match_parent"
 		android:layout_gravity="center_vertical|left"
-		android:gravity="center_vertical|left"
+		android:gravity="center"
 		android:text="99"
 		android:textColor="#00FA9A"/>
 

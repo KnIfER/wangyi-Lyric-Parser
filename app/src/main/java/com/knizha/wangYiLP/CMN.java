@@ -2,6 +2,7 @@ package com.knizha.wangYiLP;
 
 import android.app.Activity;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.widget.Toast;
@@ -85,4 +86,23 @@ public class CMN {
         }
     }
 
+    public static int scale(float value) {
+        DisplayMetrics mDisplayMetrics = a.getResources().getDisplayMetrics();
+        float scale = a.getResources().getDisplayMetrics().density;
+
+        float scaleWidth = (float) mDisplayMetrics.widthPixels / 720;
+        float scaleHeight = (float) mDisplayMetrics.heightPixels / 1280;
+
+        return Math.round(value *
+                Math.min(scaleWidth, scaleHeight) * scale
+                * 0.5f);
+    }
+    public static int getStatusBarHeight() {
+        int result = 0;
+        int resourceId = a.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = a.getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
 }

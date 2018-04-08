@@ -441,7 +441,7 @@ public class Main_list_Fragment extends Fragment{
 				}
 				tv.setText("简单预览\n"+States+"\n"+lyrics.replace("\\n", "\n"));
 			}else
-				tv.setText("预览原文件\n"+str);
+				tv.setText("预览原文件：\n"+it.abs_full_path+"\n"+str);
 			((TextView)lyric_layout.findViewById(R.id.lrc_text)).setTextColor(Color.rgb(0,0,0));
 			//((TextView)lyric_layout.findViewById(R.id.lrc_text)).setMovementMethod(ScrollingMovementMethod.getInstance());
 			lyric_layout.setAlpha(0.85f);

@@ -97,7 +97,7 @@ public class RBTree<T extends Comparable<? super T>> {
         inOrderDo(mRoot);
     }
     //![1]设置接口
-    public void SetInOrderDo(inOrderDo ido){
+    public void setInOrderDo(inOrderDo ido){
     	mInOrderDo = ido;
     }
     //![2]接口
@@ -123,7 +123,7 @@ public class RBTree<T extends Comparable<? super T>> {
     public RBTNode<T> xxing(T val){
     	RBTNode<T> tmpnode =downwardNeighbour(this.mRoot,val);
     	if (tmpnode!=null) return tmpnode;
-    	else return this.minimum(this.mRoot);
+    	return null;
     }
     public RBTNode<T> xxing_samsara(T val){
         RBTNode<T> tmpnode =downwardNeighbour_skipego(this.mRoot,val);
@@ -173,7 +173,8 @@ public class RBTree<T extends Comparable<? super T>> {
     public RBTNode<T> sxing(T val){
     	RBTNode<T> tmpnode =upwardNeighbour(this.mRoot,val);
     	if (tmpnode!=null) return tmpnode;
-    	else return this.maximum(this.mRoot);
+        RBTNode<T> tmpMax = this.maximum(this.mRoot);
+    	return null;
     }
     public RBTNode<T> sxing_samsara(T val){
         RBTNode<T> tmpnode =upwardNeighbour_skipego(this.mRoot,val);
@@ -578,18 +579,20 @@ public class RBTree<T extends Comparable<? super T>> {
      * 参数说明：
      *     key 插入结点的键值
      */
-    public void insert(T key) {
+    public RBTNode<T> insert(T key) {
         RBTNode<T> node=new RBTNode<T>(key,BLACK,null,null,null);
 
-        // 如果新建结点失败，则返回。
+        // TODO::need?如果新建结点失败，则返回。
         if (node != null)
             insert(node);
+
+        return  node;
     }
-    public void insertUpdate(T key) {
+    public RBTNode<T> insertUpdate(T key) {
         RBTNode<T> tmpNode = search(key);
         if(tmpNode!=null && tmpNode.key.compareTo(key)==0) {
             ((Updatable) tmpNode.getKey()).Update((Updatable) key);
-            return;
+            return tmpNode;
         }
 
         RBTNode<T> node=new RBTNode<T>(key,BLACK,null,null,null);
@@ -597,6 +600,8 @@ public class RBTree<T extends Comparable<? super T>> {
         // 如果新建结点失败，则返回。
         if (node != null)
             insert(node);
+
+        return  node;
     }
 
     /*

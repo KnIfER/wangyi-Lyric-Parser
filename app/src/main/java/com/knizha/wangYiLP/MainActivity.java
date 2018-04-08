@@ -29,6 +29,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -138,15 +139,16 @@ public class MainActivity extends FragmentActivity
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		super.onCreate(savedInstanceState);
-		//disable keyboard auto-coming up feature
+		//disable keyboard smashing layout
 		//getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING|WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.main);
 		opt=new LP_Option();
 		CMN.opt = opt;
 		CMN.a = this;
-		CMN.dm = new DisplayMetrics();
+		CMN.dm = getResources().getDisplayMetrics();
 		viewPager = (ViewPager) findViewById(R.id.viewpager);
 		List<Fragment> fragments=new ArrayList<Fragment>();
 

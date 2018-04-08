@@ -12,7 +12,6 @@ import com.fenwjian.sdcardutil.myCpr;
 import com.knizha.wangYiLP.CMN;
 import com.knizha.wangYiLP.Main_lyric_Fragment;
 
-import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
 
 /**
@@ -134,7 +133,7 @@ public class DBWangYiLPController {
         values.put(LRC_PATH      , doc_Lrc);
         final StringBuilder sb = new StringBuilder();
         sb.append("");//TODO::needed?
-        timeLine.SetInOrderDo(new RBTree.inOrderDo(){
+        timeLine.setInOrderDo(new RBTree.inOrderDo(){
             //mycode
             public void dothis(RBTNode n) {
                 sb.append(((myCpr<Integer,Integer>)n.getKey()).key)
