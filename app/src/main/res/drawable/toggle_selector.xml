@@ -3,5 +3,5 @@
     <item android:state_checked="true"
         android:drawable="@drawable/rectanglsmy"></item>
 
-    <item android:drawable="@drawable/shangxia"></item>
+    <item android:drawable="@drawable/shangxia2"></item>
 </selector>

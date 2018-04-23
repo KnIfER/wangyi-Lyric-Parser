@@ -1,0 +1,59 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/dialog"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:layout_marginLeft="18dp"
+    android:layout_marginRight="18dp"
+    >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:gravity="center">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="删除从:"
+        />
+    <NumberPicker
+        android:id="@+id/number1"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="到:"
+        />
+    <NumberPicker
+        android:id="@+id/number2"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="的所有行"
+        />
+</LinearLayout>
+
+    <Button
+        android:id="@+id/confirm"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="8dp"
+        android:text="确定" />
+
+
+</RelativeLayout>
+
+
+

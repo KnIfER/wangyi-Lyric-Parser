@@ -13,10 +13,10 @@ android {
 
     defaultConfig {
         applicationId "com.knizha.wangYiLP2"
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 24
-        versionCode 4
-        versionName "1.4"
+        versionCode 5
+        versionName "2.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         compileOptions {
             sourceCompatibility JavaVersion.VERSION_1_7

@@ -26,6 +26,9 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.ToggleButton;
+
+import com.fenwjian.sdcardutil.myCpr;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,17 +50,17 @@ import java.util.concurrent.Executors;
 
 import eightbitlab.com.blurview.BlurView;
 
-public class Main_list_Fragment extends Fragment{
+public class Main_extractor_Fragment extends Fragment{
 
 	AlertDialog d;
 	View dv;
 	ExecutorService fixedThreadPool;
 	String oldSearchingTitle = "";
 	EditText ettoptop;
-
     private int mCurrentState = -1;
     
 	RelativeLayout main;
+	ToggleButton viewpager_locker;
 	ListView lv;
 	//View option_layout;
 	ResultListAdapter adaptermymymymy;
@@ -66,7 +69,7 @@ public class Main_list_Fragment extends Fragment{
 
 	BlurView bottomBlurView;
 	LPWorkerThreadManager manager;
-	private String[] charsetNames;
+
 
     boolean foundP= false;
 	private final int parentDepth = 5;
@@ -156,15 +159,35 @@ public class Main_list_Fragment extends Fragment{
 		final View main_list_layout= inflater.inflate(R.layout.main_list_layout, container,false);
 		opt = CMN.a.opt;
 		main=(RelativeLayout)main_list_layout.findViewById(R.id.main_layout);
+		viewpager_locker=(ToggleButton)main_list_layout.findViewById(R.id.viewpager_locker);
 		ettoptop = (EditText) main_list_layout.findViewById(R.id.ettoptop);
 		topBlurView = (BlurView) main_list_layout.findViewById(R.id.topBlurView);
 		bottomBlurView = (BlurView) main_list_layout.findViewById(R.id.bottomBlurView);
 		adaptermymymymy=new ResultListAdapter();
 		CMN.lvAdapter = adaptermymymymy;
-		charsetNames = getResources().getStringArray(R.array.charsetNames);
+		CMN.charsetNames = getResources().getStringArray(R.array.charsetNames);
 		lv=(ListView)main_list_layout.findViewById(R.id.main_list);
+		lv.addFooterView(inflater.inflate(R.layout.lv_footer, null,false));
 		lv.setAdapter(adaptermymymymy);
 
+		if(opt.viewPagerLocked){
+			viewpager_locker.setChecked(true);
+		}
+		viewpager_locker.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				opt.viewPagerLocked=!opt.viewPagerLocked;
+				if(opt.viewPagerLocked){
+					CMN.a.viewPager.setNoScroll(true);
+				}else{
+					CMN.a.viewPager.setNoScroll(false);
+					CMN.a.initF2();
+				}
+				if(CMN.a!=null && CMN.a.f2!=null)
+					CMN.a.f2.viewpager_locker.setChecked(opt.viewPagerLocked);
+			}
+		});
+		//lv.setPadding(0,0,0,50);
 		//Button run_button;
 		((Button)main_list_layout.findViewById((R.id.run_button))).setOnClickListener(new OnClickListener() {
 			@Override
@@ -172,8 +195,12 @@ public class Main_list_Fragment extends Fragment{
 			{
 				Button btn = (Button)p1;
 				if("运行".equals(btn.getText())){
+					if(!new File(opt.load_path).exists()){
+						CMN.sh("来源路径无效！");
+						return;
+					}
 					btn.setText("停止");
-					manager=new LPWorkerThreadManager((RelativeLayout)main_list_layout.findViewById((R.id.main_layout)));
+					manager=new LPWorkerThreadManager(CMN.a);
 					manager.start();
 
 					//模糊特效
@@ -212,7 +239,7 @@ public class Main_list_Fragment extends Fragment{
 			@Override public void onClick(View v)
 			{
 				if(adaptermymymymy.list.size()<=0){
-					CMN.showT("什么都没有，你先点RUN");
+					CMN.showT("什么都没有，你先点运行");
 					return;
 				}
 
@@ -260,6 +287,9 @@ public class Main_list_Fragment extends Fragment{
 						android.view.WindowManager.LayoutParams lp = d.getWindow().getAttributes();  //获取对话框当前的参数值
 						lp.height = 500;
 						d.getWindow().setAttributes(lp);
+						if(!new File(opt.save_path).exists()){
+							new File(opt.save_path).mkdirs();
+						}
 						for(int i=0;i<taskCounter;i++)
 						{
 							final int index = i;
@@ -416,13 +446,13 @@ public class Main_list_Fragment extends Fragment{
 		private CheckBox cb;
 		private TextView tv;
 	}
-	public static LinearLayout lyric_layout;
+	public static ViewGroup lyric_layout;
 
 	private void showLyricsPreview(final Item it) {
 		bottomBlurView.setVisibility(View.INVISIBLE);
 		if(lyric_layout==null){
 			ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(-1,-1);
-			lyric_layout=(LinearLayout)CMN.a.inflater.inflate(R.layout.lyric,null);
+			lyric_layout=(ViewGroup)CMN.a.inflater.inflate(R.layout.lyric,null);
 			lyric_layout.setLayoutParams(lp);}
 		try{
 			final String str = new String(CMN.readParse(it.abs_full_path));
@@ -430,6 +460,7 @@ public class Main_list_Fragment extends Fragment{
 			CMN.a.mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 			//Toast.makeText(getApplicationContext(), "添加歌词预览视图", Toast.LENGTH_SHORT).show();
 			TextView tv = (TextView)lyric_layout.findViewById(R.id.lrc_text);
+			Button to_editor = (Button)lyric_layout.findViewById(R.id.to_editor);
 			JSONArray jsonArray = new JSONArray("["+str+"]");
 			JSONObject ducoj = jsonArray.getJSONObject(0);
 			String lyrics = ducoj.optString("lyric");
@@ -445,6 +476,21 @@ public class Main_list_Fragment extends Fragment{
 			((TextView)lyric_layout.findViewById(R.id.lrc_text)).setTextColor(Color.rgb(0,0,0));
 			//((TextView)lyric_layout.findViewById(R.id.lrc_text)).setMovementMethod(ScrollingMovementMethod.getInstance());
 			lyric_layout.setAlpha(0.85f);
+			to_editor.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					CMN.curr_proj_timecode=-1;
+					CMN.a.initF2();
+					CMN.a.f2.prepare_lyric_assign(it.abs_full_path);
+					CMN.a.f2.prepareMedia(CMN.opt.save_path+it.Songname.substring(0,it.Songname.length()-4)+".mp3");
+					CMN.a.f2.src_title_et.setText(""+it.Songname.substring(0,it.Songname.length()-4));
+					CMN.a.viewPager.setCurrentItem(1);
+					CMN.a.f2.tabLayout.setScrollPosition(1,0,true);
+					CMN.a.f2.tabLayout.getTabAt(1).select();
+					//CMN.a.f2.onTabSelected(CMN.a.f2.tabLayout.getTabAt(0));//TODO opt
+					CMN.a.f2.onTabSelected(CMN.a.f2.tabLayout.getTabAt(1));
+				}
+			});
 			//提取
 			((Button)lyric_layout.findViewById(R.id.lyric_back)).setOnClickListener(new OnClickListener(){
 				@Override
@@ -454,6 +500,9 @@ public class Main_list_Fragment extends Fragment{
 							break;
 						case 1:CMN.opt.co_lyrics_sep = " ";
 							break;
+					}
+					if(!new File(opt.save_path).exists()){
+						new File(opt.save_path).mkdirs();
 					}
 					extractLyrics(it);
 					CMN.showT("提取完成！");
@@ -494,8 +543,10 @@ public class Main_list_Fragment extends Fragment{
 			if(lyrics!=null && lyrics!="") {//确认提取
 				String[] lst1 = lyrics.split("\\n");
 				HashMap<Integer, String> lst2_texts = new HashMap<Integer, String>();
-				ArrayList<myCpr> lst1_texts = new ArrayList<myCpr>();
-				String lst1_textsStr = "";
+				//ArrayList<myCpr> lst1_texts = new ArrayList<myCpr>();
+				StringBuilder lst1_textsStr = new StringBuilder();
+				if (opt.addisSongLyricHeader)
+					lst1_textsStr.append("[is:songLrc]\r\n");
 				if (CMN.opt.translationFormatNumber != 2)
 					if (ducoj.has("translateLyric")){
 						String[] lst2 = ducoj.optString("translateLyric").split("\\n");
@@ -507,18 +558,22 @@ public class Main_list_Fragment extends Fragment{
 							}
 							String boli = i.substring(offa + 1, offb);
 							String[] tmp = boli.split("[: .]");
-							if (tmp.length != 3) continue;
-							if (tmp[0].length() != 2 || tmp[1].length() != 2)
-								continue;
-							if (tmp[2].length() == 2)
-								tmp[2] = tmp[2] + "0";
-							if (tmp[2].length() != 3) continue;
-							int time = Integer.valueOf(tmp[0]) * 60000 + Integer.valueOf(tmp[1]) * 1000 + Integer.valueOf(tmp[2]);
-							lst2_texts.put(time, i.substring(offb + 1));
+							int time = -1;
+							if (tmp.length == 3)
+							{
+								if (tmp[2].length() == 2)
+									tmp[2] = tmp[2] + "0";
+
+								try{
+									time = Integer.valueOf(tmp[0]) * 60000 + Integer.valueOf(tmp[1]) * 1000 + Integer.valueOf(tmp[2]);//时间码
+								}catch (NumberFormatException e){time = -1;}
+							}
+							if (time!=-1)
+								lst2_texts.put(time, i.substring(offb + 1));
 						}
 					}
 				for (String i : lst1) {//处理原版歌词
-					boolean isLyric = true;
+					//boolean isLyric = true;
 					int offa = i.indexOf("[");
 					int offb = i.indexOf("]");
 					if (offa == -1 || offb == -1) {
@@ -528,29 +583,31 @@ public class Main_list_Fragment extends Fragment{
 					String boli = i.substring(offa + 1, offb);
 					String[] tmp = boli.split("[: .]");
 					//格式检查
-					if (tmp.length != 3)
-						isLyric = false;
-					else {
-						if (tmp[0].length() != 2 || tmp[1].length() != 2)
-							isLyric = false;
+					int time = -1;
+					if (tmp.length == 3)
+					{
+						//if (tmp[0].length() != 2 || tmp[1].length() != 2)
+						//	isLyric = false;
 						if (tmp[2].length() == 2)
 							tmp[2] = tmp[2] + "0";
-						if (tmp[2].length() != 3) isLyric = false;
+
+						try{
+							time = Integer.valueOf(tmp[0]) * 60000 + Integer.valueOf(tmp[1]) * 1000 + Integer.valueOf(tmp[2]);//时间码
+						}catch (NumberFormatException e){time = -1;}
 					}
-					if (isLyric) {
-						int time = Integer.valueOf(tmp[0]) * 60000 + Integer.valueOf(tmp[1]) * 1000 + Integer.valueOf(tmp[2]);//时间码
+					if (time!=-1) {
 						String text = (offb + 1) < i.length() ? i.substring(offb + 1) : "";//原版歌词
 						if (!"".equals(text)) {//跳过冗余
 							if (lst2_texts.containsKey(time))
 								//lst1_texts.add(new myCpr(time,i.substring(offb+1)+"\r\n"+lst2_texts.get(time)));
-								lst1_textsStr += ms2ffmTime(Long.valueOf(time))  + i.substring(offb + 1) + CMN.opt.co_lyrics_sep + lst2_texts.get(time) + "\r\n";
+								lst1_textsStr.append(ms2ffmTime(Long.valueOf(time))).append(i.substring(offb + 1)).append(CMN.opt.co_lyrics_sep).append(lst2_texts.get(time)).append("\r\n");
 							else
 								//lst1_texts.add(new myCpr(time,i.substring(offb+1)));
-								lst1_textsStr += ms2ffmTime(Long.valueOf(time)) + i.substring(offb + 1) + "\r\n";
+								lst1_textsStr.append(ms2ffmTime(Long.valueOf(time))).append(i.substring(offb + 1)).append("\r\n");
 						}
 					} else {
 						if(opt.addOtherNoneLyricInfos)
-							lst1_textsStr += i + "\n";
+							lst1_textsStr.append(i).append("\n");
 					}
 				}
 
@@ -565,11 +622,13 @@ public class Main_list_Fragment extends Fragment{
 
 
 				//最终写入
-				if (opt.addisSongLyricHeader)
-					lst1_textsStr = "[is:songLrc]\r\n" + lst1_textsStr;
+
 				outFile.createNewFile();
-				OutputStreamWriter oufi = new OutputStreamWriter(new FileOutputStream(opt.save_path + fn), charsetNames[opt.charSetNumber]);
-				oufi.write(lst1_textsStr);
+				OutputStreamWriter oufi = new OutputStreamWriter(new FileOutputStream(opt.save_path + fn), CMN.charsetNames[opt.charSetNumber]);
+				oufi.write(lst1_textsStr.toString());
+				lst1_textsStr.setLength(0);
+				lst1_textsStr=null;
+				//TODO 复用测试
 				oufi.close();
 			}
 		} catch (FileNotFoundException e) {
@@ -656,23 +715,23 @@ public class Main_list_Fragment extends Fragment{
 }
 ///[fragment END]
 
-class myCpr implements Comparable<myCpr>{
-	public int key;
-	public String value;
-	public myCpr(int k,String v){
-		key=k;value=v;
-	}
+//class myCpr implements Comparable<myCpr>{
+//	public int key;
+//	public String value;
+//	public myCpr(int k,String v){
+//		key=k;value=v;
+//	}
+//
+//	public int compareTo(myCpr other) {
+//		return this.key-other.key;
+//	}
 
-	public int compareTo(myCpr other) {
-		return this.key-other.key;
-	}
-
-
-	public String toString(){
-		return key+"_"+value;
-	}
-
-}
+//
+//	public String toString(){
+//		return key+"_"+value;
+//	}
+//
+//}
 
 class Item{
 	int color;

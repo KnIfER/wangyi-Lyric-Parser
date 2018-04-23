@@ -48,4 +48,16 @@
         <item name="colorControlNormal">@color/white</item>
         <item name="colorControlActivated">@color/cst</item>
     </style>
+
+    <style name="MyEditText2" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/white</item>
+        <item name="colorControlActivated">@color/cst</item>
+        <item name="android:textColorSecondary">@color/main_dark_blue</item>
+        <item name="android:textColorPrimary">@color/main_dark_blue</item>
+    </style>
+
+    <style name="transparentDialog" parent="@android:style/Theme">
+        <item name="android:padding">0dp</item><!--无标题-->
+
+    </style>
 </resources>

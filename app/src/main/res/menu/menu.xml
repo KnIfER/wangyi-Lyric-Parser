@@ -3,10 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/export"
-        android:title="导出lrc"
-        app:showAsAction="never"/>
-    <item
         android:id="@+id/save"
         android:title="保存项目"
         app:showAsAction="never"/>
@@ -14,6 +10,17 @@
         android:id="@+id/open"
         android:title="打开项目"
         app:showAsAction="never"/>
-
+    <item
+        android:id="@+id/export"
+        android:title="导出lrc..."
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/loadOut"
+        android:title="载入外部工程"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/exportOut"
+        android:title="导出为外部工程"
+        app:showAsAction="never"/>
 
 </menu>

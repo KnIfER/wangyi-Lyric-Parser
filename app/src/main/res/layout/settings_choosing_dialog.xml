@@ -9,6 +9,7 @@ android:orientation="horizontal">
         android:layout_height="wrap_content"
         android:listSelector="@drawable/color_double_list_bg"
         android:drawSelectorOnTop="true"
+        android:theme="@style/transparentDialog"
         /> 　　
 
 </LinearLayout>

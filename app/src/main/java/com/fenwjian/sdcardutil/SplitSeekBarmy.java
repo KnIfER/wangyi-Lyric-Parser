@@ -132,9 +132,11 @@ public class SplitSeekBarmy extends SeekBar {
         if(tree!=null)
             drawSubSet(canvas);
         //inOrderDraw(tree.getRoot(),canvas);
-	
+
 	}
     private void  drawSubSet(Canvas canvas){
+        if(CMN.a==null)
+            return;
         if(getTag(R.id.position)==null)
             return;
         int PosTmp = (int) getTag(R.id.position);
@@ -149,6 +151,12 @@ public class SplitSeekBarmy extends SeekBar {
             //canvas.drawCircle((float)xLeft+(float)(tmp2-tmp*(60*1000) )/(float)getMax()*(-xLeft + xRight), 25, 3.0f, mPaint);
             float tmp3 = (float)xLeft+(float)(tmp2-PosTmp*(60*1000) )/(float)getMax()*(-xLeft + xRight);
             canvas.drawOval(tmp3-3,0,tmp3+3,getHeight() , mPaint);
+            if(curr==CMN.a.f2.lastAttach) {
+                mPaint.setColor(Color.parseColor("#ffffff"));
+                //canvas.drawOval(tmp3 - 6, getHeight() - 3, tmp3 + 6, getHeight(), mPaint);
+                //canvas.drawOval(tmp3 - 6, 0, tmp3 + 6, 3, mPaint);
+                canvas.drawCircle(tmp3, getHeight()/2, 3.0f, mPaint);
+            }
             curr = tree.successor(curr);
         }
         mPaint.setColor(Color.RED);

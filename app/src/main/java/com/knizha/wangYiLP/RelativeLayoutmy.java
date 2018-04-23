@@ -5,7 +5,8 @@ import android.util.AttributeSet;
 import android.widget.RelativeLayout;
 
 /**
- * Created by ASDZXC on 2018/3/30.
+ * Created by KnIfER on 2018/3/30.
+ * 监听键盘弹出
  */
 
 public class RelativeLayoutmy extends RelativeLayout {

@@ -20,15 +20,15 @@ import java.util.Locale;
 
 //subSlaveThread
 public class LPWorkerThread extends Thread{
-    RelativeLayout displayer;
+    MainActivity displayer;
     String save_path,load_path;
     Handler handler;
     String HistoryHeader;
     public static volatile int alive_count=5;
 
     private LPWorkerThread(){}
-    public LPWorkerThread(String _save_path,String _load_path,RelativeLayout _displayer,Handler h,String HistoryHeader){
-        displayer=_displayer;
+    public LPWorkerThread(String _save_path,String _load_path,MainActivity a,Handler h,String HistoryHeader){
+        displayer=a;
         save_path=_save_path;
         load_path=_load_path;
         this.HistoryHeader = HistoryHeader;
@@ -70,7 +70,7 @@ public class LPWorkerThread extends Thread{
                 if(!LPWorkerThreadManager.isHasFilter){
                     ResultUpdateRunnable updater=new ResultUpdateRunnable(displayer,load_path,fn);
                     handler.post(updater);
-                }else if(fn.contains(CMN.a.f1.oldSearchingTitle)){
+                }else if(fn.contains(displayer.f1.oldSearchingTitle)){
                     ResultUpdateRunnable updater=new ResultUpdateRunnable(displayer,load_path,fn);
                     handler.post(updater);
                 }

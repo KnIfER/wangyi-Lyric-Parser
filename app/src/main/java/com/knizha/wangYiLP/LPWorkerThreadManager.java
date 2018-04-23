@@ -31,13 +31,13 @@ public class LPWorkerThreadManager extends Thread{
     }
 
     public static RBTree<String> processedNodeTree = new RBTree<String>();
-    RelativeLayout displayer;
+    MainActivity displayer;
     String save_path,load_path;
     Handler handler;
     private boolean inter=false;
-    public LPWorkerThreadManager(RelativeLayout _displayer){
+    public LPWorkerThreadManager(MainActivity a){
         LPWorkerThread.alive_count=CMN.opt.multiThreadNumber;
-        displayer=_displayer;
+        displayer=a;
         save_path=CMN.opt.save_path;
         load_path=CMN.opt.load_path;
         handler=CMN.opt.handler;
@@ -47,7 +47,7 @@ public class LPWorkerThreadManager extends Thread{
         handler.post(new Runnable(){
             @Override
             public void run(){
-                ((Button)CMN.a.findViewById(R.id.run_button)).setText("运行");
+                ((Button)displayer.findViewById(R.id.run_button)).setText("运行");
             }
         });
     }
@@ -60,8 +60,8 @@ public class LPWorkerThreadManager extends Thread{
     @Override
     public void run(){
         File path=new File(load_path);
-        String textInEditor = CMN.a.f1.ettoptop.getText().toString();
-        String textOld = CMN.a.f1.oldSearchingTitle;
+        String textInEditor = displayer.f1.ettoptop.getText().toString();
+        String textOld = displayer.f1.oldSearchingTitle;
         if(textInEditor.equals(""))
             isHasFilter = false;
         else
@@ -70,7 +70,7 @@ public class LPWorkerThreadManager extends Thread{
             //Looper.prepare();
             //CMN.show("re-search!");
             //Looper.loop();
-            CMN.a.f1.oldSearchingTitle = textInEditor;
+            displayer.f1.oldSearchingTitle = textInEditor;
             CMN.opt.handler.sendEmptyMessage(R.id.refresh_main_list);
             processedNodeTree.clear();
         }
@@ -95,7 +95,7 @@ public class LPWorkerThreadManager extends Thread{
                     if(!isHasFilter){
                         ResultUpdateRunnable updater = new ResultUpdateRunnable(displayer, f.getAbsolutePath(), name_tmp);
                         handler.post(updater);
-                    }else if(name_tmp.toLowerCase().contains(CMN.a.f1.oldSearchingTitle.toLowerCase())){
+                    }else if(name_tmp.toLowerCase().contains(displayer.f1.oldSearchingTitle.toLowerCase())){
                         ResultUpdateRunnable updater = new ResultUpdateRunnable(displayer, f.getAbsolutePath(), name_tmp);
                         handler.post(updater);
                     }
@@ -104,7 +104,7 @@ public class LPWorkerThreadManager extends Thread{
                     ResultUpdateRunnable updater=new ResultUpdateRunnable(displayer,f.getAbsolutePath(),f.getName());
                     handler.post(updater);
                     processedNodeTree.insert(id_Name);
-                }else{//干正、紧的
+                }else{//干
                     LPWorkerThread.alive_count--;
                     t=new LPWorkerThread(save_path,f.getAbsolutePath(),displayer,handler,CMN.opt.hisHandle.getAbsolutePath());
 

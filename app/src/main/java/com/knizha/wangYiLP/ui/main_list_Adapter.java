@@ -12,10 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.knizha.wangYiLP.CMN;
-import com.knizha.wangYiLP.Main_lyric_Fragment;
 import com.knizha.wangYiLP.R;
-import com.knizha.wangYiLP.ui.OnItemClickListener;
-import com.knizha.wangYiLP.ui.OnItemLongClickListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -138,7 +135,7 @@ class main_list_Adapter extends RecyclerView.Adapter<MyViewHolder>
         //if(!CMN.a.opt.editor_collapse_item_when_NotFocused) {
         //	holder.url.setSingleLine(false);
         //}else{
-        //holder.url.setOnFocusChangeListener(Main_lyric_Fragment.this);
+        //holder.url.setOnFocusChangeListener(Main_editor_Fragment.this);
         //}
         //处理 Focus 冲突
         if (mTouchItemPosition == position) {

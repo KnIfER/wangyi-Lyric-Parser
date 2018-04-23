@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_height="match_parent"
 	android:layout_width="match_parent"
@@ -7,41 +7,49 @@
 	android:background="#FFFFFF"
 	android:alpha="0.85"
 	android:orientation="vertical">
-
-	<RelativeLayout
-		android:layout_height="50dp"
+	<LinearLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_height="match_parent"
 		android:layout_width="match_parent"
-		android:id="@+id/main_lrc_layout">
+		android:background="#FFFFFF"
+		android:alpha="0.85"
+		android:orientation="vertical">
+	<RelativeLayout
+		android:id="@+id/main_lrc_layout"
+		android:layout_width="match_parent"
+		android:layout_height="50dp">
+
 		<HorizontalScrollView
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			android:background="#1D9DFF"
 			android:layout_toLeftOf="@+id/lyric_back"
+			android:background="#1D9DFF"
 			android:paddingLeft="20dp"
-			android:scrollbars="none"
-			>
-		<TextView
-			android:id="@+id/file_name_text"
-			android:textAppearance="?android:attr/textAppearanceLarge"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:text="N/A"
-			android:textSize="15sp"
-			android:gravity="center_vertical"
-			android:paddingRight="20dp"
-			android:textColor="#E5E5E5"
-			android:singleLine="true"/>
+			android:scrollbars="none">
+
+			<TextView
+				android:id="@+id/file_name_text"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:gravity="center_vertical"
+				android:paddingRight="20dp"
+				android:singleLine="true"
+				android:text="N/A"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:textColor="#E5E5E5"
+				android:textSize="15sp" />
 		</HorizontalScrollView>
+
 		<Button
-			style="?android:attr/buttonBarButtonStyle"
 			android:id="@+id/lyric_back"
-			android:layout_height="match_parent"
+			style="?android:attr/buttonBarButtonStyle"
 			android:layout_width="75dp"
-			android:text="提取"
-			android:textColor="#1D9DFF"
+			android:layout_height="match_parent"
 			android:layout_alignParentRight="true"
 			android:background="@drawable/listselector2"
-			android:textAlignment="center"/>
+			android:text="提取"
+			android:textAlignment="center"
+			android:textColor="#1D9DFF" />
 
 	</RelativeLayout>
 
@@ -61,3 +69,21 @@
 
 </LinearLayout>
 
+	<Button
+		android:layout_height="35dp"
+		android:layout_width= "35dp"
+		android:layout_marginRight="10dp"
+		android:layout_marginBottom="50dp"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentBottom="true"
+		android:textColor="@color/textColorSecondary"
+		style="?android:attr/buttonBarButtonStyle"
+		android:background="@drawable/ic_mode_edit_black_24dp"
+		android:backgroundTint="#1D9DFF"
+		android:id="@+id/to_editor"
+		android:textOff=""
+		android:textOn= ""
+		/>
+
+
+</RelativeLayout>

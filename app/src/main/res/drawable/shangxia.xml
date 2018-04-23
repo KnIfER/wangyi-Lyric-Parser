@@ -5,13 +5,16 @@
         <shape>
             <solid
                 android:color="@color/white"/>
+            <size android:height="1dp"></size>
         </shape>
-    </item><item
-    android:height="1dp"
-    android:gravity="top">
-    <shape>
-        <solid
-            android:color="@color/white"/>
-    </shape>
-</item>
+    </item>
+    <item
+        android:height="1dp"
+        android:gravity="top">
+        <shape>
+            <solid
+                android:color="@color/white"/>
+        <size android:height="1dp"></size>
+        </shape>
+    </item>
 </layer-list>

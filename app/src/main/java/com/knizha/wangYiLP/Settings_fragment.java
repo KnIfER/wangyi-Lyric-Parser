@@ -397,8 +397,16 @@ public class Settings_fragment extends Fragment {
             lv.setAdapter(chooseSettingsAdapter_);
             builder.setView(dialog);
             builder.setIcon(R.mipmap.ic_directory_parent);
+            builder.setNeutralButton("删除",null);
             d = builder.create();
             d.show();
+            d.getButton(AlertDialog.BUTTON_NEUTRAL).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    chooseSettingsAdapter_.showDelete=!chooseSettingsAdapter_.showDelete;
+                    chooseSettingsAdapter_.notifyDataSetChanged();
+                }
+            });
         }
     };
     public void copyFileToPath(File from,File to){
@@ -465,8 +473,17 @@ public class Settings_fragment extends Fragment {
             };
             builder.setView(dialog);
             builder.setIcon(R.mipmap.ic_directory_parent);
+            builder.setNeutralButton("删除",null);
             d = builder.create();
             d.show();
+            d.getButton(AlertDialog.BUTTON_NEUTRAL).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    chooseSettingsAdapter_.showDelete=!chooseSettingsAdapter_.showDelete;
+                    chooseSettingsAdapter_.notifyDataSetChanged();
+                }
+            });
+
         }
     };
 
@@ -477,9 +494,11 @@ public class Settings_fragment extends Fragment {
     private final chooseSettingsAdapter chooseSettingsAdapter_ = new chooseSettingsAdapter();
     class chooseSettingsAdapter extends BaseAdapter {
         ArrayList<File> list;
+        boolean showDelete=false;
         public chooseSettingsAdapter()
         {refresh();}
         public void refresh(){
+            showDelete=false;
             list = new ArrayList(java.util.Arrays.asList(CMN.opt.module_sets_Handle.listFiles()));
         }
         @Override public long getItemId(int pos){return pos;}
@@ -494,13 +513,19 @@ public class Settings_fragment extends Fragment {
             final File item = list.get(pos);
             final String fn = item.getName().substring(0,item.getName().lastIndexOf("."));
             tv.setText(fn);
-            remove.setOnClickListener(new View.OnClickListener(){
-                @Override public void onClick(View v) {
-                    list.get(pos).delete();
-                    list.remove(list.get(pos));
-                    notifyDataSetChanged();
-                }
-            });
+
+            if(showDelete) {//TODO OPT
+                remove.setVisibility(View.VISIBLE);
+                remove.setOnClickListener(new View.OnClickListener(){
+                    @Override public void onClick(View v) {
+                        list.get(pos).delete();
+                        list.remove(list.get(pos));
+                        notifyDataSetChanged();
+                    }
+                });
+            }
+            else
+                remove.setVisibility(View.GONE);
             v.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

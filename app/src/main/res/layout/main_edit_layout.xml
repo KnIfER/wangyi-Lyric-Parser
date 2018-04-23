@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         app:tabGravity="center">
     </android.support.design.widget.TabLayout>
+
     <com.knizha.plod.ui.BaseToolbar
         android:id="@+id/toolbar"
         android:layout_width="wrap_content"
@@ -28,7 +29,6 @@
         android:background="#000000ff"
         >
     </com.knizha.plod.ui.BaseToolbar>
-
 
     <com.fenwjian.sdcardutil.ScrollViewmy
         android:id="@+id/sv"
@@ -44,18 +44,6 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-            <com.fenwjian.sdcardutil.TextViewmy
-                android:id="@+id/webview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#00ffffff"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:gravity="center"
-                android:hardwareAccelerated="false"
-                android:textIsSelectable="true" />
-
             <ImageView
                 android:id="@+id/breakABLoop"
                 android:layout_width="25dp"
@@ -63,7 +51,16 @@
                 android:layout_alignParentRight="true"
                 android:background="@drawable/shape2"
                 android:visibility="invisible" />
-
+            <com.fenwjian.sdcardutil.TextViewmy
+                android:id="@+id/webview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00ffffff"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:hardwareAccelerated="true"
+                android:textIsSelectable="true" />
         </RelativeLayout>
     </com.fenwjian.sdcardutil.ScrollViewmy>
 
@@ -96,7 +93,7 @@
             android:layout_centerInParent="true"
             android:layout_alignParentLeft="true"
             android:gravity="center"
-            android:text="999"
+            android:text="0"
             android:textColor="#00FA9A"/>
 
         <ImageView
@@ -150,105 +147,6 @@
         android:gravity="center"
         android:src="@drawable/ic_location_searching_black_24dp" />
 
-    <RelativeLayout
-        android:id="@+id/bottomtop"
-        android:background="#666666"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/bottom"
-        android:gravity="center_vertical|fill_horizontal"
-        android:orientation="horizontal">
-        <TextView
-            android:id="@+id/currentT"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerInParent="true"
-            android:text="00:00"
-            android:textColor="#aaaaaa" />
-        <com.fenwjian.sdcardutil.SeekBarmy
-            android:id="@+id/progress"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:max="100"
-            android:progress="0"
-            android:thumbOffset="0dp"
-            android:paddingLeft="-2dp"
-            android:paddingRight="-2dp"
-            android:layout_toRightOf="@+id/currentT"
-            android:layout_toLeftOf="@+id/totalT"
-            android:visibility="visible" />
-        <TextView
-            android:id="@+id/totalT"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
-            android:text="00:10"
-            android:textColor="#aaaaaa" />
-    </RelativeLayout>
-
-
-    <RelativeLayout
-        android:id="@+id/bottom"
-        android:background="#666666"
-        android:layout_width="match_parent"
-        android:layout_height="85dp"
-        android:layout_alignParentBottom="true"
-        android:gravity="center|center_horizontal|center_vertical">
-
-        <android.widget.ImageView
-            android:id="@+id/browser_widget1"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:src="@drawable/ic_library_music_black_24dp"
-            android:clickable="true"
-            android:paddingLeft="3dp"
-            android:paddingRight="10dp"
-            android:layout_alignParentLeft="true"/>
-
-        <android.widget.ImageView
-            android:id="@+id/browser_widget2"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:layout_toLeftOf="@+id/browser_widget3"
-            android:layout_weight="1"
-            android:src="@drawable/ic_arrow_back_black_24dp"
-            android:clickable="true"
-            android:layout_marginRight="25dp"/>
-
-        <android.widget.ImageView
-            android:id="@+id/browser_widget3"
-            android:layout_width="72dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:layout_centerInParent="true"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:src="@drawable/ic_add_circle_black_24dp" />
-
-        <android.widget.ImageView
-            android:id="@+id/browser_widget4"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="25dp"
-            android:layout_toRightOf="@id/browser_widget3"
-            android:layout_weight="2"
-            android:clickable="true"
-            android:src="@drawable/ic_arrow_forward_black_24dp" />
-
-        <android.widget.ImageView
-            android:id="@+id/browser_widget5"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_alignParentRight="true"
-            android:clickable="true"
-            android:src="@drawable/ic_insert_drive_file_black_24dp" />
-
-    </RelativeLayout>
-
     <ImageView
         android:id="@+id/adjustBar_toggle"
         android:layout_width="wrap_content"
@@ -296,8 +194,8 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/jingShi"
             android:layout_alignTop="@+id/jingShi"
-            android:textOff="L"
-            android:textOn="L"
+            android:textOff="循"
+            android:textOn="循"
             android:textColor="#4F7FDF"
             android:background="@drawable/toggle_selector"
             />
@@ -322,21 +220,148 @@
             android:textOn= "R"
             android:textColor="#4F7FDF"
             android:background="@drawable/toggle_selector"
+            android:visibility="gone"
+            />
+        <ToggleButton
+            android:id="@+id/toptoggle_adjustAll"
+            android:layout_width="15dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/toptoggle_release"
+            android:layout_alignTop="@+id/jingShi"
+            android:textOff="全"
+            android:textOn= "全"
+            android:textColor="#4F7FDF"
+            android:background="@drawable/toggle_selector"
             />
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/bottomtop"
+        android:background="#666666"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom"
+        android:gravity="center_vertical|fill_horizontal"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/currentT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:text="00:00"
+            android:textColor="#aaaaaa" />
+        <com.fenwjian.sdcardutil.SeekBarmy
+            android:id="@+id/progress"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:max="100"
+            android:progress="0"
+            android:thumbOffset="0dp"
+            android:paddingLeft="-2dp"
+            android:paddingRight="-2dp"
+            android:layout_toRightOf="@+id/currentT"
+            android:layout_toLeftOf="@+id/totalT"
+            android:visibility="visible" />
+        <TextView
+            android:id="@+id/totalT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:text="00:10"
+            android:textColor="#aaaaaa" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/bottom"
+        android:background="#666666"
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center|center_horizontal|center_vertical">
+
+        <android.widget.ImageView
+            android:id="@+id/browser_widget1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/xuxian"
+            android:clickable="true"
+            android:paddingBottom="2dp"
+            android:paddingLeft=  "7dp"
+            android:paddingRight= "7dp"
+            android:paddingTop=   "2dp"
+            android:src="@drawable/ic_vertical_align_center_black_24dp" />
+
+        <android.widget.ImageView
+            android:id="@+id/browser_widget2"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/browser_widget3"
+            android:layout_weight="1"
+            android:src="@drawable/ic_arrow_back_black_24dp"
+            android:clickable="true"
+            android:layout_marginRight="7dp"/>
+
+        <android.widget.ImageView
+            android:id="@+id/browser_widget3"
+            android:layout_width="72dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_centerInParent="true"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:src="@drawable/ic_add_circle_black_24dp" />
+
+        <android.widget.ImageView
+            android:id="@+id/browser_widget4"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/browser_widget3"
+            android:layout_weight="2"
+            android:clickable="true"
+            android:src="@drawable/ic_arrow_forward_black_24dp"
+            android:layout_marginLeft="7dp" />
+
+        <android.widget.ImageView
+            android:id="@+id/browser_widget5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:clickable="true"
+            android:paddingBottom="2dp"
+            android:paddingLeft=  "7dp"
+            android:paddingRight= "7dp"
+            android:paddingTop=   "2dp"
+            android:background="@drawable/xuxian"
+            android:src="@drawable/items" />
+
+    </RelativeLayout>
 
     <ScrollView
         android:id="@+id/seekScroll"
         android:background="#00666666"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
+        android:maxHeight="100dp"
         android:layout_marginLeft= "35dp"
         android:layout_marginRight="35dp"
-        android:layout_marginBottom="20dp"
-        android:layout_alignBottom="@+id/bottomtop"
+        android:layout_marginBottom="-8dp"
         android:focusableInTouchMode="false"
+        android:layout_above="@+id/bottomtop"
+        android:visibility="visible"
+        android:gravity="bottom"
         >
         <com.knizha.wangYiLP.ui.ListViewmy
             android:id="@+id/lv_seekbars"
@@ -348,4 +373,208 @@
             >
         </com.knizha.wangYiLP.ui.ListViewmy>
     </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/src_layout"
+        android:layout_width= "match_parent"
+        android:layout_height="match_parent"
+        android:gravity="top"
+        android:layout_gravity="top"
+        android:layout_centerInParent="false"
+        android:layout_below="@+id/tabLayout"
+        android:layout_above="@+id/bottomtop"
+        android:orientation="vertical"
+        android:background="#666666"
+        android:layout_marginBottom="-9dp"
+        android:visibility="invisible">
+        <LinearLayout
+            android:layout_width= "match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerInParent="true"
+            >
+            <ImageView
+                android:id="@+id/doc_mp3_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_library_music_black_24dp"
+                android:background="@drawable/shixian"
+                android:paddingLeft="14dp"
+                android:paddingRight="13dp"/>
+
+            <TextView
+                android:id="@+id/doc_mp3_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#00179b"
+                android:layout_centerInParent="true"
+                android:gravity="center_vertical"
+                android:paddingLeft="5dp"
+                android:text="url of doc_mp3"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width= "match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            >
+            <ImageView
+                android:id="@+id/doc_lrc_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_insert_drive_file_black_24dp"
+                android:background="@drawable/shixian"
+                android:paddingLeft="14dp"
+                android:paddingRight="13dp"/>
+            <TextView
+                android:id="@+id/doc_lrc_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="#00179b"
+                android:layout_centerInParent="true"
+                android:gravity="center_vertical"
+                android:paddingLeft="5dp"
+                android:text="url of doc_lrc"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/shixian"
+                android:text="标题："
+                android:paddingLeft="10dp"
+                android:gravity="center"
+                android:textColor="@color/white" />
+
+            <EditText
+                android:id="@+id/src_title_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Untitled"
+                android:textColor="#ffffff"/>
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/src_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/white"
+                android:textIsSelectable="true"
+                android:paddingLeft="15dp"
+                android:text="\r\n"/>
+        </ScrollView>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/items_layout"
+        android:background="#0a666666"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp"
+        android:visibility="invisible">
+
+        <RelativeLayout
+            android:id="@+id/itemlets"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/deletln"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/shixian"
+            android:clickable="true"
+            >
+
+            <ToggleButton
+                android:id="@+id/items1"
+                android:layout_width= "25dp"
+                android:layout_height="25dp"
+                android:padding="5dp"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:background="@drawable/toggle_selector_item1"
+                android:textOff=""
+                android:textOn= ""
+                />
+            <ToggleButton
+                android:id="@+id/items2"
+                android:layout_toRightOf="@+id/items1"
+                android:layout_width= "25dp"
+                android:layout_height="25dp"
+                android:padding="5dp"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:background="@drawable/toggle_selector_item2"
+                android:textOff=""
+                android:textOn= ""/>
+            <ToggleButton
+                android:id="@+id/items3"
+                android:layout_toRightOf="@+id/items2"
+                android:layout_width= "25dp"
+                android:layout_height="25dp"
+                android:padding="5dp"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:background="@drawable/toggle_selector_item3"
+                android:textOff=""
+                android:textOn= ""/>
+            <ToggleButton
+                android:id="@+id/items4"
+                android:layout_toRightOf="@+id/items3"
+                android:layout_width= "25dp"
+                android:layout_height="25dp"
+                android:padding="5dp"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:background="@drawable/toggle_selector_item4"
+                android:textOff=""
+                android:textOn= ""/>
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/deletln"
+            android:layout_alignLeft="@+id/itemlets"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/addln"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:paddingLeft="8dp"
+            android:text="删除行..."
+            android:clickable="true"
+            android:background="@drawable/listselector1"/>
+
+        <View
+            android:layout_alignLeft="@+id/itemlets"
+            android:layout_width="match_parent"
+            android:layout_above="@+id/deletln"
+            android:layout_height="1dp"
+            android:background="@color/main_dark_blue"/>
+        <TextView
+            android:id="@+id/addln"
+            android:layout_alignLeft="@+id/itemlets"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:paddingLeft="8dp"
+            android:text="添加行..."
+            android:clickable="true"
+            android:background="@drawable/listselector1"/>
+
+        <View
+            android:layout_alignLeft="@+id/itemlets"
+            android:layout_width="match_parent"
+            android:layout_above="@+id/addln"
+            android:layout_height="1dp"
+            android:background="@color/main_dark_blue"/>
+    </RelativeLayout>
+
 </com.knizha.wangYiLP.RelativeLayoutmy>

@@ -28,6 +28,8 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:id="@+id/main_list"
+            android:fastScrollEnabled="false"
+            android:scrollbarTrackVertical="@null"
             android:layout_marginTop="50dp"
             android:drawSelectorOnTop="true"
             android:listSelector="@drawable/color_double_list_bg"
@@ -37,37 +39,40 @@
 </eightbitlab.com.blurview.BlurView>
 
     <RelativeLayout
-        android:layout_height="50dp"
+        android:id="@+id/mainRelativeLayout1"
         android:layout_width="match_parent"
-        android:id="@+id/mainRelativeLayout1">
+        android:layout_height="50dp">
 
         <Button
+            android:id="@+id/run_button"
             style="?android:attr/buttonBarButtonStyle"
-            android:layout_height="match_parent"
             android:layout_width="wrap_content"
-            android:text="运行"
-            android:textColor="@color/textColorSecondary"
+            android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
-            android:id="@+id/run_button"/>
+            android:text="运行"
+            android:textColor="@color/textColorSecondary" />
+
         <EditText
             android:id="@+id/ettoptop"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text=""
-            android:textColor="@color/textColorSecondary"
+            android:layout_toLeftOf="@+id/option_button"
             android:layout_toRightOf="@+id/run_button"
-            android:layout_toLeftOf="@+id/option_button"/>
+            android:text=""
+            android:textColor="@color/textColorSecondary" />
+
         <Button
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_height="match_parent"
-            android:layout_width="wrap_content"
-            android:text="选项"
-            android:textColor="@color/textColorSecondary"
-            android:layout_alignParentRight="true"
             android:id="@+id/option_button"
-            android:onClick="OnOptionButtonClick"/>
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:onClick="OnOptionButtonClick"
+            android:text="选项"
+            android:textColor="@color/textColorSecondary" />
 
     </RelativeLayout>
+
     <eightbitlab.com.blurview.BlurView
         android:id="@+id/bottomBlurView"
         android:layout_width="wrap_content"
@@ -88,4 +93,19 @@
 
     </eightbitlab.com.blurview.BlurView>
 
+    <ToggleButton
+        android:layout_height="35dp"
+        android:layout_width= "35dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/textColorSecondary"
+        style="?android:attr/buttonBarButtonStyle"
+        android:background="@drawable/toggle_selector_item1"
+        android:backgroundTint="#1D9DFF"
+        android:id="@+id/viewpager_locker"
+        android:textOff=""
+        android:textOn= ""
+        />
 </RelativeLayout>

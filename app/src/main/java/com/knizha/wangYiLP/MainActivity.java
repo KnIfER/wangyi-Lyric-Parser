@@ -19,9 +19,8 @@ import android.os.Message;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -38,42 +37,19 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.fenwjian.sdcardutil.NoScrollViewPager;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 
-class LP_Option{
-	File hisHandle;
-	File module_sets_Handle;
-	String save_path;
-	Handler handler;
-	String load_path;
-	Context ctx;
-	int thread_count;
-	boolean isCacheNamesOnly = true;
-	boolean SelectAll=false;
-	boolean Overwrite=false;
-	boolean ForbidGetTagFormNet=false;
-	boolean PreviewRawJsonLyric=false;
-	boolean addisSongLyricHeader=true;
-	boolean addOtherNoneLyricInfos=true;
-	boolean editor_collapse_item_when_NotFocused=false;
-	int multiThreadNumber=0;
-	int charSetNumber=0;
-	int timeFormatNumber=0;
-	int translationFormatNumber=0;
-	String co_lyrics_sep = "\r\n";
-	public String dataDir="";
-	public LP_Option(){
-	}
-}
-
 public class MainActivity extends FragmentActivity
 {
-	Main_list_Fragment f1;
-	Main_lyric_Fragment f2;
-	private ViewPager viewPager;  //对应的viewPager
+	List<Fragment> fragments;
+	Main_extractor_Fragment f1;
+	public Main_editor_Fragment f2;
+	protected NoScrollViewPager viewPager;  //对应的viewPager
 
     static String DefaultLoadPath="/sdcard/netease/cloudmusic/Cache/Lyric/";
     //static String DefaultLoadPath="/sdcard/netease/cloudmusic/Download/Lyric/";
@@ -107,19 +83,21 @@ public class MainActivity extends FragmentActivity
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){
 			int count = f1.main.getChildCount();
-			if(count<=4||viewPager.getCurrentItem()==1){
+			if(count<=5||viewPager.getCurrentItem()==1){
 				if((System.currentTimeMillis()-exitTime) > 2000){
-					showT("有种再按一次！");
+					showT("再按一次退出!");
 					exitTime = System.currentTimeMillis();
 				} else {
                     dumpSettings(MODE_PRIVATE);
+                    //onDestroy();
 					finish();
 					System.exit(0);
+					//android.os.Process.killProcess(android.os.Process.myPid());
 				}
 			}else{
 				//option_layout = main.getChildAt(3);
 				//if(count==4) main.removeViewAt(3);
-				if(f1.lyric_layout!=null && f1.lyric_layout.isAttachedToWindow()){
+				if(f1.lyric_layout!=null && ViewCompat.isAttachedToWindow(f1.lyric_layout)){
 					f1.main.removeViewAt(3);
 				}else {
 					getFragmentManager().beginTransaction()
@@ -149,15 +127,13 @@ public class MainActivity extends FragmentActivity
 		CMN.opt = opt;
 		CMN.a = this;
 		CMN.dm = getResources().getDisplayMetrics();
-		viewPager = (ViewPager) findViewById(R.id.viewpager);
-		List<Fragment> fragments=new ArrayList<Fragment>();
-
-		fragments.add(f1 = new Main_list_Fragment());
-		fragments.add(f2 = new Main_lyric_Fragment());
+		viewPager = (NoScrollViewPager) findViewById(R.id.viewpager);
+		fragments=new ArrayList<Fragment>();
+		fragments.add(f1 = new Main_extractor_Fragment());
 
 		FragAdapter adapterf = new FragAdapter(getSupportFragmentManager(), fragments);
 		viewPager.setAdapter(adapterf);
-		viewPager.setCurrentItem(1);
+		viewPager.setCurrentItem(0);
 		//android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
 		//setSupportActionBar(toolbar);
 		// 版本判断。当手机系统大于 23 时，才有必要去判断权限是否获取
@@ -193,13 +169,18 @@ public class MainActivity extends FragmentActivity
 		inflater=LayoutInflater.from(getApplicationContext());
 		CMN.inflater = inflater;
 
-		opt.ctx=getApplicationContext();
+		//opt.ctx=getApplicationContext();
         scanSettings(MODE_PRIVATE);
 		establishHisHanditory();
-
-
-
-
+		if(opt.viewPagerLocked) {
+			viewPager.setNoScroll(true);
+		}else{
+			initF2();
+		}
+		if(opt.isInEditor){
+			initF2();
+			viewPager.setCurrentItem(1);
+		}
 
 
 		final Drawable windowBackground = getWindow().getDecorView().getBackground();
@@ -250,22 +231,27 @@ public class MainActivity extends FragmentActivity
 	@Override
 	protected void onPause(){
 		super.onPause();
-		if(f2==null)
-			return;
-		if(!f2.isMediaPrepared)
-			return;
-		userPauseTime =f2.mMediaPlayer.getCurrentPosition();
-		f2.mMediaPlayer.pause();
-
+		if(f2!=null && f2.isMediaPrepared) {
+			userPauseTime = f2.mMediaPlayer.getCurrentPosition();
+			f2.mMediaPlayer.pause();
+		}
+		CMN.a=null;
 	}
 	@Override
 	protected void onResume(){
 		super.onResume();
-		if(f2==null ||!f2.isAdded())
-			return;
-		f2.resumePlayer(userPauseTime);
+		if(f2!=null && f2.isAdded())
+			f2.resumePlayer(userPauseTime);
+		CMN.a=this;
 	}
-	
+
+	public void initF2() {
+		if(f2==null) {
+			fragments.add(f2 = new Main_editor_Fragment());
+			viewPager.getAdapter().notifyDataSetChanged();
+		}
+	}
+
 
 	//抽屉监听类
 	private class DrawerItemClickListener implements ListView.OnItemClickListener {
@@ -413,8 +399,15 @@ public class MainActivity extends FragmentActivity
         opt.SelectAll      =   read.getBoolean("SelectAll", false);
         opt.ForbidGetTagFormNet      =   read.getBoolean("ForbidGetTagFormNet", false);
         opt.PreviewRawJsonLyric      =   read.getBoolean("PreviewRawJsonLyric", false);
-        opt.addisSongLyricHeader     =   read.getBoolean("addisSongLyricHeader", true);
+        opt.addisSongLyricHeader     =   read.getBoolean("addisSongLyricHeader", false);
         opt.addOtherNoneLyricInfos   =   read.getBoolean("addOtherNoneLyricInfos", true);
+        opt.attatch_cursor_coupled   =   read.getBoolean("attatch_cursor_coupled", true);
+        opt.add_agjust_coupled   =   read.getBoolean("add_agjust_coupled", false);//follow
+        opt.adjust_all   =   read.getBoolean("adjust_all", false);
+        opt.isAttABLooping   =   read.getBoolean("isAttABLooping", false);
+        opt.viewPagerLocked   =   read.getBoolean("viewPagerLocked", true);
+        opt.auto_move_cursor   =   read.getBoolean("auto_move_cursor", false);
+        opt.isInEditor   =   read.getBoolean("isInEditor", false);
         opt.editor_collapse_item_when_NotFocused   =   read.getBoolean("editor_collapse_item_when_NotFocused", false);
         opt.multiThreadNumber        =   read.getInt("multiThreadNumber", 5);
 		opt.charSetNumber			 =   read.getInt("charSetNumber", 0);
@@ -433,6 +426,13 @@ public class MainActivity extends FragmentActivity
         editor.putBoolean("addisSongLyricHeader",      opt.addisSongLyricHeader  );
         editor.putBoolean("addOtherNoneLyricInfos",    opt.addOtherNoneLyricInfos);
         editor.putBoolean("editor_collapse_item_when_NotFocused",    opt.editor_collapse_item_when_NotFocused);
+        editor.putBoolean("viewPagerLocked",           opt.viewPagerLocked);
+        editor.putBoolean("auto_move_cursor",          opt.auto_move_cursor);
+        editor.putBoolean("isInEditor",          viewPager.getCurrentItem()==1);
+        editor.putBoolean("add_agjust_coupled",          opt.add_agjust_coupled);//follow
+        editor.putBoolean("adjust_all",          opt.adjust_all);
+        editor.putBoolean("isAttABLooping",          opt.isAttABLooping);
+        editor.putBoolean("attatch_cursor_coupled",    opt.attatch_cursor_coupled);
         editor.putInt("multiThreadNumber",             opt.multiThreadNumber);
         editor.putInt("charSetNumber",                 opt.charSetNumber);
         editor.putInt("translationFormatNumber",       opt.translationFormatNumber);

@@ -16,8 +16,7 @@ import java.util.ArrayList;
 
 public class RBTree<T extends Comparable<? super T>> {
 
-    private RBTNode<T> mRoot;   public RBTNode<T> getRoot(){return mRoot;} // 根结点
-    
+    private RBTNode<T> mRoot;
     private static final boolean RED   = false;
     private static final boolean BLACK = true;
     
@@ -54,6 +53,8 @@ public class RBTree<T extends Comparable<? super T>> {
         if (node!=null)
             node.color = color;
     }
+
+    public RBTNode<T> getRoot(){return mRoot;} // 根结点
 
     /*
      * 前序遍历"红黑树"
@@ -698,7 +699,7 @@ public class RBTree<T extends Comparable<? super T>> {
      * 参数说明：
      *     node 删除的结点
      */
-    private void remove(RBTNode<T> node) {
+    public void removeIntrinsic(RBTNode<T> node) {
         RBTNode<T> child, parent;
         boolean color;
 
@@ -795,7 +796,7 @@ public class RBTree<T extends Comparable<? super T>> {
         RBTNode<T> node; 
 
         if ((node = search(mRoot, key)) != null)
-            remove(node);
+            removeIntrinsic(node);
     }
 
     /*

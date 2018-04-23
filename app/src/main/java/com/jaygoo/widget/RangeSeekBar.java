@@ -117,7 +117,7 @@ public class RangeSeekBar extends View {
     private int mTextSize;
 
     private int lineTop, lineBottom, lineLeft, lineRight;
-
+    private int lineMidLeft,lineMidRight;
     //进度提示背景的高度，宽度如果是0的话会自适应调整
     //Progress prompted the background height, width,
     // if it is 0, then adaptively adjust
@@ -147,6 +147,7 @@ public class RangeSeekBar extends View {
     private Paint mCursorPaint = new Paint();
     private Paint mProgressPaint;
     private RectF backgroundLineRect = new RectF();
+    private RectF backgroundLineRect2 = new RectF();
     private RectF foregroundLineRect = new RectF();
     private SeekBar leftSB ;
     private SeekBar currTouch;
@@ -251,8 +252,11 @@ public class RangeSeekBar extends View {
         lineLeft = DEFAULT_PADDING_LEFT_AND_RIGHT  + getPaddingLeft();
         lineRight = w - lineLeft - getPaddingRight();
         lineWidth = lineRight - lineLeft;
+        lineMidLeft = (int) ((lineRight + lineLeft)*1f/2-50);
+        lineMidRight = (int) ((lineRight + lineLeft)*1f/2+50);
         //here
         backgroundLineRect.set(lineLeft, lineTop, lineRight, lineBottom);
+        backgroundLineRect2.set(lineMidLeft, lineTop, lineMidRight, lineBottom);
 
         leftSB.onSizeChanged(lineLeft, lineBottom, mThumbSize, lineWidth, cellsCount > 1, mThumbResId, getContext());
 
@@ -275,14 +279,25 @@ public class RangeSeekBar extends View {
         mMainPaint.setColor(colorLineEdge);
 
         canvas.drawRoundRect(backgroundLineRect, lineRadius, lineRadius, mMainPaint);
+        mMainPaint.setColor(Color.WHITE);
+        canvas.drawRoundRect(backgroundLineRect2, lineRadius, lineRadius, mMainPaint);
         mMainPaint.setColor(colorLineSelected);
         //中线
         canvas.drawLine((lineRight+lineLeft)*1.f/2,lineTop,(lineRight+lineLeft)*1.f/2,lineBottom,mMainPaint);
 
         //进度
         foregroundLineRect.top = lineTop;
-        foregroundLineRect.left = leftSB.left + leftSB.widthSize / 2 + leftSB.lineWidth * leftSB.currPercent;
+        //foregroundLineRect.left = leftSB.left + leftSB.widthSize / 2 + leftSB.lineWidth * leftSB.currPercent;
+        //foregroundLineRect.right = (lineRight+lineLeft)*1.f/2;
+        float leftTmp = leftSB.left + leftSB.widthSize / 2 + leftSB.lineWidth * leftSB.currPercentforDraw;
         foregroundLineRect.right = (lineRight+lineLeft)*1.f/2;
+        if(foregroundLineRect.right<leftTmp){
+            foregroundLineRect.left = foregroundLineRect.right;
+            foregroundLineRect.right = leftTmp;
+        }else{
+            foregroundLineRect.left = leftTmp;
+        }
+
         foregroundLineRect.bottom = lineBottom;
         canvas.drawRoundRect(foregroundLineRect, 0, 0, mMainPaint);
 
@@ -328,8 +343,9 @@ public class RangeSeekBar extends View {
         }
     }
 
-    public void setPosition(float position) {
-        leftSB.currPercent = position;
+    public void reSetPosition() {
+        leftSB.currPercent = 0;
+        leftSB.currPercentforDraw = 0.5f;
     }
 
     //*********************************** SeekBar ***********************************//
@@ -338,7 +354,8 @@ public class RangeSeekBar extends View {
         private int lineWidth;
         private int widthSize, heightSize;
         private int left, right, top, bottom;
-        private float currPercent = 0.5f;
+        private float currPercent = 0f;
+        private float currPercentforDraw = 0.5f;
         private float material = 0;
         public boolean isShowingHint;
         private boolean isLeft;
@@ -414,16 +431,16 @@ public class RangeSeekBar extends View {
          * @param canvas
          */
         protected void draw(Canvas canvas) {
-            int offset = (int) (lineWidth * currPercent);
+            int offset = (int) (lineWidth * currPercentforDraw);
             canvas.save();
             canvas.translate(offset, 0);
             String text2Draw = "";
             int hintW = 0,hintH = 0;
-            float[] result = getCurrentRange();
+            //float[] result = getCurrentRange();
 
 
             if (mHintText2Draw == null){
-                text2Draw = (int)result[0] + "";
+                text2Draw = String.valueOf(CMN.FormTime((int) (currPercent*callback.timeScaler),3));//(int)result[0] + "";
                 //text2Draw="...";
             }else {
                 text2Draw = mHintText2Draw;
@@ -554,7 +571,8 @@ public class RangeSeekBar extends View {
         }
 
         private void slide(float percent) {
-            if (percent < 0) percent = 0;
+            //if (percent < 0) percent = 0;
+            if (percent < -1) percent = -1;
             else if (percent > 1) percent = 1;
             currPercent = percent;
         }
@@ -588,6 +606,7 @@ public class RangeSeekBar extends View {
     //*********************************** SeekBar ***********************************//
 
     public interface OnRangeChangedListener {
+        int timeScaler=30/4 * 1000;//15秒 半条30/4秒
         void onRangeChanged(RangeSeekBar view, float currposition, boolean isFromUser);
         void onStartTrackingTouch(RangeSeekBar view, boolean isLeft);
         void onStopTrackingTouch(RangeSeekBar view, boolean isLeft);
@@ -754,10 +773,26 @@ public class RangeSeekBar extends View {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
 
-                boolean touchResult = false;
-                // if (leftSB.collide(event)) {
+                 boolean touchResult = false;
+                 if (!leftSB.collide(event)) {
+                     float percent = 0;
+                     float x = event.getX();
+                     if (x < lineLeft) {
+                         percent = -1f;
+                     } else {
+                         if(x<lineMidLeft)
+                             percent = (x - lineMidLeft ) * 1f / (lineMidLeft-lineLeft);
+                         else if(x>lineMidRight)
+                             percent = (x - lineMidRight) * 1f / (lineRight-lineMidRight);
+                         leftSB.currPercentforDraw = (x - lineLeft) * 1f / (lineWidth);
+                     }
+                     leftSB.currPercent=percent;
+                 }
+                //if (leftSB.collide(event)) {
                     currTouch = leftSB;
                     touchResult = true;
+                //}else
+                //    currTouch = null;
 
                 //}
 
@@ -772,7 +807,7 @@ public class RangeSeekBar extends View {
                 return touchResult;
             case MotionEvent.ACTION_MOVE:
 
-                float percent;
+                float percent = 0;
                 float x = event.getX();
 
                 currTouch.material = currTouch.material >= 1 ? 1 : currTouch.material + 0.1f;
@@ -782,7 +817,11 @@ public class RangeSeekBar extends View {
                         if (x < lineLeft) {
                             percent = 0;
                         } else {
-                            percent = (x - lineLeft) * 1f / (lineWidth);
+                            if(x<lineMidLeft)
+                                percent = (x - lineMidLeft ) * 1f / (lineMidLeft-lineLeft);
+                            else if(x>lineMidRight)
+                                percent = (x - lineMidRight) * 1f / (lineRight-lineMidRight);
+                            leftSB.currPercentforDraw = (x - lineLeft) * 1f / (lineWidth);
                         }
                         int touchLeftCellsValue = Math.round(percent / cellsPercent);
                         int currRightCellsValue;
@@ -797,9 +836,16 @@ public class RangeSeekBar extends View {
                         }
                     } else {
                         if (x < lineLeft) {
-                            percent = 0;
+                            percent = -1f;
                         } else {
-                            percent = (x - lineLeft) * 1f / (lineWidth );
+                            if(x<lineMidLeft)
+                                percent = (x - lineMidLeft ) * 1f / (lineMidLeft-lineLeft);
+                            else if(x>lineMidRight)
+                                percent = (x - lineMidRight) * 1f / (lineRight-lineMidRight);
+                            leftSB.currPercentforDraw = (x - lineLeft) * 1f / (lineWidth );
+                            if(leftSB.currPercentforDraw>1){
+                                leftSB.currPercentforDraw=1;
+                            }
                         }
 
                             //if (percent > rightSB.currPercent - reservePercent) {

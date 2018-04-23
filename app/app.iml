@@ -107,8 +107,8 @@
     <orderEntry type="library" exported="" name="com.android.support:support-vector-drawable-24.1.0" level="project" />
     <orderEntry type="library" exported="" name="com.android.support:support-v4-24.1.0" level="project" />
     <orderEntry type="library" exported="" name="com.android.support:design-24.1.0" level="project" />
-    <orderEntry type="library" exported="" name="__local_jars__:C.\hold\wangyi-Lyric-Parser\app\libs\chardet.jar:unspecified@jar" level="project" />
     <orderEntry type="library" exported="" name="com.android.support:animated-vector-drawable-24.1.0" level="project" />
+    <orderEntry type="library" exported="" name="__local_jars__:F.\scrhashing_music\wangyi-Lyric-Parser2\app\libs\chardet.jar:unspecified@jar" level="project" />
     <orderEntry type="library" exported="" name="com.android.support:appcompat-v7-24.1.0" level="project" />
     <orderEntry type="library" exported="" name="com.android.support:recyclerview-v7-24.1.0" level="project" />
     <orderEntry type="library" exported="" name="com.android.support:support-annotations:24.1.0@jar" level="project" />
