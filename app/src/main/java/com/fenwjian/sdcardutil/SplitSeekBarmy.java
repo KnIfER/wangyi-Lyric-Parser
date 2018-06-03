@@ -22,6 +22,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.SeekBar;
 
@@ -45,8 +46,9 @@ public class SplitSeekBarmy extends SeekBar {
     private float mLeft; // space between left of track and left of the view
     private float mRight; // space between right of track and left of the view
     private Paint mPaint;
-    public  RBTree<myCpr<Integer,Integer>> tree;
-    public RBTree<myCpr<Integer, Integer>> tree2;//行-时间
+    //public  RBTree<myCpr<Integer,Integer>> tree;
+    public SeekBarmy seekGrosser;
+    //public RBTree<myCpr<Integer, Integer>> tree2;//行-时间
     public int[] cs;
     //public long timeLength;
     private float xLeft;
@@ -129,7 +131,7 @@ public class SplitSeekBarmy extends SeekBar {
        // canvas.drawCircle(x_, yTop, 10.0f, mPaint);
 
 
-        if(tree!=null)
+        if(seekGrosser.tree!=null)
             drawSubSet(canvas);
         //inOrderDraw(tree.getRoot(),canvas);
 
@@ -140,24 +142,54 @@ public class SplitSeekBarmy extends SeekBar {
         if(getTag(R.id.position)==null)
             return;
         int PosTmp = (int) getTag(R.id.position);
-        RBTNode<myCpr<Integer,Integer>> curr = tree.sxing(new myCpr(PosTmp*(60*1000),0));
+        //从适合的位置开始，遍历二叉树
+        RBTNode<myCpr<Integer,Integer>> curr = seekGrosser.tree.sxing(new myCpr(PosTmp*(60*1000),0));
         while(curr!=null){
-            if(cs!=null)
-                mPaint.setColor(cs[curr.getKey().value%cs.length]);
             int tmp2 = curr.key.key;
             //if(tmp*(60*1000)>tmp2) CMN.showT("error!!!"+tmp*(60*1000)+"should smaller than searched"+tmp2);
-            if(tmp2>=PosTmp*(60*1000)+getMax())
+            if(tmp2>=PosTmp*(60*1000)+getMax())//超出，退出循环
                 break;
-            //canvas.drawCircle((float)xLeft+(float)(tmp2-tmp*(60*1000) )/(float)getMax()*(-xLeft + xRight), 25, 3.0f, mPaint);
-            float tmp3 = (float)xLeft+(float)(tmp2-PosTmp*(60*1000) )/(float)getMax()*(-xLeft + xRight);
-            canvas.drawOval(tmp3-3,0,tmp3+3,getHeight() , mPaint);
-            if(curr==CMN.a.f2.lastAttach) {
-                mPaint.setColor(Color.parseColor("#ffffff"));
-                //canvas.drawOval(tmp3 - 6, getHeight() - 3, tmp3 + 6, getHeight(), mPaint);
-                //canvas.drawOval(tmp3 - 6, 0, tmp3 + 6, 3, mPaint);
-                canvas.drawCircle(tmp3, getHeight()/2, 3.0f, mPaint);
+            if(CMN.opt.cutterMode!=1) {//不是cutting mode
+                if (cs != null)
+                    //CMN.showTT(curr.getKey().value+"");//TODO may be -1.why?
+                    mPaint.setColor(cs[Math.max(curr.getKey().value % cs.length, 0)]);
+                //canvas.drawCircle((float)xLeft+(float)(tmp2-tmp*(60*1000) )/(float)getMax()*(-xLeft + xRight), 25, 3.0f, mPaint);
+                float tmp3 = (float) xLeft + (float) (tmp2 - PosTmp * (60 * 1000)) / (float) getMax() * (-xLeft + xRight);
+                if (Build.VERSION.SDK_INT >= 21)
+                    canvas.drawOval(tmp3 - 3, 0, tmp3 + 3, getHeight(), mPaint);
+                else
+                    canvas.drawRect(tmp3 - 1.5f, 0, tmp3 + 1.5f, getHeight(), mPaint);
+                if (curr == CMN.a.f2.lastAttach) {
+                    mPaint.setColor(Color.parseColor("#ffffff"));
+                    //canvas.drawOval(tmp3 - 6, getHeight() - 3, tmp3 + 6, getHeight(), mPaint);
+                    //canvas.drawOval(tmp3 - 6, 0, tmp3 + 6, 3, mPaint);
+                    canvas.drawCircle(tmp3, getHeight() / 2, 3.0f, mPaint);
+                }
+            }else{
+                mPaint.setColor(Color.WHITE);
+                //canvas.drawCircle((float)xLeft+(float)(tmp2-tmp*(60*1000) )/(float)getMax()*(-xLeft + xRight), 25, 3.0f, mPaint);
+                float tmp3 = (float) xLeft + (float) (tmp2 - PosTmp * (60 * 1000)) / (float) getMax() * (-xLeft + xRight);
+                if (Build.VERSION.SDK_INT >= 21)
+                    canvas.drawOval(tmp3 - 3, 0, tmp3 + 3, getHeight(), mPaint);
+                else
+                    canvas.drawRect(tmp3 - 3, 0, tmp3 + 3, getHeight(), mPaint);
+                if(CMN.opt.coupledCut){
+                    if(curr.key.value==0){
+                        canvas.drawRect(tmp3, 0,             tmp3+8, 3, mPaint);
+                        canvas.drawRect(tmp3, getHeight()-3, tmp3+8, getHeight(), mPaint);
+                    }else{
+                        canvas.drawRect(tmp3-8, 0,             tmp3, 3, mPaint);
+                        canvas.drawRect(tmp3-8, getHeight()-3, tmp3, getHeight(), mPaint);
+                    }
+                }
+                if (curr == CMN.a.f2.lastAttach) {
+                    mPaint.setColor(Color.parseColor("#ff0000"));
+                    //canvas.drawOval(tmp3 - 6, getHeight() - 3, tmp3 + 6, getHeight(), mPaint);
+                    //canvas.drawOval(tmp3 - 6, 0, tmp3 + 6, 3, mPaint);
+                    canvas.drawCircle(tmp3, getHeight() / 2, 3.0f, mPaint);
+                }
             }
-            curr = tree.successor(curr);
+            curr = seekGrosser.tree.successor(curr);
         }
         mPaint.setColor(Color.RED);
     }

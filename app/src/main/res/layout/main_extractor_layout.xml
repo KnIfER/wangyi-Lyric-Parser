@@ -1,0 +1,111 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:id="@+id/main_layout">
+
+    <ImageView
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:src="@drawable/image_4"
+        android:scaleType="centerCrop"/>
+    <eightbitlab.com.blurview.BlurView
+    android:id="@+id/topBlurView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:outlineProvider="bounds"
+    app:blurOverlayColor="#00ffffff"
+    tools:targetApi="lollipop">
+
+    <LinearLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:orientation="vertical">
+
+        <ListView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:id="@+id/main_list"
+            android:fastScrollEnabled="false"
+            android:scrollbarTrackVertical="@null"
+            android:layout_marginTop="50dp"
+            android:drawSelectorOnTop="true"
+            android:listSelector="@drawable/color_double_list_bg"
+            android:scrollbarSize="50dp"/>
+
+    </LinearLayout>
+</eightbitlab.com.blurview.BlurView>
+
+    <RelativeLayout
+        android:id="@+id/mainRelativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <Button
+            android:id="@+id/run_button"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:text="@string/run"
+            android:textColor="@color/textColorSecondary" />
+
+        <EditText
+            android:id="@+id/ettoptop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/option_button"
+            android:layout_toRightOf="@+id/run_button"
+            android:text=""
+            android:textColor="@color/textColorSecondary" />
+
+        <Button
+            android:id="@+id/option_button"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:onClick="OnOptionButtonClick"
+            android:text="@string/options"
+            android:textColor="@color/textColorSecondary" />
+
+    </RelativeLayout>
+
+    <eightbitlab.com.blurview.BlurView
+        android:id="@+id/bottomBlurView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="3dp"
+        app:blurOverlayColor="#00ffffff"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        tools:targetApi="lollipop">
+
+        <Button
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/queR_tiQu"
+            android:textColor="@color/textColorSecondary"
+            style="?android:attr/buttonBarButtonStyle"
+            android:id="@+id/extractor"/>
+
+    </eightbitlab.com.blurview.BlurView>
+
+    <ToggleButton
+        android:layout_height="35dp"
+        android:layout_width= "35dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/textColorSecondary"
+        style="?android:attr/buttonBarButtonStyle"
+        android:background="@drawable/toggle_selector_item1"
+        android:backgroundTint="#1D9DFF"
+        android:id="@+id/viewpager_locker"
+        android:textOff=""
+        android:textOn= ""
+        />
+</RelativeLayout>

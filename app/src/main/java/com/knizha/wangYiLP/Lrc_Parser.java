@@ -45,7 +45,7 @@ class Lrc_Parser_Expr
 	String expr_split_lrc="(\\[\\d{2}\\d*\\:\\d{2}(\\.\\d*)?\\])(.*)";
 	int lrc_split_id=3;
 	String expr_lrc="(\\[\\d{2}\\d*\\:\\d{2}(\\.\\d*)?\\](\\s*.*?))(?=\\s*\\\\n)";
-	int lrc_id = 1; 
+	int lrc_id = 1;
 	String expr_tag="\\[\\s*([^\\d]+?)\\s*\\:\\s*(.+?)\\s*\\]";
 	int tag_name_id=1;
 	int tag_value_id=2;
@@ -86,7 +86,7 @@ class Lrc_Parser{
 
 
 	public Lrc_Parser_Info GetTagFromNet(int id,String _url)throws Exception{
-		String buf=new String();
+		StringBuilder buf=new StringBuilder();
 		Lrc_Parser_Info info=new Lrc_Parser_Info();
 		String addr=null;
 		if(id>0)
@@ -98,13 +98,13 @@ class Lrc_Parser{
 			
 			httpCon.setConnectTimeout(30000);
 			String response = httpCon.getResponseMessage();
-			buf+=("HTTP/1.x " + httpCon.getResponseCode() + " " + response + "\n");
+			//buf+=("HTTP/1.x " + httpCon.getResponseCode() + " " + response + "\n");
 			
 			InputStream in = new BufferedInputStream(httpCon.getInputStream());
 			Reader r = new InputStreamReader(in);
 			int c;
 			while ((c = r.read()) != -1) {
-				buf+=(String.valueOf((char) c));
+				buf.append((char) c);
 			}
 			in.close();
 		

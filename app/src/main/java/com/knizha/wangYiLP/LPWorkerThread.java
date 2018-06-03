@@ -61,7 +61,9 @@ public class LPWorkerThread extends Thread{
                 }
 
                 Lrc_Parser_Info info = lprs.GetTagFromNet(_id,"");
+
                 title = info.Title;
+
                 fn = info.Artist.replace("/", " ").replace("单曲 - 网易云音乐", "").replace("&#39;", "'")+title.replace("&#39;", "'")+".lrc";
 
                 //最终写入-只保留入口

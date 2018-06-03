@@ -235,20 +235,30 @@ public class MainActivity extends FragmentActivity
 			userPauseTime = f2.mMediaPlayer.getCurrentPosition();
 			f2.mMediaPlayer.pause();
 		}
+		//CMN.showTT("onPause");
 		CMN.a=null;
 	}
 	@Override
 	protected void onResume(){
 		super.onResume();
+		CMN.a=this;
 		if(f2!=null && f2.isAdded())
 			f2.resumePlayer(userPauseTime);
-		CMN.a=this;
+		//CMN.showTT("onResume");
 	}
 
 	public void initF2() {
 		if(f2==null) {
 			fragments.add(f2 = new Main_editor_Fragment());
 			viewPager.getAdapter().notifyDataSetChanged();
+		}
+		//![0]	当使用intent调用本程序
+		Intent intent = getIntent();
+		Uri data = intent.getData();
+		if (intent.getType()!=null&&(intent.getType().indexOf("audio/") != -1)) {
+			f2.prepareMedia(data.getPath());
+			f2.try_prepare_lyrics_for_media(data.getPath());
+			viewPager.setCurrentItem(1);
 		}
 	}
 
@@ -319,7 +329,7 @@ public class MainActivity extends FragmentActivity
 					if (dialog != null && dialog.isShowing()) {
 						dialog.dismiss();
 					}
-					showT("权限获取成功");
+					Toast.makeText(this, "权限获取成功", Toast.LENGTH_SHORT).show();
 				}
 			}
 		}
@@ -342,7 +352,7 @@ public class MainActivity extends FragmentActivity
 					} else
 						finish();
 				} else {
-					showT("权限获取成功");
+					Toast.makeText(this, "权限获取成功", Toast.LENGTH_SHORT).show();
 				}
 			}
 		}
@@ -392,11 +402,12 @@ public class MainActivity extends FragmentActivity
         //文件网络
 		opt.hisHandle = new File(this.getExternalFilesDir(null).getAbsolutePath()+"/History/");
 		opt.module_sets_Handle = new File(this.getExternalFilesDir(null).getAbsolutePath()+"/settings/");
+		opt.favourite_dirs = new File(this.getExternalFilesDir(null).getAbsolutePath()+"/favorites/");
 		SharedPreferences read = getSharedPreferences("lock", mode);
 		opt.load_path = read.getString("load_path",DefaultLoadPath);
 		opt.save_path = read.getString("save_path",DefaultSavePath);
         opt.Overwrite      =   read.getBoolean("Overwrite", false);
-        opt.SelectAll      =   read.getBoolean("SelectAll", false);
+        opt.SelectAll      =   read.getBoolean("SelectAll", true);
         opt.ForbidGetTagFormNet      =   read.getBoolean("ForbidGetTagFormNet", false);
         opt.PreviewRawJsonLyric      =   read.getBoolean("PreviewRawJsonLyric", false);
         opt.addisSongLyricHeader     =   read.getBoolean("addisSongLyricHeader", false);
@@ -404,12 +415,15 @@ public class MainActivity extends FragmentActivity
         opt.attatch_cursor_coupled   =   read.getBoolean("attatch_cursor_coupled", true);
         opt.add_agjust_coupled   =   read.getBoolean("add_agjust_coupled", false);//follow
         opt.adjust_all   =   read.getBoolean("adjust_all", false);
+        opt.confinedAdjust   =   read.getBoolean("confinedAdjust", false);
         opt.isAttABLooping   =   read.getBoolean("isAttABLooping", false);
-        opt.viewPagerLocked   =   read.getBoolean("viewPagerLocked", true);
+        opt.viewPagerLocked   =   read.getBoolean("viewPagerLocked", false);
         opt.auto_move_cursor   =   read.getBoolean("auto_move_cursor", false);
         opt.isInEditor   =   read.getBoolean("isInEditor", false);
+        opt.coupledCut   =   read.getBoolean("coupledCut", true);
         opt.editor_collapse_item_when_NotFocused   =   read.getBoolean("editor_collapse_item_when_NotFocused", false);
         opt.multiThreadNumber        =   read.getInt("multiThreadNumber", 5);
+        //opt.cutterMode        =   read.getInt("cutterMode", 0);
 		opt.charSetNumber			 =   read.getInt("charSetNumber", 0);
 		opt.translationFormatNumber			 =   read.getInt("translationFormatNumber", 0);
 		opt.timeFormatNumber			 =   read.getInt("timeFormatNumber", 0);
@@ -431,8 +445,10 @@ public class MainActivity extends FragmentActivity
         editor.putBoolean("isInEditor",          viewPager.getCurrentItem()==1);
         editor.putBoolean("add_agjust_coupled",          opt.add_agjust_coupled);//follow
         editor.putBoolean("adjust_all",          opt.adjust_all);
+        editor.putBoolean("confinedAdjust",          opt.confinedAdjust);
         editor.putBoolean("isAttABLooping",          opt.isAttABLooping);
         editor.putBoolean("attatch_cursor_coupled",    opt.attatch_cursor_coupled);
+        editor.putBoolean("coupledCut",    opt.coupledCut);
         editor.putInt("multiThreadNumber",             opt.multiThreadNumber);
         editor.putInt("charSetNumber",                 opt.charSetNumber);
         editor.putInt("translationFormatNumber",       opt.translationFormatNumber);
@@ -453,6 +469,15 @@ public class MainActivity extends FragmentActivity
 	                curr_HisHanditory.mkdirs();
 	            }
 			 curr_HisHanditory=opt.module_sets_Handle;
+			 if(curr_HisHanditory.exists()){
+				 if(!curr_HisHanditory.isDirectory()) {
+					 curr_HisHanditory.delete();
+					 curr_HisHanditory.mkdirs();
+				 }
+			 }else{
+				 curr_HisHanditory.mkdirs();
+			 }
+			 curr_HisHanditory=opt.favourite_dirs;
 			 if(curr_HisHanditory.exists()){
 				 if(!curr_HisHanditory.isDirectory()) {
 					 curr_HisHanditory.delete();

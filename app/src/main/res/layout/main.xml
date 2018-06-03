@@ -19,24 +19,11 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="center"
 			android:flipInterval="30"
-			android:persistentDrawingCache="animation" />
+			android:persistentDrawingCache="animation"
+			/>
 
 </RelativeLayout>
 
-	<com.zxtcode.myapplication.StatusBarColorLayout
-		android:id="@+id/container"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent">
-
-
-		<!--android.support.v7.widget.Toolbar
-			android:id="@+id/toolbar"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:background="?attr/colorPrimary"
-			android:minHeight="?attr/actionBarSize" /!-->
-
-	</com.zxtcode.myapplication.StatusBarColorLayout>
 
 
 	<RelativeLayout android:id="@+id/mDrawerRelative"

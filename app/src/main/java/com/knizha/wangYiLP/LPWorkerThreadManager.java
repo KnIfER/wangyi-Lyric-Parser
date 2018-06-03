@@ -10,6 +10,8 @@ import com.fenwjian.sdcardutil.RBTree;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.util.Arrays;
+import java.util.Comparator;
 
 /**
  * Created by ASDZXC on 2017/12/4.
@@ -59,7 +61,7 @@ public class LPWorkerThreadManager extends Thread{
     static boolean isHasFilter;
     @Override
     public void run(){
-        File path=new File(load_path);
+        Filemy path=new Filemy(load_path);
         String textInEditor = displayer.f1.ettoptop.getText().toString();
         String textOld = displayer.f1.oldSearchingTitle;
         if(textInEditor.equals(""))
@@ -76,6 +78,21 @@ public class LPWorkerThreadManager extends Thread{
         }
         LPWorkerThread t;
         System.gc();
+        //File[] files = path.listFiles();
+        //Arrays.sort(files, new Comparator<File>() {
+        //    public int compare(File f1, File f2) {
+        //        long diff = f1.lastModified() - f2.lastModified();
+        //        if (diff > 0)
+        //            return 1;
+        //        else if (diff == 0)
+        //            return 0;
+        //        else
+        //            return -1;//如果 if 中修改为 返回-1 同时此处修改为返回 1  排序就会是递减
+        //    }
+        //    public boolean equals(Object obj) {
+        //        return true;
+        //    }
+        //});
 
         //遍历所有Json-lrc
         for(File f:path.listFiles()){
@@ -101,8 +118,14 @@ public class LPWorkerThreadManager extends Thread{
                     }
                     processedNodeTree.insert(id_Name);
                 }else if(CMN.opt.ForbidGetTagFormNet){//不要神马名字了
-                    ResultUpdateRunnable updater=new ResultUpdateRunnable(displayer,f.getAbsolutePath(),f.getName());
-                    handler.post(updater);
+                    String name_tmp = f.getName();
+                    if(!isHasFilter){
+                        ResultUpdateRunnable updater=new ResultUpdateRunnable(displayer,f.getAbsolutePath(),f.getName());
+                        handler.post(updater);
+                    }else if(name_tmp.toLowerCase().contains(displayer.f1.oldSearchingTitle.toLowerCase())){
+                        ResultUpdateRunnable updater = new ResultUpdateRunnable(displayer, f.getAbsolutePath(), name_tmp);
+                        handler.post(updater);
+                    }
                     processedNodeTree.insert(id_Name);
                 }else{//干
                     LPWorkerThread.alive_count--;

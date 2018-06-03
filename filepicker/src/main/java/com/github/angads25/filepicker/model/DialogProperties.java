@@ -58,6 +58,7 @@ public class DialogProperties {
      *  Eg. /mnt
      */
     public File error_dir;
+    public File opt_dir;
 
     /** The Directory can be used as an offset. It is the first directory that is
      *  shown in dialog. Consider making it Root's sub-directory.

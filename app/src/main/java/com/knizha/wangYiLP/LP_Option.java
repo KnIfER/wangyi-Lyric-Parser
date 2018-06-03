@@ -8,6 +8,7 @@ import java.io.File;
 public class LP_Option{
 	File hisHandle;
 	File module_sets_Handle;
+	File favourite_dirs;
 	String save_path;
 	Handler handler;
 	String load_path;
@@ -28,7 +29,7 @@ public class LP_Option{
 	String co_lyrics_sep = "\r\n";
 	public String dataDir="";
 
-	boolean viewPagerLocked = true;
+	boolean viewPagerLocked = false;
 	boolean auto_move_cursor=false;
 	boolean attatch_cursor_coupled=true;
 	boolean add_agjust_coupled=false;
@@ -36,13 +37,20 @@ public class LP_Option{
 	boolean adjust_auto_relase=true;
 	boolean adjust_loop=true;
 	boolean adjust_all=true;
+	boolean confinedAdjust=false;
 	boolean isAttABLooping=false;
 	boolean showPaste_repalce_button;
+
+	public int     cutterMode=0;
+	public boolean coupledCut=true;
 
 	boolean isInEditor=false;
 	public int key_lyric_idx=0;
 	float ajustBar_offY=0;
 	float seekSet_offY=0;
+
+
+
 	public LP_Option(){
 	}
 }

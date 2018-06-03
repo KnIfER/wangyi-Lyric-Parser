@@ -68,7 +68,7 @@
 				android:layout_height="wrap_content"
 				android:textAppearance="?android:attr/textAppearanceMedium"
 				android:layout_width="wrap_content"
-				android:text="Load files from :"
+				android:text="@string/load_files_from"
 				android:textColor="#1D9DFF"/>
 
 			<Button
@@ -114,7 +114,7 @@
 				android:layout_height="wrap_content"
 				android:textAppearance="?android:attr/textAppearanceMedium"
 				android:layout_width="wrap_content"
-				android:text="Save lrc file to :"
+				android:text="@string/save_lrc_file_to"
 				android:textColor="#1D9DFF"/>
 
 			<Button
@@ -348,7 +348,7 @@
 				style="?android:attr/buttonBarButtonStyle"
 				android:layout_height="wrap_content"
 				android:layout_width="wrap_content"
-				android:text="当前配置另存为…"
+				android:text="@string/baocun_PeiZ"
 				android:textColor="@color/DarkCyan"
 				android:layout_below="@id/myClrBtn3"
 				android:gravity="center_vertical|center_horizontal|fill_vertical|fill_horizontal"
@@ -359,7 +359,7 @@
 				style="?android:attr/buttonBarButtonStyle"
 				android:layout_height="wrap_content"
 				android:layout_width="wrap_content"
-				android:text="选择配置…"
+				android:text="@string/xuanze_PeiZ"
 				android:textColor="@color/DarkCyan"
 				android:layout_below="@id/mySettingsDumpBtn"
 				android:gravity="center_vertical|center_horizontal|fill_vertical|fill_horizontal"

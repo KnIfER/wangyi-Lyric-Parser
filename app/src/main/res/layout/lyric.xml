@@ -37,7 +37,8 @@
 				android:text="N/A"
 				android:textAppearance="?android:attr/textAppearanceLarge"
 				android:textColor="#E5E5E5"
-				android:textSize="15sp" />
+				android:textSize="15sp"
+				android:textIsSelectable="true"/>
 		</HorizontalScrollView>
 
 		<Button
@@ -60,7 +61,7 @@
 		<TextView
 			android:layout_height="match_parent"
 			android:layout_width="match_parent"
-			android:text="fdeegghbnnnqw"
+			android:textIsSelectable="true"
 			android:textSize="20sp"
 			android:scrollbars="vertical"
 			android:id="@+id/lrc_text"/>

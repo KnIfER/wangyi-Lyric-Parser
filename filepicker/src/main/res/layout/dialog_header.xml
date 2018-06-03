@@ -4,7 +4,9 @@
     android:background="@color/colorHeader"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="?android:listPreferredItemHeight">
+    android:layout_height="wrap_content"
+    android:minHeight="?android:listPreferredItemHeight"
+    android:clickable="true">
 
     <ImageView
         android:layout_marginLeft="@dimen/toolbar_image_margin"

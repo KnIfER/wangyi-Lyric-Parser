@@ -1,14 +1,15 @@
 package com.knizha.wangYiLP;
 
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.LightingColorFilter;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
@@ -16,7 +17,7 @@ import android.os.Bundle;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
-import android.text.InputType;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -30,7 +31,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -41,28 +41,39 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.audio_trimmer.CheapSoundFile;
+import com.audio_trimmer.Util;
 import com.fenwjian.sdcardutil.RBTNode;
 import com.fenwjian.sdcardutil.RBTree;
 import com.fenwjian.sdcardutil.ScrollViewmy;
 import com.fenwjian.sdcardutil.SeekBarmy;
 import com.fenwjian.sdcardutil.SplitSeekBarmy;
 import com.fenwjian.sdcardutil.TextViewmy;
+import com.fenwjian.sdcardutil.chatsetDec;
 import com.fenwjian.sdcardutil.myCpr;
+import com.github.angads25.filepicker.controller.DialogSelectionListener;
+import com.github.angads25.filepicker.model.DialogConfigs;
+import com.github.angads25.filepicker.model.DialogProperties;
+import com.github.angads25.filepicker.view.FilePickerDialog;
 import com.jaygoo.widget.RangeSeekBar;
+import com.knizha.wangYiLP.ui.InputTextFilter;
+
 import android.widget.NumberPicker;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -88,7 +99,7 @@ public class Main_editor_Fragment extends Fragment
 	//public String doc_Lrc = "/sdcard/netease/cloudmusic/Music/t.txt";
 	public String doc_Mp3 = "";
 	public String doc_Lrc = "";
-	boolean isPausedExpected = true;
+	boolean isPausedExpected = false;
 	public boolean isMediaPrepared = false;
 	MediaPlayer mMediaPlayer;
 	View playButton;
@@ -97,11 +108,13 @@ public class Main_editor_Fragment extends Fragment
 	TextView totalT;
 	TextView currenT;
 	SeekBarmy mSeekBar;
+	public RBTree<myCpr<Integer, Integer>> cutter_tree;//时间
+	public RBTree<myCpr<Integer, Integer>> current_manipulating_Tree;//时间-行
 	public RBTree<myCpr<Integer, Integer>> tree;//时间-行
 	public RBTree<myCpr<Integer, Integer>> tree2;//行-时间//TODO opt 复用结点
 	ScrollLinearLayoutManager scrollLinearLayoutManager;
 	ScrollLinearLayoutManager scrollLinearLayoutManager2;
-	ScrollView seekScroll;
+	ViewGroup seeksetP;
 	ListView lv_seekbars;
 	private long prevABTime = 0;
 	private long nxtABTime = 0;
@@ -123,6 +136,8 @@ public class Main_editor_Fragment extends Fragment
 	TextView src_tv;
 	TextView doc_mp3_tv;
 	TextView doc_lrc_tv;
+	ImageView doc_mp3_iv;
+	ImageView doc_lrc_iv;
 	public EditText src_title_et;
 
 	int seekSetTimeSplitNumber = 0;
@@ -157,25 +172,48 @@ public class Main_editor_Fragment extends Fragment
 	private RBTNode<myCpr<Integer,Integer>> prevTimeNode,nxtTimeNode,
 			prevOffNode,nxtOffNode;
 	protected TabLayout tabLayout;
+	RelativeLayoutmy main_edit_layout;
+	private MenuItem TrdMenuItem;
+	View frameBG, removeCutterEdge;
+
+	boolean view_initialized=false,
+			prepareMedia_pending=false,
+			prepareLyrics_pending=false;
+
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		CMN.a= (MainActivity) getActivity();
+		dbCon = new DBWangYiLPController(CMN.a, true);
+
+		tvPaddingTop = (int) (CMN.dm.heightPixels/2-actionBarHeight-CMN.getStatusBarHeight()-tv.getLineHeight()-120);//
+		//tvPaddingTop = (int) (actionBarHeight+main_lv.getLayoutParams().height);
+		tvPaddingBottom = (int) (CMN.dm.heightPixels/2-CMN.getStatusBarHeight()-(bottomtop.getLayoutParams().height+bottom.getLayoutParams().height)-2*tv.getLineHeight());
+		tv.setPadding(0,tvPaddingTop , 0, tvPaddingBottom);
+	}
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, final ViewGroup container,
 							 Bundle savedInstanceState) {
+
 		Random rand = new Random();
 		for(int i=0;i<colorSheet.length;i++){
 			colorSheet[i] = Color.rgb(rand.nextInt(255),rand.nextInt(255),rand.nextInt(255));
 		}
-		dbCon = new DBWangYiLPController(CMN.a, true);
-		RelativeLayoutmy main_edit_layout = (RelativeLayoutmy) inflater.inflate(R.layout.main_edit_layout, container, false);
+		main_edit_layout = (RelativeLayoutmy) inflater.inflate(R.layout.main_edit_layout, container, false);
 		Toolbar toolbar = (Toolbar) main_edit_layout.findViewById(R.id.toolbar);
 		toolbar.inflateMenu(R.menu.menu);
 		toolbar.setOnMenuItemClickListener(this);
+		TrdMenuItem = toolbar.getMenu().getItem(2);
 		tabLayout = (TabLayout) main_edit_layout.findViewById(R.id.tabLayout);
 		tabLayout.setTabTextColors(Color.parseColor("#ffffff"), Color.parseColor("#ffffff"));
-		tabLayout.addTab(tabLayout.newTab().setText("预览"));
-		tabLayout.addTab(tabLayout.newTab().setText("主歌词"));
-		tabLayout.addTab(tabLayout.newTab().setText("翻译"));
-		tabLayout.addTab(tabLayout.newTab().setText("源"));
+		tabLayout.addTab(tabLayout.newTab().setText(R.string.preveiw));
+		tabLayout.addTab(tabLayout.newTab().setText(R.string.mainLyrics));
+		tabLayout.addTab(tabLayout.newTab().setText(R.string.translations));
+		tabLayout.addTab(tabLayout.newTab().setText(R.string.Source));
 		tabLayout.addOnTabSelectedListener(this);
+		cutter_tree = new RBTree<myCpr<Integer, Integer>>();
+		current_manipulating_Tree =
 		tree = new RBTree<myCpr<Integer, Integer>>();
 		tree2 = new RBTree<myCpr<Integer, Integer>>();
 		tree.clear();
@@ -203,7 +241,8 @@ public class Main_editor_Fragment extends Fragment
 		Oldtablet =
 		main_lv = (RecyclerView) main_edit_layout.findViewById(R.id.main_lyric_list);
 		//sub_lv = (RecyclerView) main_edit_layout.findViewById(R.id.sub_lyric_list);
-		seekScroll = (ScrollView) main_edit_layout.findViewById(R.id.seekScroll);
+		seeksetP = (ViewGroup) main_edit_layout.findViewById(R.id.seekScroll);
+
 		top_adjustLayout = (RelativeLayout) main_edit_layout.findViewById(R.id.DingLayout);
 		itemsLayout = (RelativeLayout) main_edit_layout.findViewById(R.id.items_layout);
 		top_adjustBar = (RangeSeekBar) main_edit_layout.findViewById(R.id.adjustBar);
@@ -214,6 +253,8 @@ public class Main_editor_Fragment extends Fragment
 		src_tv = ((TextView)main_edit_layout.findViewById(R.id.src_tv));
 		doc_mp3_tv = ((TextView)main_edit_layout.findViewById(R.id.doc_mp3_tv));
 		doc_lrc_tv = ((TextView)main_edit_layout.findViewById(R.id.doc_lrc_tv));
+		doc_mp3_iv = ((ImageView)main_edit_layout.findViewById(R.id.doc_mp3_picker));
+		doc_lrc_iv = ((ImageView)main_edit_layout.findViewById(R.id.doc_lrc_picker));
 		src_title_et = ((EditText)main_edit_layout.findViewById(R.id.src_title_et));
 		adjustBar_toggle.setOnClickListener(this);
 		playButton = main_edit_layout.findViewById(R.id.play);
@@ -226,8 +267,11 @@ public class Main_editor_Fragment extends Fragment
 		main_edit_layout.findViewById(R.id.browser_widget5).setOnClickListener(this);
 		main_edit_layout.findViewById(R.id.deletln).setOnClickListener(this);
 		main_edit_layout.findViewById(R.id.addln).setOnClickListener(this);
+		main_edit_layout.findViewById(R.id.to_cutter).setOnClickListener(this);
 
 		viewpager_locker=(ToggleButton)main_edit_layout.findViewById(R.id.items1);
+		frameBG=      main_edit_layout.findViewById(R.id.frameBG);
+		removeCutterEdge = main_edit_layout.findViewById(R.id.removeCutterEdge);
 		ToggleButton t2=(ToggleButton)main_edit_layout.findViewById(R.id.items2);
 		ToggleButton t3=(ToggleButton)main_edit_layout.findViewById(R.id.items3);
 		ToggleButton t4=(ToggleButton)main_edit_layout.findViewById(R.id.items4);
@@ -235,13 +279,16 @@ public class Main_editor_Fragment extends Fragment
 		ToggleButton t6=(ToggleButton)main_edit_layout.findViewById(R.id.toptoggle_adjustAll);
 		ToggleButton t7=(ToggleButton)main_edit_layout.findViewById(R.id.toptoggle_loop);
 		ToggleButton t8=(ToggleButton)main_edit_layout.findViewById(R.id.toptoggle_release);
+		ToggleButton t9=(ToggleButton)main_edit_layout.findViewById(R.id.toptoggle_confinedAdjust);
 		viewpager_locker.setOnClickListener(this);
+		removeCutterEdge.setOnClickListener(this);
 		t2.setOnClickListener(this);
 		t3.setOnClickListener(this);
 		t4.setOnClickListener(this);
 		t5.setOnClickListener(this);
 		t6.setOnClickListener(this);
 		t7.setOnClickListener(this);
+		t9.setOnClickListener(this);
 		if(CMN.opt.viewPagerLocked){
 			viewpager_locker.setChecked(true);
 		}
@@ -263,6 +310,9 @@ public class Main_editor_Fragment extends Fragment
 		if(CMN.opt.isAttABLooping){
 			t7.setChecked(true);
 		}
+		if(CMN.opt.confinedAdjust){
+			t9.setChecked(true);
+		}
 		mSeekBar.ini();
 		mSeekBar.tree = tree;
 		top_adjustBar.setOnRangeChangedListener(new RangeSeekBar.OnRangeChangedListener(){
@@ -271,42 +321,63 @@ public class Main_editor_Fragment extends Fragment
 			@Override
 			public void onRangeChanged(RangeSeekBar view, final float pos, boolean isFromUser) {
 				if(isFromUser){
-					if(tree.getRoot()==null)//nothing to adjust
+					if(current_manipulating_Tree.getRoot()==null)//nothing to adjust
 						return;
 					int newKey=-1;
 					RBTNode<myCpr<Integer, Integer>> nodeTmp=null;
 					if(lastAttach!=null) {
-						nodeTmp = tree.successor(lastAttach);
+						nodeTmp = current_manipulating_Tree.successor(lastAttach);//大于该节点的
 						//newKey = (int) (oldAdjustingKey + (pos - 0.5f) * 60 * 1000);
 						newKey = (int) (oldAdjustingKey + (pos) * timeScaler);
 						if (newKey < 0)
 							newKey = 0;
-						newKey = Math.min(newKey, mMediaPlayer.getDuration());
+						newKey = Math.min(newKey, mSeekBar.getMax());
 					}
 					if(!CMN.opt.adjust_all){
 						//CMN.showT(pos+"");
 						if(newKey!=-1) {
 							int valTmp = lastAttach.getKey().value;
-							if (nodeTmp != null && newKey >= nodeTmp.getKey().key) {
-								int valTmp2 = nodeTmp.getKey().key;
-								lastAttach.getKey().value = nodeTmp.getKey().value;
-								lastAttach.getKey().key = valTmp2;
-								nodeTmp.getKey().value = valTmp;
-								lastAttach = nodeTmp;
+							if (nodeTmp != null && newKey >= nodeTmp.getKey().key) {//newKey超射
+								if (CMN.opt.confinedAdjust) {
+									newKey = nodeTmp.getKey().key - 100;
+								} else {
+									if (current_manipulating_Tree == tree) {
+										int valTmp2 = nodeTmp.getKey().key;
+										lastAttach.getKey().value = nodeTmp.getKey().value;
+										lastAttach.getKey().key = valTmp2;
+										nodeTmp.getKey().value = valTmp;
+										lastAttach = nodeTmp;
+									} else {
+										int valTmp2 = nodeTmp.getKey().key;
+										lastAttach.getKey().key = valTmp2;
+										lastAttach = nodeTmp;
+									}
+								}
 							} else {
-								nodeTmp = tree.predecessor(lastAttach);
-								if (nodeTmp != null && newKey <= nodeTmp.getKey().key) {
-									int valTmp2 = nodeTmp.getKey().key;
-									lastAttach.getKey().value = nodeTmp.getKey().value;
-									lastAttach.getKey().key = valTmp2;
-									nodeTmp.getKey().value = valTmp;
-									lastAttach = nodeTmp;
+								nodeTmp = current_manipulating_Tree.predecessor(lastAttach);//小于该节点的
+								if (nodeTmp != null && newKey <= nodeTmp.getKey().key) {//newKey低迷
+									if(CMN.opt.confinedAdjust){
+										newKey = nodeTmp.getKey().key+100;
+									}else {
+										if (current_manipulating_Tree == tree) {
+											int valTmp2 = nodeTmp.getKey().key;
+											lastAttach.getKey().value = nodeTmp.getKey().value;
+											lastAttach.getKey().key = valTmp2;
+											nodeTmp.getKey().value = valTmp;
+											lastAttach = nodeTmp;
+										} else {
+											int valTmp2 = nodeTmp.getKey().key;
+											lastAttach.getKey().key = valTmp2;
+											lastAttach = nodeTmp;
+										}
+									}
 								}
 							}
-
-							RBTNode<myCpr<Integer, Integer>> treeNodeTmp = tree2.search(new myCpr(lastAttach.getKey().value, 0));
-							if (treeNodeTmp != null)
-								treeNodeTmp.getKey().value = newKey;//修正行数-时间中的时间
+							if(current_manipulating_Tree ==tree) {//CMN.opt.cutterMode==0
+								RBTNode<myCpr<Integer, Integer>> treeNodeTmp = tree2.search(new myCpr(lastAttach.getKey().value, 0));
+								if (treeNodeTmp != null)
+									treeNodeTmp.getKey().value = newKey;//修正行数-时间中的时间 //TODO 简化
+							}
 							lastAttach.getKey().key = newKey;
 							AdaptermySeekSet.notifyDataSetChanged();
 						}
@@ -324,36 +395,40 @@ public class Main_editor_Fragment extends Fragment
 								rangeSBDelta += tmpV;
 							}
 						}
-						float min = tree.minimum().key + rangeSBDelta;
-						float max = tree.maximum().key + rangeSBDelta;
+						float min = current_manipulating_Tree.minimum().key + rangeSBDelta;
+						float max = current_manipulating_Tree.maximum().key + rangeSBDelta;
 						if (min >= 0 && max <= mSeekBar.getMax()) {
 
 						} else {//记录初次超射值
 							if (min < 0) {
 								overShootThresholdDelta = min;
-								rangeSBDelta = -tree.minimum().key;
+								rangeSBDelta = -current_manipulating_Tree.minimum().key;
 							} else {
 								overShootThresholdDelta = max - mSeekBar.getMax();
-								rangeSBDelta = mSeekBar.getMax() - tree.maximum().key;
+								rangeSBDelta = mSeekBar.getMax() - current_manipulating_Tree.maximum().key;
 							}
 						}
-						tree.setInOrderDo(new RBTree.inOrderDo() {
-							@Override
-							public void dothis(RBTNode node) {
-								myCpr<Integer, Integer> resTmp = ((RBTNode<myCpr<Integer, Integer>>) node).getKey();
-								resTmp.key =(int)(resTmp.key+rangeSBDelta);
-							}
-						});
-						tree.inOrderDo();
+						
+							current_manipulating_Tree.setInOrderDo(new RBTree.inOrderDo() {
+								@Override
+								public void dothis(RBTNode node) {
+									myCpr<Integer, Integer> resTmp = ((RBTNode<myCpr<Integer, Integer>>) node).getKey();
+									resTmp.key = (int) (resTmp.key + rangeSBDelta);
+								}
+							});
+							current_manipulating_Tree.inOrderDo();
+
+							AdaptermySeekSet.notifyDataSetChanged();
+						if(current_manipulating_Tree ==tree) {
+							tree2.setInOrderDo(new RBTree.inOrderDo() {
+								@Override
+								public void dothis(RBTNode node) {
+									myCpr<Integer, Integer> resTmp = ((RBTNode<myCpr<Integer, Integer>>) node).getKey();
+									resTmp.value =(int)(resTmp.value+rangeSBDelta);							}
+							});
+							tree2.inOrderDo();
+						}
 						mSeekBar.invalidate();
-						AdaptermySeekSet.notifyDataSetChanged();
-						tree2.setInOrderDo(new RBTree.inOrderDo() {
-							@Override
-							public void dothis(RBTNode node) {
-								myCpr<Integer, Integer> resTmp = ((RBTNode<myCpr<Integer, Integer>>) node).getKey();
-								resTmp.value =(int)(resTmp.value+rangeSBDelta);							}
-						});
-						tree2.inOrderDo();
 
 					}
 					//CMN.showTT("到达！");
@@ -372,6 +447,8 @@ public class Main_editor_Fragment extends Fragment
 			public void onStartTrackingTouch(RangeSeekBar view, boolean isLeft) {
 				if(lastAttach!=null)
 					oldAdjustingKey = lastAttach.getKey().key;
+				oldPos=
+				overShootThresholdDelta=0.0f;
 			}
 
 			@Override
@@ -402,20 +479,91 @@ public class Main_editor_Fragment extends Fragment
 		//sub_lv.setAdapter(subLyricAdapter);
 		main_edit_layout.setOnResizeListener(this);
 
-		prepareMedia(doc_Mp3);
+		mMediaPlayer=new MediaPlayer();
+		//prepareMedia(doc_Mp3);
 		//自动排列歌词
 
-		prepare_lyric_assign(doc_Lrc);
+		//prepare_lyric_assign(doc_Lrc);
+		doc_mp3_iv.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				DialogProperties properties = new DialogProperties();
+				properties.selection_mode = DialogConfigs.SINGLE_MODE;
+				properties.selection_type = DialogConfigs.FILE_SELECT;
+				properties.root = new File("/");
+				properties.error_dir = new File(DialogConfigs.DEFAULT_DIR);
+				if(new File(doc_Mp3).exists())
+					properties.offset = new File(doc_Mp3).getParentFile();
+				else
+					properties.offset = new File(CMN.opt.load_path);
+				properties.opt_dir=CMN.opt.favourite_dirs;
+				properties.extensions = CMN.audioSuffixs;
+				FilePickerDialog dialog = new FilePickerDialog(getActivity(), properties);
+				dialog.setTitle("请选择源音频文件作为音频源");
+				dialog.setDialogSelectionListener(new DialogSelectionListener() {
+					@Override
+					public void
+					onSelectedFilePaths(String[] files) { //files is the array of the paths of files selected by the Application User.
+						prepareMedia(files[0]);
+						if(doc_Lrc.equals("")){
+							try_prepare_lyrics_for_media(files[0]);
+						}
+					}
+
+				});
+				dialog.show();
+			}
+		});
+		doc_lrc_iv.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				DialogProperties properties = new DialogProperties();
+				properties.selection_mode = DialogConfigs.SINGLE_MODE;
+				properties.selection_type = DialogConfigs.FILE_SELECT;
+				properties.root = new File("/");
+				properties.error_dir = new File(DialogConfigs.DEFAULT_DIR);
+				if(new File(doc_Lrc).exists())
+					properties.offset = new File(doc_Lrc).getParentFile();
+				else
+					properties.offset = new File(CMN.opt.load_path);
+				properties.opt_dir=CMN.opt.favourite_dirs;
+				properties.extensions = CMN.lyricSuffixs;
+				FilePickerDialog dialog = new FilePickerDialog(getActivity(), properties);
+				dialog.setTitle("请选择lrc文件作为歌词源");
+				dialog.setDialogSelectionListener(new DialogSelectionListener() {
+					@Override
+					public void
+					onSelectedFilePaths(String[] files) { //files is the array of the paths of files selected by the Application User.
+						prepare_lyric_assign(files[0]);
+						if(doc_Mp3.equals("")){
+							String[] findHeaders = new String[]{new File(files[0]).getParentFile().getAbsolutePath()+"/",CMN.opt.save_path};
+							String fn = new File(files[0]).getName();
+							if(fn.indexOf(".")==-1){
+								fn=fn+".";
+							}else if(!fn.endsWith(".")){
+								fn = fn.substring(0,fn.lastIndexOf(".")+1);
+							}
+							for(String pathP:findHeaders) {
+								//CMN.showTT(pathP+fn+".lrc");
+								for(String ai:CMN.audioSuffixs)
+									if (new File(pathP+fn+ai).exists()){
+										prepareMedia(pathP+fn+ai);
+										break;
+									}
+							}
+						}
+					}
+				});
+				dialog.show();
+			}
+		});
 
 		actionBarHeight = tabLayout.getLayoutParams().height;
 
 		//tv.setTextSize(TypedValue.COMPLEX_UNIT_PX,CMN.scale(40));
 		tv.setTextSize(TypedValue.COMPLEX_UNIT_PX,scale(CMN.a,81));
 		tv.setTextColor(Color.parseColor("#ffffaa"));
-		tvPaddingTop = (int) (CMN.dm.heightPixels/2-actionBarHeight-CMN.getStatusBarHeight()-tv.getLineHeight()-120);//
-		//tvPaddingTop = (int) (actionBarHeight+main_lv.getLayoutParams().height);
-		tvPaddingBottom = (int) (CMN.dm.heightPixels/2-CMN.getStatusBarHeight()-(bottomtop.getLayoutParams().height+bottom.getLayoutParams().height)-2*tv.getLineHeight());
-		tv.setPadding(0,tvPaddingTop , 0, tvPaddingBottom);
+
 		tv.setOnTouchListener(new View.OnTouchListener() {
 			@Override
 			public boolean onTouch(View view, MotionEvent mv) {
@@ -549,20 +697,40 @@ public class Main_editor_Fragment extends Fragment
 				}
 			}, 0, 250);
 		}
-
-		tabLayout.setScrollPosition(1,0,true);
-		tabLayout.getTabAt(1).select();
+		//speedFakingMoulator.schedule(new TimerTask() {
+		//	@Override
+		//	public void run() {
+		//		timerFaker.sendEmptyMessage(1); // 发送消息
+		//	}
+		//}, 0, 400);
+		tabLayout.setScrollPosition(3,0,true);
+		tabLayout.getTabAt(3).select();
 		onTabSelected(tabLayout.getTabAt(0));
-		onTabSelected(tabLayout.getTabAt(1));
+		onTabSelected(tabLayout.getTabAt(3));
+		view_initialized=true;
+		if(prepareMedia_pending)
+			prepareMedia(null);
+		if(prepareLyrics_pending)
+			prepare_lyric_assign(null);
 		return main_edit_layout;
 	}
 
-
-
-
-
-
-
+	public void try_prepare_lyrics_for_media(String file) {
+		String[] findHeaders = new String[]{new File(file).getParentFile().getAbsolutePath()+"/",CMN.opt.save_path};
+		String fn = new File(file).getName();
+		if(fn.indexOf(".")==-1)
+			fn=fn+".";
+		else if(!fn.endsWith("."))
+			fn = fn.substring(0,fn.lastIndexOf(".")+1);
+		for(String pathP:findHeaders) {
+			//CMN.showTT(pathP+fn+".lrc");
+			for(String li:CMN.lyricSuffixs)
+				if (new File(pathP+fn+li).exists()){
+					prepare_lyric_assign(pathP+fn+li);
+					break;
+				}
+		}
+	}
 
 
 	int currenTime;
@@ -644,10 +812,14 @@ public class Main_editor_Fragment extends Fragment
 		return Math.round(pxValue * scale * 0.5f);
 	}
 
-
+	int audio_length=0;
 	public void prepareMedia(String path) {
 		if(path!=null)
 			doc_Mp3=path;
+		if(!view_initialized) {
+			prepareMedia_pending = true;
+			return;
+		}
 		else
 			path=doc_Mp3;
 		if(mMediaPlayer!=null) {
@@ -673,26 +845,31 @@ public class Main_editor_Fragment extends Fragment
 			//CMN.showTT("prepareMedia ERROR:" + e.getLocalizedMessage());
 			//return;
 		}
-		int lengthTmp=0;
+		audio_length=0;
 		if(isMediaPrepared) {
-			lengthTmp = mMediaPlayer.getDuration();
+			audio_length = mMediaPlayer.getDuration();
 			//CMN.showTT("已准备！");
 		}else{
-			CMN.sh("Editor:未找到Mp3文件！");
 			if(tree.maximum()!=null) {
-				lengthTmp = tree.maximum().key;
-				CMN.sh("正在使用歌词文件定义的时长");
+				audio_length = tree.maximum().key;
+				CMN.sh("编辑器:正在使用歌词文件定义的时长！(未找到Mp3文件)");
+			}else{
+				CMN.sh("编辑器:未找到Mp3文件！无有效时长");
 			}
 		}
-		mSeekBar.setMax(lengthTmp);
-		seekSetTimeSplitNumber = lengthTmp/(60*1000);
-		seekSetSpareTime = lengthTmp - seekSetTimeSplitNumber*(60*1000);
+		initSeekers();
+		totalT.setText(CMN.FormTime(mMediaPlayer.getDuration(), 2));
+	}
+
+	private void initSeekers() {
+		mSeekBar.setMax(audio_length);
+		seekSetTimeSplitNumber = audio_length/(60*1000);
+		seekSetSpareTime = audio_length - seekSetTimeSplitNumber*(60*1000);
 		if(seekSetSpareTime!=0) ++seekSetTimeSplitNumber;
 		seekSetActiveIdx = 0;
 		AdaptermySeekSet.notifyDataSetChanged();
 		mSeekBar.setProgress(0);
 		AdaptermySeekSet.setProgress(0);
-		totalT.setText(CMN.FormTime(mMediaPlayer.getDuration(), 2));
 
 	}
 
@@ -705,6 +882,11 @@ public class Main_editor_Fragment extends Fragment
 			doc_Lrc=path;
 		else
 			path=doc_Lrc;
+		if(!view_initialized) {
+			prepareLyrics_pending = true;
+			return;
+		}
+		src_tv.setText("");
 		if(path==null){
 			mainLyricAdapterData.clear();
 			subLyricAdapterData.clear();
@@ -715,10 +897,17 @@ public class Main_editor_Fragment extends Fragment
 		subLyricAdapterData.clear();
 		mainLyricAdapterData= new ArrayList<String>();
 		subLyricAdapterData = new ArrayList<String>();
+		int lnCounter = 0;
+		tree.clear();
+		tree2.clear();
 		try {
-			String str = new String(CMN.readParse(path));
-			if (str.startsWith("{")) {//JSON
-				JSONArray jsonArray = new JSONArray("[" + str + "]");
+			if(path.indexOf(".")==-1 || path.toLowerCase().endsWith(".json")){//JSON
+				String str = new String(CMN.readParse(path));
+				JSONArray jsonArray;
+				if (str.startsWith("{"))
+					jsonArray = new JSONArray("[" + str + "]");
+				else
+					jsonArray = new JSONArray(str);
 				JSONObject ducoj = jsonArray.getJSONObject(0);
 				String lyrics = ducoj.optString("lyric");
 				String translyrics = ducoj.optString("translateLyric");
@@ -728,9 +917,6 @@ public class Main_editor_Fragment extends Fragment
 					if (lyrics.startsWith("[")) //JSON with time 类似于提取歌词的处理
 					{
 						String[] lst1 = lyrics.split("\\n");
-						int lnCounter = 0;
-						tree.clear();
-						tree2.clear();
 						for (String i : lst1) {//处理主歌词
 							boolean isLyric = true;
 							int offa = i.indexOf("[");
@@ -816,15 +1002,15 @@ public class Main_editor_Fragment extends Fragment
 						}else{
 							src_tv.setText(new StringBuilder().append(lyrics));
 						}
-						updateSelectedPositions();
+						//updateSelectedPositions();
 					} else { //普普通通
 						int lnIndex = lyrics.indexOf("\n");
 						int lnIndexOld = 0;
 						while (lnIndex != -1) {
 							//CMN.showT(lyrics.substring(lnIndexOld,lnIndex));
-							mainLyricAdapterData.add(lyrics.substring(lnIndexOld + 2, lnIndex));
-							lnIndexOld = lnIndex;
-							lnIndex = lyrics.indexOf("\n", lnIndexOld + 2);
+							mainLyricAdapterData.add(lyrics.substring(lnIndexOld, lnIndex));
+							lnIndexOld = lnIndex + 1;
+							lnIndex = lyrics.indexOf("\n", lnIndexOld );
 						}
 						if (lnIndexOld <= lyrics.length() - 2) {
 							mainLyricAdapterData.add(lyrics.substring(lnIndexOld, lyrics.length()));
@@ -848,10 +1034,88 @@ public class Main_editor_Fragment extends Fragment
 						subLyricAdapterData.add("");
 					}
 				}
-			} else {//普通，逐行散列
+			} else if(path.toLowerCase().endsWith(".lrc")){//lrc
+				final HashMap<Integer, String> lst2_texts = new HashMap<Integer, String>();
+				//自动检测编码
+				chatsetDec cd = new chatsetDec();
+				int time = -1;
+				StringBuilder src_tv_builder =new StringBuilder();
+				BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(path),cd.guessFileEncoding(new File(path)).split(",")[0]));
+				String line = "";
+				while ((line = br.readLine()) != null) {
+					src_tv_builder.append(line).append("\n");
+					int offa = line.indexOf("[");
+					int offb = line.indexOf("]", offa);
+					//if (offa == -1 || offb == -1) continue;
+					int oldValidOffb = offb;
+					ArrayList<Integer> times = new ArrayList<Integer>();
+
+					if(offa!=0||offb<0)//此行无首[]标记,要么是翻译歌词,否则不予理会。
+					{
+						if(time!=-1){//是翻译歌词
+							String text = (offb + 1) < line.length() ? line.substring(offb + 1) : "";//翻译歌词
+							lst2_texts.put(time,text);
+						}
+						continue;
+					}
+					while(true) {  //遍历所有tags
+						if (offa == -1 || offb == -1) {
+							break;
+						}
+						oldValidOffb = offb;
+						String boli = line.substring(offa + 1, offb);
+						String[] tmp = boli.split("[: .]");
+						//格式检查
+						time = -1;
+						if (tmp.length == 3)//00:00.000
+						{
+							if (tmp[2].length() == 2)
+								tmp[2] = tmp[2] + "0";
+
+							try{
+								time = Integer.valueOf(tmp[0]) * 60000 + Integer.valueOf(tmp[1]) * 1000 + Integer.valueOf(tmp[2]);//时间码
+							}catch (NumberFormatException e){time = -1;}
+						}
+						else if (tmp.length == 2)//00:00
+						{
+							try{
+								time = Integer.valueOf(tmp[0]) * 60000 + Integer.valueOf(tmp[1]) * 1000;//时间码
+							}catch (NumberFormatException e){time = -1;}
+						}
+						if(time!=-1)
+							times.add(time);
+
+						offa = line.indexOf("[", offb);
+						offb = line.indexOf("]", offa);
+					}
+					for(int timelet:times){
+						String textlet = (oldValidOffb + 1) < line.length() ? line.substring(oldValidOffb + 1) : "";//主歌词
+						//if (!"".equals(text)) {//跳过冗余
+						mainLyricAdapterData.add(textlet);
+						myCpr tmpNode = new myCpr<Integer, Integer>(timelet,lnCounter++);//时间-行
+						//lst1_texts.put(time,text);//TODO::好像这个对象可以取代mainLyricAdapterData。。不管了
+						tree.insert(tmpNode);
+						tree2.insert(tmpNode.Swap());
+						//}
+					}
+				}
+				for(int i=0;i<mainLyricAdapterData.size();i++) {//保证main、sub_lv的行数一致。
+					if(lst2_texts.size()>0){//如果该行有时间记载，试图以时间取翻译
+						RBTNode<myCpr<Integer, Integer>> searcherNode = tree2.sxing(new myCpr<Integer, Integer>(i, 0));//行数-时间
+						if(searcherNode!=null)
+							subLyricAdapterData.add(lst2_texts.get(searcherNode.getKey().value));
+						else
+							subLyricAdapterData.add("");
+					}else {
+						subLyricAdapterData.add("");
+					}
+				}
+				src_tv.setText(src_tv_builder.toString());
+				src_tv_builder.setLength(0);
+				//updateSelectedPositions();
+			}else if(path.toLowerCase().endsWith(".txt")){//普通txt，逐行散列
 
 			}
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (JSONException e) {
@@ -861,6 +1125,8 @@ public class Main_editor_Fragment extends Fragment
 		//	startCandidate=0;
 		//else
 		//	startCandidate=-1;
+		src_title_et.setText(path);
+		updateSelectedPositions();
 		mainLyricAdapter.notifyDataSetChanged();
 		//CMN.showT("mainLyricAdapter");
 	}
@@ -885,7 +1151,8 @@ public class Main_editor_Fragment extends Fragment
 				}
 			} else {//普通，逐行散列
 
-			}} catch (IOException e) {
+			}
+		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -935,101 +1202,191 @@ public class Main_editor_Fragment extends Fragment
 	public boolean onMenuItemClick(MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.save:
-				if(CMN.curr_proj_timecode==-1)
-					dbCon.dumpNewProj(""+src_title_et.getText(),doc_Mp3, doc_Lrc, mSeekBar.tree, mainLyricAdapterData, subLyricAdapterData);
-				else
-					dbCon.updateProj(CMN.curr_proj_timecode+"",""+src_title_et.getText(),doc_Mp3,doc_Lrc,mSeekBar.tree, mainLyricAdapterData, subLyricAdapterData);
+				//CMN.showTT(dbCon.getDB().getVersion()+"");
+				if (dbCon.getDB().getVersion() < CMN.dbVersionCode) {
+					View dialog = CMN.inflater.inflate(R.layout.dialog, (ViewGroup) CMN.a.findViewById(R.id.dialog));
+					AlertDialog.Builder builder = new AlertDialog.Builder(CMN.a);
+					builder.setTitle("检测到database架构更新，重建后才能保存项目。确认？");
+					builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							dbCon.reBuildDB(getActivity());
+							if (CMN.curr_proj_timecode == -1)
+								dbCon.dumpNewProj("" + src_title_et.getText(), doc_Mp3, doc_Lrc, cutter_tree, tree, mainLyricAdapterData, subLyricAdapterData);
+							else
+								dbCon.updateProj(CMN.curr_proj_timecode + "", "" + src_title_et.getText(), doc_Mp3, doc_Lrc, cutter_tree, tree, mainLyricAdapterData, subLyricAdapterData);
+						}
+					});
+					builder.setView(dialog);
+					//builder.setIcon(R.mipmap.ic_directory_parent);
+					builder.show();
+				} else {
+					if (CMN.curr_proj_timecode == -1)
+						dbCon.dumpNewProj("" + src_title_et.getText(), doc_Mp3, doc_Lrc, cutter_tree, tree, mainLyricAdapterData, subLyricAdapterData);
+					else
+						dbCon.updateProj(CMN.curr_proj_timecode + "", "" + src_title_et.getText(), doc_Mp3, doc_Lrc, cutter_tree, tree, mainLyricAdapterData, subLyricAdapterData);
+				}
 				break;
 			case R.id.open:
-				View dialog = CMN.inflater.inflate(R.layout.settings_choosing_dialog, (ViewGroup) CMN.a.findViewById(R.id.dialog));
+				//TODO 初次安装CMN.inflater 崩溃过
+				View dialog = getActivity().getLayoutInflater().inflate(R.layout.settings_choosing_dialog, (ViewGroup) getActivity().findViewById(R.id.dialog));
 				ListView lv = (ListView) dialog.findViewById(R.id.lv);
-				AlertDialog.Builder builder = new AlertDialog.Builder(CMN.a);
+				AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 				sonclick = null;
 				daProjsAdapter_.refresh();
 				lv.setAdapter(daProjsAdapter_);
 				builder.setView(dialog);
 				builder.setIcon(R.mipmap.ic_directory_parent);
-				builder.setNeutralButton("删除",null);
+				builder.setNeutralButton("删除", null);
 				d = builder.create();
 				d.show();
 				//d.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
 				//d.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 				Window window = d.getWindow();
 				WindowManager.LayoutParams params = window.getAttributes();
-				params.width =  WindowManager.LayoutParams.MATCH_PARENT;//如果不设置,可能部分机型出现左右有空隙,也就是产生margin的感觉
+				params.width = WindowManager.LayoutParams.MATCH_PARENT;//如果不设置,可能部分机型出现左右有空隙,也就是产生margin的感觉
 				params.height = WindowManager.LayoutParams.WRAP_CONTENT;
 				//params.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE;//显示dialog的时候,就显示软键盘
 				params.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;//就是这个属性导致不能获取焦点,默认的是FLAG_NOT_FOCUSABLE,故名思义不能获取输入焦点,
-				params.dimAmount=0.5f;//设置对话框的透明程度背景(非布局的透明度)
+				params.dimAmount = 0.5f;//设置对话框的透明程度背景(非布局的透明度)
 				window.setAttributes(params);
 				//window.getDecorView().setPadding(0, 0, 0, 0);//使match parent 生效??
 
 				d.getButton(AlertDialog.BUTTON_NEUTRAL).setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						daProjsAdapter_.showDelete=!daProjsAdapter_.showDelete;
+						daProjsAdapter_.showDelete = !daProjsAdapter_.showDelete;
 						daProjsAdapter_.notifyDataSetChanged();
 					}
-				});				
+				});
 				break;
 			case R.id.export:
-				try {
-					//获取文件名
-					int fcount=0;
-					String fn = String.valueOf(src_title_et.getText())+".exported_No."+fcount+".lrc";
-					while(new File(CMN.opt.save_path + fn).exists()){
-						fn = String.valueOf(src_title_et.getText())+".exported_No."+(++fcount)+".lrc";
-					}
-					File outFile = new File(CMN.opt.save_path + fn);
-					sb = new StringBuffer();
-					switch (CMN.opt.translationFormatNumber){
-						case 0:CMN.opt.co_lyrics_sep = "\r\n";
-							break;
-						case 1:CMN.opt.co_lyrics_sep = " ";
-							break;
-					}
-					tree.setInOrderDo(new RBTree.inOrderDo() {
-						@Override
-						public void dothis(RBTNode node) {
-							myCpr<Integer, Integer> cprTmp = (myCpr<Integer, Integer>) node.getKey();
-							int dataIdx= cprTmp.value;
-							int time = cprTmp.key;
-							sb.append("[")
-								.append(CMN.FormTime(time,CMN.opt.timeFormatNumber))
-								.append("]")
-								.append(mainLyricAdapterData.get(dataIdx))
-								;
-							String tmp = subLyricAdapterData.get(dataIdx);
-							if(!tmp.equals(""))
-								sb.append(CMN.opt.co_lyrics_sep)
-								  .append(tmp).append("\r\n");
-							else
-								sb.append("\r\n");
-
+				if (CMN.opt.cutterMode != 1) {
+					try {
+						//获取文件名
+						int fcount = 0;
+						String fn = String.valueOf(src_title_et.getText()) + ".exported_No." + fcount + ".lrc";
+						while (new File(CMN.opt.save_path + fn).exists()) {
+							fn = String.valueOf(src_title_et.getText()) + ".exported_No." + (++fcount) + ".lrc";
 						}
-					});
-					tree.inOrderDo();
+						File outFile = new File(CMN.opt.save_path + fn);
+						sb = new StringBuffer();
+						switch (CMN.opt.translationFormatNumber) {
+							case 0:
+								CMN.opt.co_lyrics_sep = "\r\n";
+								break;
+							case 1:
+								CMN.opt.co_lyrics_sep = " ";
+								break;
+						}
+						tree.setInOrderDo(new RBTree.inOrderDo() {
+							@Override
+							public void dothis(RBTNode node) {
+								myCpr<Integer, Integer> cprTmp = (myCpr<Integer, Integer>) node.getKey();
+								int dataIdx = cprTmp.value;
+								int time = cprTmp.key;
+								sb.append("[")
+										.append(CMN.FormTime(time, CMN.opt.timeFormatNumber))
+										.append("]")
+										.append(mainLyricAdapterData.get(dataIdx))
+								;
+								String tmp = subLyricAdapterData.get(dataIdx);
+								if (!tmp.equals(""))
+									sb.append(CMN.opt.co_lyrics_sep)
+											.append(tmp).append("\r\n");
+								else
+									sb.append("\r\n");
+
+							}
+						});
+						tree.inOrderDo();
 
 
+						//最终写入
 
-					//最终写入
+						outFile.createNewFile();
+						OutputStreamWriter oufi = new OutputStreamWriter(new FileOutputStream(CMN.opt.save_path + fn), CMN.charsetNames[CMN.opt.charSetNumber]);
+						oufi.write(sb.toString());
+						sb.setLength(0);
+						sb = null;
+						//TODO 复用测试
+						oufi.close();
+						Toast.makeText(getActivity(),"已导出: " + fn,Toast.LENGTH_SHORT).show();
+					} catch (FileNotFoundException e) {
+						Toast.makeText(getActivity(),"File Not Found Exception:"+e.getLocalizedMessage(),Toast.LENGTH_LONG).show();
+						e.printStackTrace();
+					} catch (IOException e) {
+						Toast.makeText(getActivity(),"IO Exception:"+e.getLocalizedMessage(),Toast.LENGTH_LONG).show();
+						e.printStackTrace();
+					} catch (Exception e) {
+						Toast.makeText(getActivity(),"Export Erorr:"+e.getLocalizedMessage(),Toast.LENGTH_LONG).show();
+						e.printStackTrace();
+					}
+				}else{//切割音频！
+					try {
+					if(!isMediaPrepared && cutter_tree.getRoot()==null)
+						break;
+					CheapSoundFile.ProgressListener listner = null;
+					CheapSoundFile cheapSoundFile = null;
 
-					outFile.createNewFile();
-					OutputStreamWriter oufi = new OutputStreamWriter(new FileOutputStream(CMN.opt.save_path + fn), CMN.charsetNames[CMN.opt.charSetNumber]);
-					oufi.write(sb.toString());
-					sb.setLength(0);
-					sb=null;
-					//TODO 复用测试
-					oufi.close();
-					CMN.sh("已导出: "+fn);
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
+					cheapSoundFile = CheapSoundFile.create(doc_Mp3, listner);
+
+					if (cheapSoundFile == null)
+						return true;
+					int mSampleRate = cheapSoundFile.getSampleRate();
+					int mSamplesPerFrame = cheapSoundFile.getSamplesPerFrame();
+					ArrayList<myCpr<Integer,Integer>> total1 = cutter_tree.flatten();
+					int fileNameCounter=0;
+					if(CMN.opt.coupledCut==true){//两两切割
+						for (int i = 0; i < total1.size() / 2; i++) {
+							int startFrame = Util.secondsToFrames((double) total1.get(2 * i).key / 1000.0f, mSampleRate, mSamplesPerFrame);
+							int endFrame = Util.secondsToFrames((double) total1.get(2 * i + 1).key / 1000.0f, mSampleRate, mSamplesPerFrame);
+							String fn = new File(doc_Mp3).getName();
+							File outfile_path = new File(CMN.opt.save_path+ fn.substring(0, fn.lastIndexOf(".")) + ".IexportI." + fileNameCounter + fn.substring(fn.lastIndexOf(".")));
+							while(outfile_path.exists())
+								outfile_path = new File(CMN.opt.save_path+ fn.substring(0, fn.lastIndexOf(".")) + ".IexportI." + (++fileNameCounter) + fn.substring(fn.lastIndexOf(".")));
+							try {
+								cheapSoundFile.WriteFile(outfile_path, startFrame, endFrame - startFrame);
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+						}
+					}else{//间隔切割
+						Toast.makeText(getActivity(),"间隔切割!!!",Toast.LENGTH_SHORT).show();
+						for (int i = 0; i < total1.size() - 1; i++) {
+							int startFrame = Util.secondsToFrames((double) total1.get(i).key / 1000.0f, mSampleRate, mSamplesPerFrame);
+							int endFrame =   Util.secondsToFrames((double) total1.get(i + 1).key / 1000.0f, mSampleRate, mSamplesPerFrame);
+							String fn = new File(doc_Mp3).getName();
+							File outfile_path = new File(CMN.opt.save_path+ fn.substring(0, fn.lastIndexOf(".")) + ".Iexport." + fileNameCounter + fn.substring(fn.lastIndexOf(".")));
+							while(outfile_path.exists())
+								outfile_path = new File(CMN.opt.save_path+ fn.substring(0, fn.lastIndexOf(".")) +  ".Iexport." + (++fileNameCounter) + fn.substring(fn.lastIndexOf(".")));
+							try {
+								cheapSoundFile.WriteFile(outfile_path, startFrame, endFrame - startFrame);
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+						}
+					}
+					Toast.makeText(getActivity(),R.string.doneg,Toast.LENGTH_SHORT).show();
+					} catch (FileNotFoundException e) {
+						Toast.makeText(getActivity(),"File Not Found Exception:"+e.getLocalizedMessage(),Toast.LENGTH_LONG).show();
+						e.printStackTrace();
+					} catch (IOException e) {
+						Toast.makeText(getActivity(),"IO Exception:"+e.getLocalizedMessage(),Toast.LENGTH_LONG).show();
+						e.printStackTrace();
+					} catch (Exception e) {
+						Toast.makeText(getActivity(),"Cut Erorr:"+e.getLocalizedMessage(),Toast.LENGTH_LONG).show();
+						e.printStackTrace();
+					}
 				}
 				break;
-		}
+			case R.id.test:
+				if(Build.VERSION.SDK_INT>=23){
+					mMediaPlayer.setPlaybackParams(mMediaPlayer.getPlaybackParams().setSpeed(2.0f));
+				}
+				break;
 
+		}
 		return false;
 	}
 
@@ -1048,59 +1405,70 @@ public class Main_editor_Fragment extends Fragment
 				}
 				break;
 			case R.id.browser_widget3://corlet
-				boolean needUpdateLastAttatch=false;
-				if(lastAttach !=null && startCandidate== lastAttach.getKey().value)
-					needUpdateLastAttatch = true;
 				int timeNow;
-				if(isMediaPrepared)
+				if (isMediaPrepared)
 					timeNow = mMediaPlayer.getCurrentPosition();
 				else
 					timeNow = mSeekBar.getProgress();
-				//CMN.showT("add"+mSeekBar.getProgress()+":"+startCandidate);
-				myCpr timeLineSearcherlet = new myCpr(startCandidate, timeNow);//行数-时间
-				RBTNode<myCpr<Integer, Integer>> timeLineSearchedNode = tree2.search(timeLineSearcherlet);
-				//TODO::优化search
-				//根据行数搜时间
-				if (timeLineSearchedNode != null) {//previously an another ms-time was assigned to the line at "startCandidate",thus we shall invalidate that assignment.(del time-lyric_line node)
-					myCpr timeLineSearchRes = timeLineSearchedNode.getKey();
-					//CMN.showT("del time-lyric_line node @ time:"+timeLineSearchRes.key);
-					tree.remove(timeLineSearchRes.Swap());//时间-行数
-				}
-				tree2.insertUpdate(timeLineSearcherlet);
-				//根据时间搜行数
-				timeLineSearcherlet = new myCpr(timeNow, startCandidate);
-				timeLineSearchedNode = tree.search(timeLineSearcherlet);
-				if (timeLineSearchedNode != null) {//previously an another line possesses this ms-time,thus we shall invalidate that assignment.(del lyric_line-time node)
-					int posTmp = timeLineSearchedNode.getKey().value;
-					//CMN.showT("found!!!" + posTmp);
-					mainLyricAdapter.selectedPositions.remove(posTmp);
-					tree2.remove(timeLineSearchedNode.getKey().Swap());
-					mainLyricAdapter.notifyItemChanged(posTmp);
-				}
-				if(CMN.opt.add_agjust_coupled || needUpdateLastAttatch) {
-					lastAttach = tree.insertUpdate(timeLineSearcherlet);
-					top_adjustBar.setActiveColor(colorSheet[lastAttach.getKey().value%colorSheet.length]);//根据行数取颜色
-					show_adjustBar_toggle();
-				}else
-					tree.insertUpdate(timeLineSearcherlet);
-				AdaptermySeekSet.notifyDataSetChanged();
-				mainLyricAdapter.selectedPositions.put(startCandidate, CMN.FormTime(timeNow, 1));
+				if(CMN.opt.cutterMode==1){
+					if(CMN.opt.add_agjust_coupled) {
+						lastAttach = cutter_tree.insert(new myCpr(timeNow, 0));
+						top_adjustBar.setActiveColor(colorSheet[lastAttach.getKey().value % colorSheet.length]);//根据行数取颜色
+						show_adjustBar_toggle();
+					}else
+						cutter_tree.insert(new myCpr(timeNow,0));
+					AdaptermySeekSet.notifyDataSetChanged();
+					mSeekBar.invalidate();
+				}else if(mainLyricAdapterData.size()>0){
+					boolean needUpdateLastAttatch = false;
+					if (lastAttach != null && startCandidate == lastAttach.getKey().value)
+						needUpdateLastAttatch = true;
+					//CMN.showT("add"+mSeekBar.getProgress()+":"+startCandidate);
+					myCpr timeLineSearcherlet = new myCpr(startCandidate, timeNow);//行数-时间
+					RBTNode<myCpr<Integer, Integer>> timeLineSearchedNode = tree2.search(timeLineSearcherlet);
+					//TODO::优化search
+					//根据行数搜时间
+					if (timeLineSearchedNode != null) {//previously an another ms-time was assigned to the line at "startCandidate",thus we shall invalidate that assignment.(del time-lyric_line node)
+						myCpr timeLineSearchRes = timeLineSearchedNode.getKey();
+						//CMN.showT("del time-lyric_line node @ time:"+timeLineSearchRes.key);
+						tree.remove(timeLineSearchRes.Swap());//时间-行数
+					}
+					tree2.insertUpdate(timeLineSearcherlet);
+					//根据时间搜行数
+					timeLineSearcherlet = new myCpr(timeNow, startCandidate);
+					timeLineSearchedNode = tree.search(timeLineSearcherlet);
+					if (timeLineSearchedNode != null) {//previously an another line possesses this ms-time,thus we shall invalidate that assignment.(del lyric_line-time node)
+						int posTmp = timeLineSearchedNode.getKey().value;
+						//CMN.showT("found!!!" + posTmp);
+						mainLyricAdapter.selectedPositions.remove(posTmp);
+						tree2.remove(timeLineSearchedNode.getKey().Swap());
+						mainLyricAdapter.notifyItemChanged(posTmp);
+					}
+					if (CMN.opt.add_agjust_coupled || needUpdateLastAttatch) {
+						lastAttach = tree.insertUpdate(timeLineSearcherlet);
+						top_adjustBar.setActiveColor(colorSheet[lastAttach.getKey().value % colorSheet.length]);//根据行数取颜色
+						show_adjustBar_toggle();
+					} else
+						tree.insertUpdate(timeLineSearcherlet);
+					AdaptermySeekSet.notifyDataSetChanged();
+					mainLyricAdapter.selectedPositions.put(startCandidate, CMN.FormTime(timeNow, 1));
 
-				mSeekBar.invalidate();
-				//移动main_lv等
-				if(scrollLinearLayoutManager.findLastVisibleItemPosition()<startCandidate ||
-						scrollLinearLayoutManager.findFirstVisibleItemPosition()>startCandidate)
-					scrollLinearLayoutManager.scrollToPositionWithOffset(startCandidate, 100);
-				currenTime=mSeekBar.getProgress();
-				notifyTimeChanged();
-				if(CMN.a.opt.auto_move_cursor)
-					updateStartCandidate(startCandidate + 1);
-				else
-					updateStartCandidate(startCandidate);
+					mSeekBar.invalidate();
+					//移动main_lv等
+					if (scrollLinearLayoutManager.findLastVisibleItemPosition() < startCandidate ||
+							scrollLinearLayoutManager.findFirstVisibleItemPosition() > startCandidate)
+						scrollLinearLayoutManager.scrollToPositionWithOffset(startCandidate, 100);
+					currenTime = mSeekBar.getProgress();
+					notifyTimeChanged();
+					if (CMN.opt.auto_move_cursor)
+						updateStartCandidate(startCandidate + 1);
+					else
+						updateStartCandidate(startCandidate);
+				}
 				break;
 			case R.id.browser_widget2://zuo
-				if (tree.getRoot() == null) break;
-				lastAttach = tree.xxing_samsara(new myCpr(mSeekBar.getProgress(), 0));
+				if (current_manipulating_Tree.getRoot() == null) break;
+				lastAttach = current_manipulating_Tree.xxing_samsara(new myCpr(mSeekBar.getProgress(), 0));
 				currenTime = lastAttach.getKey().key;
 				mMediaPlayer.seekTo(currenTime);
 				currenT.setText(CMN.FormTime(currenTime, 2));//TODO opt
@@ -1111,9 +1479,10 @@ public class Main_editor_Fragment extends Fragment
 				if(scrollLinearLayoutManager.findLastVisibleItemPosition()< lastAttach.getKey().value ||
 						scrollLinearLayoutManager.findFirstVisibleItemPosition()> lastAttach.getKey().value)
 					scrollLinearLayoutManager.scrollToPositionWithOffset(lastAttach.getKey().value, 100);
-
-				if(CMN.a.opt.attatch_cursor_coupled){
-					updateStartCandidate(lastAttach.getKey().value);
+				if(CMN.opt.cutterMode!=1) {
+					if (CMN.opt.attatch_cursor_coupled) {
+						updateStartCandidate(lastAttach.getKey().value);
+					}
 				}
 				top_adjustBar.setActiveColor(colorSheet[lastAttach.getKey().value%colorSheet.length]);//根据行数取颜色
 				notifyTimeChanged();
@@ -1121,8 +1490,8 @@ public class Main_editor_Fragment extends Fragment
 				top_adjustBar.invalidate();//颜色
 				break;
 			case R.id.browser_widget4://you
-				if (tree.getRoot() == null) break;
-				lastAttach = tree.sxing_samsara(new myCpr(mSeekBar.getProgress(), 0));
+				if (current_manipulating_Tree.getRoot() == null) break;
+				lastAttach = current_manipulating_Tree.sxing_samsara(new myCpr(mSeekBar.getProgress(), 0));
 				currenTime = lastAttach.getKey().key;
 				mMediaPlayer.seekTo(currenTime);
 				currenT.setText(CMN.FormTime(lastAttach.getKey().key, 2));
@@ -1133,7 +1502,7 @@ public class Main_editor_Fragment extends Fragment
 				if(scrollLinearLayoutManager.findLastVisibleItemPosition()< lastAttach.getKey().value ||
 						scrollLinearLayoutManager.findFirstVisibleItemPosition()> lastAttach.getKey().value)
 					scrollLinearLayoutManager.scrollToPositionWithOffset(lastAttach.getKey().value, 0);
-				if(CMN.a.opt.attatch_cursor_coupled){
+				if(CMN.opt.cutterMode!=1 && CMN.opt.attatch_cursor_coupled){
 					updateStartCandidate(lastAttach.getKey().value);
 				}
 				top_adjustBar.setActiveColor(colorSheet[lastAttach.getKey().value%colorSheet.length]);
@@ -1143,11 +1512,11 @@ public class Main_editor_Fragment extends Fragment
 
 				break;
 			case R.id.splitTime:
-				if(seekScroll.getVisibility()==View.VISIBLE) {
-					seekScroll.setVisibility(View.INVISIBLE);
+				if(seeksetP.getVisibility()==View.VISIBLE) {
+					seeksetP.setVisibility(View.INVISIBLE);
 					seekScrollVisible = false;
 				}else {
-					seekScroll.setVisibility(View.VISIBLE);
+					seeksetP.setVisibility(View.VISIBLE);
 					seekScrollVisible = true;
 				}
 				break;
@@ -1164,7 +1533,7 @@ public class Main_editor_Fragment extends Fragment
 				else
 					itemsLayout.setVisibility(View.VISIBLE);
 				break;
-			case R.id.jumpTo:
+			case R.id.jumpTo://splitter上的东西
 			case R.id.previewLineIdx:
 				//s.setScrollY(s.getScrollY());//停止scrollview滑动 无效
 				isDragging=isDraggingEffecting=false;//停止scrollview滑动
@@ -1180,12 +1549,12 @@ public class Main_editor_Fragment extends Fragment
 			case R.id.items1:
 				CMN.opt.viewPagerLocked=!CMN.opt.viewPagerLocked;
 				if(CMN.opt.viewPagerLocked){
-					CMN.a.viewPager.setNoScroll(true);
+					((MainActivity) getActivity()).viewPager.setNoScroll(true);
 				}else{
-                    CMN.a.viewPager.setNoScroll(false);
+					((MainActivity) getActivity()).viewPager.setNoScroll(false);
                 }
-				if(CMN.a!=null && CMN.a.f1!=null)
-					CMN.a.f1.viewpager_locker.setChecked(CMN.opt.viewPagerLocked);
+				if(((MainActivity) getActivity()).f1!=null)
+					((MainActivity) getActivity()).f1.viewpager_locker.setChecked(CMN.opt.viewPagerLocked);
 				break;
 			case R.id.items2:
 				CMN.opt.attatch_cursor_coupled=!CMN.opt.attatch_cursor_coupled;
@@ -1202,130 +1571,212 @@ public class Main_editor_Fragment extends Fragment
 			case R.id.toptoggle_adjustAll:
 				CMN.opt.adjust_all=!CMN.opt.adjust_all;
 				break;
+			case R.id.toptoggle_confinedAdjust:
+				CMN.opt.confinedAdjust=!CMN.opt.confinedAdjust;
+				break;
 			case R.id.toptoggle_loop:
 				CMN.opt.isAttABLooping=!CMN.opt.isAttABLooping;
 				break;
 			case R.id.deletln://删除行
-				if(d!=null) {
-					d.dismiss();
-					d=null;
-				}
-                dv = CMN.inflater.inflate(R.layout.dialog_double_number_picker_dln,(ViewGroup) CMN.a.findViewById(R.id.dialog));
-                dv.findViewById(R.id.confirm).setOnClickListener(new View.OnClickListener(){
-                    @Override
-                    public void onClick(View v) {
-                    }
-                });
-                ((NumberPicker)dv.findViewById(R.id.number1)).setMaxValue(mainLyricAdapterData.size());
-                ((NumberPicker)dv.findViewById(R.id.number1)).setValue(startCandidate);
-                ((NumberPicker)dv.findViewById(R.id.number2)).setMaxValue(mainLyricAdapterData.size());
-                ((NumberPicker)dv.findViewById(R.id.number2)).setValue(startCandidate);
-                AlertDialog.Builder builder2 = new AlertDialog.Builder(CMN.a);
-                builder2.setView(dv);
-                d = builder2.create();
-                d.setOnDismissListener(new AlertDialog.OnDismissListener(){
-                    @Override
-                    public void onDismiss(DialogInterface dialog) {
-                        dv = null;
-                        d = null;
-                    }
-                });
-                d.show();
-				dv.findViewById(R.id.confirm).setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						if(mainLyricAdapterData.size()!=0) {
-							int start = (((NumberPicker) dv.findViewById(R.id.number1)).getValue() + 0);
-							int end = (((NumberPicker) dv.findViewById(R.id.number2)).getValue() + 0);
-							int lnCount=0;
-							for(int i=start;i<=end;i++) {//删除第i行
-								mainLyricAdapterData.remove(i);
-								subLyricAdapterData .remove(i);
-								++lnCount;
-							}
-							for(int i=start;i<=end;i++){//删除第i行对应的时间标记
-								RBTNode<myCpr<Integer,Integer>> nodeTmp = tree2.sxing(new myCpr(start, 0));
-								if(nodeTmp!=null){
-									tree2.removeIntrinsic(nodeTmp);
-									tree.remove(new myCpr(nodeTmp.getKey().value, 0));
-								}
-							}
-							if(tree.getRoot()!=null && lnCount!=0){//
-								RBTNode<myCpr<Integer,Integer>> nodeTmp = tree2.sxing(new myCpr(start, 0));
-								while(nodeTmp!=null){
-									((myCpr<Integer,Integer>)tree.search(new myCpr(nodeTmp.getKey().value, 0)).getKey()).value-=lnCount;
-									nodeTmp.getKey().key-=lnCount;
-									nodeTmp=tree2.successor(nodeTmp);
-								}
-								updateSelectedPositions();
-							}
-							mainLyricAdapter.notifyDataSetChanged();
-						}
+				if(current_manipulating_Tree ==tree) {
+					if (d != null) {
 						d.dismiss();
 						d = null;
 					}
-				});
-                android.view.WindowManager.LayoutParams lp = d.getWindow().getAttributes();  //获取对话框当前的参数值
-                lp.height = 500;
-                d.getWindow().setAttributes(lp);
+					dv = getActivity().getLayoutInflater().inflate(R.layout.dialog_double_number_picker_dln, (ViewGroup) getActivity().findViewById(R.id.dialog));
+					dv.findViewById(R.id.confirm).setOnClickListener(new View.OnClickListener() {
+						@Override
+						public void onClick(View v) {
+						}
+					});
+					((NumberPicker) dv.findViewById(R.id.number1)).setMaxValue(mainLyricAdapterData.size());
+					((NumberPicker) dv.findViewById(R.id.number1)).setValue(startCandidate);
+					((NumberPicker) dv.findViewById(R.id.number2)).setMaxValue(mainLyricAdapterData.size());
+					((NumberPicker) dv.findViewById(R.id.number2)).setValue(startCandidate);
+					AlertDialog.Builder builder2 = new AlertDialog.Builder(getActivity());
+					builder2.setView(dv);
+					d = builder2.create();
+					d.setOnDismissListener(new AlertDialog.OnDismissListener() {
+						@Override
+						public void onDismiss(DialogInterface dialog) {
+							dv = null;
+							d = null;
+						}
+					});
+					d.show();
+					dv.findViewById(R.id.confirm).setOnClickListener(new View.OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							if (mainLyricAdapterData.size() != 0) {
+								int start = (((NumberPicker) dv.findViewById(R.id.number1)).getValue() + 0);
+								int end = (((NumberPicker) dv.findViewById(R.id.number2)).getValue() + 0);
+								int lnCount = 0;
+								for (int i = end-1; i >= 0; i--) {//删除第i行
+									mainLyricAdapterData.remove(i);
+									subLyricAdapterData.remove(i);
+									++lnCount;
+								}
+								for (int i = start; i <= end; i++) {//删除第i行对应的时间标记
+									RBTNode<myCpr<Integer, Integer>> nodeTmp = tree2.sxing(new myCpr(start, 0));
+									if (nodeTmp != null) {
+										tree2.removeIntrinsic(nodeTmp);
+										tree.remove(new myCpr(nodeTmp.getKey().value, 0));
+									}
+								}
+								if (tree.getRoot() != null && lnCount != 0) {//
+									RBTNode<myCpr<Integer, Integer>> nodeTmp = tree2.sxing(new myCpr(start, 0));
+									while (nodeTmp != null) {
+										((myCpr<Integer, Integer>) tree.search(new myCpr(nodeTmp.getKey().value, 0)).getKey()).value -= lnCount;
+										nodeTmp.getKey().key -= lnCount;
+										nodeTmp = tree2.successor(nodeTmp);
+									}
+									updateSelectedPositions();
+								}
+								mainLyricAdapter.notifyDataSetChanged();
+							}
+							d.dismiss();
+							d = null;
+						}
+					});
+					android.view.WindowManager.LayoutParams lp = d.getWindow().getAttributes();  //获取对话框当前的参数值
+					lp.height = 500;
+					d.getWindow().setAttributes(lp);
+				}else if(current_manipulating_Tree ==cutter_tree){
+					View dialog = getActivity().getLayoutInflater().inflate(R.layout.dialog,(ViewGroup) getActivity().findViewById(R.id.dialog));
+					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+					builder.setTitle("确定将歌词时间轴全部复制过来？这可能导致一团糟");
+					builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							//cutter_tree.clear();
+							tree.setInOrderDo(new RBTree.inOrderDo() {
+								@Override
+								public void dothis(RBTNode node) {
+									cutter_tree.insert(((myCpr<Integer, Integer>) node.getKey()).copy());
+								}
+							});
+							tree.inOrderDo();
+						} });
+					builder.setView(dialog);
+					//builder.setIcon(R.mipmap.ic_directory_parent);
+					builder.show();
+				}
 				break;
             case R.id.addln://添加行
-				if(d!=null) {
-					d.dismiss();
-					d=null;
-				}
-                dv = CMN.inflater.inflate(R.layout.dialog_double_number_picker_addln,(ViewGroup) CMN.a.findViewById(R.id.dialog));
-                dv.findViewById(R.id.confirm).setOnClickListener(new View.OnClickListener(){
-                    @Override
-                    public void onClick(View v) {
-                    }
-                });
-                ((NumberPicker)dv.findViewById(R.id.number1)).setMaxValue(mainLyricAdapterData.size());
-                ((NumberPicker)dv.findViewById(R.id.number1)).setValue(startCandidate);
-                ((NumberPicker)dv.findViewById(R.id.number2)).setMaxValue(12);
-                ((NumberPicker)dv.findViewById(R.id.number2)).setMinValue(1);
-                AlertDialog.Builder builder3 = new AlertDialog.Builder(CMN.a);
-                builder3.setView(dv);
-                d = builder3.create();
-                d.setOnDismissListener(new AlertDialog.OnDismissListener(){
-                    @Override
-                    public void onDismiss(DialogInterface dialog) {
-                        dv = null;
-                        d = null;
-                    }
-                });
-                d.show();
-                dv.findViewById(R.id.confirm).setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						int start = (((NumberPicker)dv.findViewById(R.id.number1)).getValue()+1);
-						if(mainLyricAdapterData.size()==0)
-							start=0;
-						//int start = Math.min((((NumberPicker)dv.findViewById(R.id.number1)).getValue()+1),mainLyricAdapterData.size()-1);
-						int lnCount=0;
-						for(int i=start;i<start+((NumberPicker)dv.findViewById(R.id.number2)).getValue();i++) {
-							mainLyricAdapterData.add(i, "");
-							subLyricAdapterData .add(i, "");
-							++lnCount;
-						}
-						mainLyricAdapter.notifyDataSetChanged();
-						if(tree.getRoot()!=null && lnCount!=0){//
-							RBTNode<myCpr<Integer,Integer>> nodeTmp = tree2.sxing(new myCpr(start, 0));
-							while(nodeTmp!=null){
-								((myCpr<Integer,Integer>)tree.search(new myCpr(nodeTmp.getKey().value, 0)).getKey()).value+=lnCount;
-								nodeTmp.getKey().key+=lnCount;
-								nodeTmp=tree2.successor(nodeTmp);
-							}
-							updateSelectedPositions();
-						}
+				if(CMN.opt.cutterMode!=1) {
+					if (d != null) {
 						d.dismiss();
-						d=null;
+						d = null;
 					}
-				});
-                android.view.WindowManager.LayoutParams lp2 = d.getWindow().getAttributes();  //获取对话框当前的参数值
-                lp2.height = 500;
-                d.getWindow().setAttributes(lp2);
+					dv = getActivity().getLayoutInflater().inflate(R.layout.dialog_double_number_picker_addln, (ViewGroup) getActivity().findViewById(R.id.dialog));
+					dv.findViewById(R.id.confirm).setOnClickListener(new View.OnClickListener() {
+						@Override
+						public void onClick(View v) {
+						}
+					});
+					((NumberPicker) dv.findViewById(R.id.number1)).setMinValue(0);
+					((NumberPicker) dv.findViewById(R.id.number1)).setMaxValue(mainLyricAdapterData.size());
+					((NumberPicker) dv.findViewById(R.id.number1)).setValue(startCandidate);
+					((NumberPicker) dv.findViewById(R.id.number2)).setMaxValue(12);
+					((NumberPicker) dv.findViewById(R.id.number2)).setMinValue(1);
+					final EditText ethhh = ((EditText)((NumberPicker) dv.findViewById(R.id.number2)).findViewById(Resources.getSystem().getIdentifier("numberpicker_input", "id", "android")));
+					ethhh.setFilters(new InputFilter[]{new InputTextFilter()});
+
+					AlertDialog.Builder builder3 = new AlertDialog.Builder(getActivity());
+					builder3.setView(dv);
+					d = builder3.create();
+					d.setOnDismissListener(new AlertDialog.OnDismissListener() {
+						@Override
+						public void onDismiss(DialogInterface dialog) {
+							dv = null;
+							d = null;
+						}
+					});
+					d.show();
+					dv.findViewById(R.id.confirm).setOnClickListener(new View.OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							int start = (((NumberPicker) dv.findViewById(R.id.number1)).getValue());
+							if (mainLyricAdapterData.size() == 0)
+								start = 0;
+							//int start = Math.min((((NumberPicker)dv.findViewById(R.id.number1)).getValue()+1),mainLyricAdapterData.size()-1);
+							int lnCount = 0;
+							((NumberPicker) dv.findViewById(R.id.number2)).getValue();
+							for (int i = start; i < start + Integer.valueOf(ethhh.getText().toString()); i++) {
+								mainLyricAdapterData.add(i, "");
+								subLyricAdapterData.add(i, "");
+								++lnCount;
+							}
+							mainLyricAdapter.notifyDataSetChanged();
+							if (tree.getRoot() != null && lnCount != 0) {//
+								RBTNode<myCpr<Integer, Integer>> nodeTmp = tree2.sxing(new myCpr(start, 0));
+								while (nodeTmp != null) {
+									((myCpr<Integer, Integer>) tree.search(new myCpr(nodeTmp.getKey().value, 0)).getKey()).value += lnCount;
+									nodeTmp.getKey().key += lnCount;
+									nodeTmp = tree2.successor(nodeTmp);
+								}
+								updateSelectedPositions();
+							}
+							d.dismiss();
+							d = null;
+							}
+					});
+					android.view.WindowManager.LayoutParams lp2 = d.getWindow().getAttributes();  //获取对话框当前的参数值
+					lp2.height = 500;
+					d.getWindow().setAttributes(lp2);
+				}else{
+					CMN.opt.coupledCut=!CMN.opt.coupledCut;
+					if(CMN.opt.coupledCut)
+						((TextView)main_edit_layout.findViewById(R.id.addln)).setText("两两模式");
+					else
+						((TextView)main_edit_layout.findViewById(R.id.addln)).setText("间隔模式");
+					AdaptermySeekSet.notifyDataSetChanged();
+				}
                 break;
+			case R.id.to_cutter://剪辑模式
+				switch_cutter_mode();
+				break;
+			case R.id.removeCutterEdge:
+				if(lastAttach!=null) {
+					cutter_tree.removeIntrinsic(lastAttach);
+					lastAttach=null;
+					mSeekBar.invalidate();
+					AdaptermySeekSet.notifyDataSetChanged();
+				}
+				break;
+		}
+	}
+
+	private void switch_cutter_mode() {
+		lastAttach=null;
+		if(CMN.opt.cutterMode==0){//currently in normal mode
+			CMN.opt.cutterMode=1;
+			mSeekBar.tree= current_manipulating_Tree =cutter_tree;
+			AdaptermySeekSet.notifyDataSetChanged();
+			mSeekBar.invalidate();
+			((TextView)main_edit_layout.findViewById(R.id.to_cutter)).setText(R.string.lrcEditorMode);
+			((TextView)main_edit_layout.findViewById(R.id.deletln)).setText(R.string.loadLrcTimeLine);
+			if(CMN.opt.coupledCut)
+				((TextView)main_edit_layout.findViewById(R.id.addln)).setText(R.string.cutEveryTwoPoints);
+			else
+				((TextView)main_edit_layout.findViewById(R.id.addln)).setText(R.string.cutPerPoint);
+			((View)main_edit_layout.findViewById(R.id.items3)).setEnabled(false);
+			TrdMenuItem.setTitle(R.string.cutg);
+			frameBG.setVisibility     (View.VISIBLE);
+			removeCutterEdge.setVisibility(View.VISIBLE);
+
+		}else{//currently in cutter mode
+			CMN.opt.cutterMode=0;
+			mSeekBar.tree= current_manipulating_Tree =tree;
+			AdaptermySeekSet.notifyDataSetChanged();
+			mSeekBar.invalidate();
+			((TextView)main_edit_layout.findViewById(R.id.to_cutter)).setText(R.string.cutterMode);
+			((TextView)main_edit_layout.findViewById(R.id.deletln)).setText(R.string.deleteLine);
+			((TextView)main_edit_layout.findViewById(R.id.addln)).setText(R.string.addLine);
+			((View)main_edit_layout.findViewById(R.id.items3)).setEnabled(true);
+			TrdMenuItem.setTitle(R.string.export_lrc);
+			frameBG.setVisibility     (View.INVISIBLE);
+			removeCutterEdge.setVisibility(View.INVISIBLE);
 		}
 	}
 
@@ -1380,7 +1831,8 @@ public class Main_editor_Fragment extends Fragment
 
 	/*根据时间重建播放器*/
 	public void resumePlayer(int userPauseTime) {
-		if (!isMediaPrepared || mediaStarted)
+
+		if (!isMediaPrepared || !mediaStarted)
 			return;
 		if (mMediaPlayer != null) {
 			mMediaPlayer.reset();
@@ -1392,13 +1844,14 @@ public class Main_editor_Fragment extends Fragment
 		if (!isPausedExpected) {//当前应当正在播放
 			play();
 		}
+		//CMN.showTT("resumePlayer!");
 	}
 	boolean flipTimer;
 	boolean cursorBlinking = true;
 	boolean mediaStarted = false;
 	public void play() {
 		playButton.setBackgroundResource(R.drawable.ic_pause_black_24dp);
-		isPausedExpected = false;
+		//isPausedExpected = false;
 		// 每半秒触发一次
 		if(!cursorBlinking) {
 			mTimer = new Timer();
@@ -1421,7 +1874,7 @@ public class Main_editor_Fragment extends Fragment
 	public void pause() {
 		mediaStarted=false;
 		playButton.setBackgroundResource(R.drawable.ic_play_arrow_black_24dp);
-		isPausedExpected = true;
+		//isPausedExpected = true;
 		if(!cursorBlinking) {
 			mTimer.cancel();
 		}
@@ -1430,6 +1883,15 @@ public class Main_editor_Fragment extends Fragment
 			mMediaPlayer.pause();
 		//currenT.setText(CMN.FormTime(mMediaPlayer.getCurrentPosition(),2));
 	}
+	Timer speedFakingMoulator = new Timer();
+	Handler timerFaker = new  Handler() {
+		public void handleMessage(android.os.Message msg) {
+			if(mediaStarted) {
+				int position = mMediaPlayer.getCurrentPosition();
+				mMediaPlayer.seekTo(position+800);
+			}
+		}
+	};
 
 	Handler handler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
@@ -1510,6 +1972,8 @@ public class Main_editor_Fragment extends Fragment
 				tree.setInOrderDo(new RBTree.inOrderDo() {
 					@Override
 					public void dothis(RBTNode node) {
+						if(mainLyricAdapterData.size()==0)
+							return;
 						myCpr<Integer, Integer> cprTmp = (myCpr<Integer, Integer>) node.getKey();
 						int dataIdx= cprTmp.value;
 						int time = cprTmp.key;
@@ -1660,7 +2124,7 @@ public class Main_editor_Fragment extends Fragment
 		@Override
 		public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 			//TODO find out why CMN.a.mInflater stimes NullPointerException
-			MyViewHolder holder = new MyViewHolder(CMN.a.inflater.inflate(R.layout.listview_item1, parent, false));
+			MyViewHolder holder = new MyViewHolder(CMN.inflater.inflate(R.layout.listview_item1, parent, false));
 			return holder;
 		}
 
@@ -1702,8 +2166,7 @@ public class Main_editor_Fragment extends Fragment
 
 				@Override
 				public void afterTextChanged(Editable s) {
-					if (CMN.a == null) return;//TODO :optimize
-					if (CMN.a.getCurrentFocus() == holder.url) {
+					if (getActivity().getCurrentFocus() == holder.url) {
 						module_set.set((Integer) holder.url.getTag(R.id.position), s.toString());
 					}
 				}
@@ -1838,6 +2301,19 @@ public class Main_editor_Fragment extends Fragment
 		}
 
 		@Override
+		public void notifyDataSetChanged(){
+			if(current_manipulating_Tree ==cutter_tree) {
+				cutter_tree.setInOrderDo(new RBTree.inOrderDo() {
+					@Override
+					public void dothis(RBTNode node) {
+						((RBTNode<myCpr<Integer,Integer>>)node).getKey().value=cutter_tree.inorderCounter%2;
+					}
+				});
+				cutter_tree.inOrderDo();
+			}
+			super.notifyDataSetChanged();
+		}
+		@Override
 		public Object getItem(int position) {return null;}
 
 		@Override
@@ -1874,8 +2350,8 @@ public class Main_editor_Fragment extends Fragment
 				}else {
 					vh.seeklet.setThumb(getResources().getDrawable(R.drawable.ic_crop_free_black_24dp));
 				}
-				vh.seeklet.tree = tree;
-				vh.seeklet.tree2 = tree2;
+				vh.seeklet.seekGrosser = mSeekBar;
+				//vh.seeklet.tree2 = tree2;
 				vh.seeklet.cs = colorSheet;
 				vh.seeklet.setMax(60*1000);
 				vh.seeklet.setOnSeekBarChangeListener(this);
@@ -1926,7 +2402,7 @@ public class Main_editor_Fragment extends Fragment
 					remove.setVisibility(View.VISIBLE);
 					ViewCompat.setBackgroundTintList(remove,new ColorStateList(new int[][]{new int[0]}, new int[]{0xff0000ff}));
 					ViewCompat.setBackgroundTintList(modify,new ColorStateList(new int[][]{new int[0]}, new int[]{0xff0000ff}));
-					modify.setBackground(CMN.a.getResources().getDrawable(R.drawable.ic_keyboard_return_black_24dp));
+					modify.setBackground(getActivity().getResources().getDrawable(R.drawable.ic_keyboard_return_black_24dp));
 					tv.setEnabled(true);
 					tv.setText(list.get(pos));
 					remove.setOnClickListener(new View.OnClickListener(){
@@ -1978,9 +2454,13 @@ public class Main_editor_Fragment extends Fragment
 						doc_lrc_tv.setText(doc_Lrc);
 						doc_mp3_tv.setText(doc_Mp3);
 						try {
-							String str = new String(CMN.readParse(doc_Lrc));
-							if (str.startsWith("{")) {//不普通
-								JSONArray jsonArray = new JSONArray("[" + str + "]");
+							if(doc_Lrc.indexOf(".")==-1 || doc_Lrc.toLowerCase().endsWith(".json")){//JSON
+								String str = new String(CMN.readParse(doc_Lrc));
+								JSONArray jsonArray;
+								if (str.startsWith("{"))
+									jsonArray = new JSONArray("[" + str + "]");
+								else
+									jsonArray = new JSONArray(str);
 								JSONObject ducoj = jsonArray.getJSONObject(0);
 								String lyrics = ducoj.optString("lyric");
 								String translyrics = ducoj.optString("translateLyric");
@@ -1992,14 +2472,27 @@ public class Main_editor_Fragment extends Fragment
 										src_tv.setText(new StringBuilder().append(lyrics));
 									}
 								}
-							} else {//普通，逐行散列
-
-							}} catch (IOException e) {
+							} else //if(doc_Lrc.toLowerCase().endsWith(".lrc") || doc_Lrc.toLowerCase().endsWith(".txt"))
+							{//lrc、txt等，逐行散列
+								final HashMap<Integer, String> lst2_texts = new HashMap<Integer, String>();
+								//自动检测编码
+								chatsetDec cd = new chatsetDec();
+								int time = -1;
+								StringBuilder src_tv_builder =new StringBuilder();
+								BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(doc_Lrc),cd.guessFileEncoding(new File(doc_Lrc)).split(",")[0]));
+								String line = "";
+								while ((line = br.readLine()) != null) {
+									src_tv_builder.append(line).append("\n");
+								}
+								src_tv.setText(src_tv_builder.toString());
+								src_tv_builder.setLength(0);
+							}
+						} catch (IOException e) {
 							e.printStackTrace();
 						} catch (JSONException e) {
 							e.printStackTrace();
 						}
-						CMN.sh("打开成功！");
+						Toast.makeText(getActivity(),"打开成功！",Toast.LENGTH_SHORT).show();
 						prepareMedia(null);
 						tabLayout.setScrollPosition(1,0,true);
 						tabLayout.getTabAt(1).select();

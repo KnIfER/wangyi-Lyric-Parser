@@ -6,12 +6,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SeekBar;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fenwjian.sdcardutil.RBTNode;
 import com.fenwjian.sdcardutil.RBTree;
@@ -21,7 +19,6 @@ import com.knizha.wangYiLP.Main_editor_Fragment;
 import com.knizha.wangYiLP.R;
 
 import java.util.ArrayList;
-import java.util.concurrent.Executors;
 
 /**
  * Created by DuanJiaNing on 2017/7/1.@Musicoco音乐播放器
@@ -32,7 +29,7 @@ import java.util.concurrent.Executors;
 public class DBWangYiLPController {
 
     private final Context context;
-    private final SQLiteDatabase database;
+    private SQLiteDatabase database;
 
     private static final String TAG = "DBWangYiLPController";
 
@@ -45,6 +42,7 @@ public class DBWangYiLPController {
     public static final String TIME_LENGTH = "timelength"; //路径
     public static final String LRC_PATH = "path2"; //路径
     public static final String TIME_LINE = "timeline"; //
+    public static final String TIME_LINE2= "timeline2"; //
     public static final String LRC_MAIN = "main_lrc"; //
     public static final String LRC_SUB = "sub_lrc"; //
     public static final String PORJECT_CREATE = "create_time"; //创建时间
@@ -60,6 +58,7 @@ public class DBWangYiLPController {
             SONG_PATH       + " text," +
             LRC_PATH        + " text," +
             TIME_LINE       + " text," +
+            TIME_LINE2       + " text," +
             LRC_MAIN        + " text," +
             LRC_SUB         + " text," +
             TITLE         + " text," +
@@ -68,6 +67,9 @@ public class DBWangYiLPController {
         db.execSQL(sql);
     }
 
+    public SQLiteDatabase getDB(){
+        return database;
+    }
     /**
      * 在使用结束时应调用{@link #close()}关闭数据库连接
      */
@@ -87,7 +89,7 @@ public class DBWangYiLPController {
             database.close();
         }
     }
-    String debug = "deb' ug";
+
     public void setUpEditorByProj(Main_editor_Fragment f2, String timeCode) {
         String sql = "select * from " + TABLE_PORJECTS + " where " + PORJECT_CREATE + " like ? ";
         Cursor cursor = database.rawQuery(sql, new String[]{timeCode});
@@ -98,9 +100,28 @@ public class DBWangYiLPController {
             f2.doc_Mp3 = cursor.getString(cursor.getColumnIndex(SONG_PATH));
             f2.doc_Lrc = cursor.getString(cursor.getColumnIndex(LRC_PATH));
             f2.src_title_et.setText(cursor.getString(cursor.getColumnIndex(TITLE)));
-
             int lnIndexOld,lnIndex;//for string-split use
-            String StringTmp = cursor.getString(cursor.getColumnIndex(TIME_LINE));                       //
+
+            String StringTmp;
+            try{//v2新增
+//树1
+                StringTmp= cursor.getString(cursor.getColumnIndex(TIME_LINE2));                       //
+                StringTmp=(StringTmp==null)?"":StringTmp;
+                f2.cutter_tree.clear();
+                //CMN.showTT(StringTmp);
+                lnIndexOld=lnIndex=0;
+                lnIndex = StringTmp.indexOf(" ");
+                while(lnIndex!=-1){
+                    int tmp = Integer.valueOf(StringTmp.substring(lnIndexOld,lnIndex));
+                    f2.cutter_tree.insert(new myCpr(tmp,0));
+                    lnIndexOld = lnIndex+1;
+                    lnIndex = StringTmp.indexOf(" ",lnIndexOld);
+                }
+            }catch(Exception e){
+                CMN.showT("数据库出错！"+e.getLocalizedMessage()+"可能是没有更新数据库");
+            }//v2新增
+//树2
+            StringTmp = cursor.getString(cursor.getColumnIndex(TIME_LINE));                       //
             f2.tree.clear();
             f2.tree2.clear();
             //CMN.showTT(StringTmp);
@@ -119,7 +140,7 @@ public class DBWangYiLPController {
             }
 
             f2.updateSelectedPositions();
-
+//树3
             StringTmp = cursor.getString(cursor.getColumnIndex(LRC_MAIN));                                 //
             lnIndexOld=0;
             lnIndex = StringTmp.indexOf("\n");
@@ -155,21 +176,62 @@ public class DBWangYiLPController {
         cursor.close();
     }
 
+    public void reBuildDB(Context c){
+        ArrayList<dbFields> l = new ArrayList<dbFields>();
+        String sql = "select * from " + TABLE_PORJECTS;
+        Cursor cursor = database.query(TABLE_PORJECTS,null,null,null,null,null,null);
+        while (cursor.moveToNext()) {
+            dbFields let = new dbFields();
+            let.KEY_LYRIC = cursor.getString(cursor.getColumnIndex(KEY_LYRIC ));
+            let.SONG_PATH = cursor.getString(cursor.getColumnIndex(SONG_PATH ));
+            let.LRC_PATH  = cursor.getString(cursor.getColumnIndex(LRC_PATH  ));
+            let.TIME_LINE = cursor.getString(cursor.getColumnIndex(TIME_LINE ));
+            try {//版本2加入
+                let.TIME_LINE2 = cursor.getString(cursor.getColumnIndex(TIME_LINE2));
+            }catch (Exception e){}
+            let.LRC_MAIN  = cursor.getString(cursor.getColumnIndex(LRC_MAIN  ));
+            let.LRC_SUB   = cursor.getString(cursor.getColumnIndex(LRC_SUB   ));
+            let.TITLE         = cursor.getString(cursor.getColumnIndex(TITLE         ));
+            let.PORJECT_CREATE= cursor.getString(cursor.getColumnIndex(PORJECT_CREATE));
+            l.add(let);
+        }
+        close();
+        if(c.deleteDatabase(DATABASE)) {
+            database = new DBHelper(context, DATABASE).getWritableDatabase();
+            database.setVersion(CMN.dbVersionCode);
+            for(dbFields let:l){
+                ContentValues values = new ContentValues();
+                values.put(KEY_LYRIC ,let.KEY_LYRIC );
+                values.put(SONG_PATH ,let.SONG_PATH );
+                values.put(LRC_PATH  ,let.LRC_PATH  );
+                values.put(TIME_LINE ,let.TIME_LINE );
+                values.put(TIME_LINE2,let.TIME_LINE2);//版本2加入
+                values.put(LRC_MAIN  ,let.LRC_MAIN  );
+                values.put(LRC_SUB   ,let.LRC_SUB   );
+                values.put(TITLE         ,let.TITLE         );
+                values.put(PORJECT_CREATE,let.PORJECT_CREATE);
+                database.insert(TABLE_PORJECTS, null, values);
+            }
+        }else{
+            Toast.makeText(c,"数据库重建出错!",Toast.LENGTH_SHORT).show();
+        }
 
 
-    public void dumpNewProj(String title, String doc_Mp3, String doc_Lrc, RBTree<myCpr<Integer,Integer>> timeLine, final ArrayList<String> main_lyric, @Nullable ArrayList<String> transLyric) {
-        final String key_lyrics = main_lyric.get(0);
+    }
+
+    public void dumpNewProj(String title, String doc_Mp3, String doc_Lrc,RBTree<myCpr<Integer,Integer>> cutter_timeLine, RBTree<myCpr<Integer,Integer>> timeLine, final ArrayList<String> main_lyric, @Nullable ArrayList<String> transLyric) {
+        final String key_lyrics = main_lyric.size()==0?"noneLyrics":main_lyric.get(Math.min(main_lyric.size()-1,CMN.opt.key_lyric_idx));
         String sql = "select * from " + TABLE_PORJECTS + " where " + KEY_LYRIC + " like ? ";
         Cursor cursor = database.rawQuery(sql, new String[]{key_lyrics});
         boolean shouldCreateNew = cursor.getCount() == 0 ? true : false;
         //String lpt = debug;//String.valueOf(System.currentTimeMillis()) + "";
         final ContentValues values = new ContentValues();
-        values.put(KEY_LYRIC, main_lyric.get(Math.min(main_lyric.size()-1,CMN.opt.key_lyric_idx)));
+        values.put(KEY_LYRIC, key_lyrics);
         values.put(TITLE, title);
         values.put(SONG_PATH, doc_Mp3);
         values.put(LRC_PATH, doc_Lrc);
+//树1
         final StringBuilder sb = new StringBuilder();
-        sb.append("");//TODO::needed?
         timeLine.setInOrderDo(new RBTree.inOrderDo() {
             //mycode
             public void dothis(RBTNode n) {
@@ -181,11 +243,24 @@ public class DBWangYiLPController {
         });
         timeLine.inOrderDo();
         values.put(TIME_LINE, sb.toString());
-        //TODO::is sb released????
-        StringBuilder sb2 = new StringBuilder();
+//树2
+        final StringBuilder sb2 = new StringBuilder();
+        cutter_timeLine.setInOrderDo(new RBTree.inOrderDo() {
+            //mycode
+            public void dothis(RBTNode n) {
+                sb2.append(((myCpr<Integer, Integer>) n.getKey()).key)
+                        .append(" ");
+            }
+        });
+        cutter_timeLine.inOrderDo();
+        values.put(TIME_LINE2, sb2.toString());
+        //TODO::is sbs released????
+
+        final StringBuilder sbmy = new StringBuilder();
         for (int i = 0; i < main_lyric.size(); i++)
-            sb2.append(main_lyric.get(i)).append("\n");
-        values.put(LRC_MAIN, sb2.toString());
+            sbmy.append(main_lyric.get(i)).append("\n");
+        values.put(LRC_MAIN, sbmy.toString());
+
         if (transLyric != null) {
             StringBuilder sb3 = new StringBuilder();
             for (int i = 0; i < transLyric.size(); i++)
@@ -196,25 +271,25 @@ public class DBWangYiLPController {
         //database.insert(TABLE_PORJECTS, null, values);
         if (shouldCreateNew) {
             newProj(TABLE_PORJECTS,values);
-            CMN.sh("已新建");
+            CMN.sh(CMN.a.getResources().getString(R.string.new_saved));
         } else {
             View dialog = CMN.inflater.inflate(R.layout.dialog,(ViewGroup) CMN.a.findViewById(R.id.dialog));
             AlertDialog.Builder builder = new AlertDialog.Builder(CMN.a);
             builder.setTitle("同名项目已存在，覆盖保存？");
-            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     long today = System.currentTimeMillis();//摒弃旧的时间码
                     values.put(PORJECT_CREATE,today);
                     database.update(TABLE_PORJECTS, values, KEY_LYRIC + " = ?", new String[]{key_lyrics});
                     CMN.curr_proj_timecode=today;
-                    CMN.showT("已覆盖保存");
+                    CMN.showT(CMN.a.getResources().getString(R.string.overwriteDone));
             } });
             builder.setNegativeButton("No,新建项目", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     newProj(TABLE_PORJECTS,values);
-                    CMN.sh("已新建");
+                    CMN.sh(CMN.a.getResources().getString(R.string.new_saved));
                 } });
             builder.setView(dialog);
             builder.setIcon(R.mipmap.ic_directory_parent);
@@ -243,7 +318,7 @@ public class DBWangYiLPController {
         }
     }
 
-    public void updateProj(String timeCode,String title,String doc_Mp3,String doc_Lrc, RBTree<myCpr<Integer,Integer>> timeLine, ArrayList<String> main_lyric, @Nullable ArrayList<String> transLyric)
+    public void updateProj(String timeCode,String title,String doc_Mp3,String doc_Lrc, RBTree<myCpr<Integer,Integer>> cutter_timeLine,RBTree<myCpr<Integer,Integer>> timeLine, ArrayList<String> main_lyric, @Nullable ArrayList<String> transLyric)
     {
         String sql = "select * from " + TABLE_PORJECTS + " where " + PORJECT_CREATE + " like ? ";
         Cursor cursor = database.rawQuery(sql, new String[]{timeCode});
@@ -253,8 +328,8 @@ public class DBWangYiLPController {
         values.put(SONG_PATH, doc_Mp3);
         values.put(LRC_PATH, doc_Lrc);
         values.put(TITLE, title);
+// 树1
         final StringBuilder sb = new StringBuilder();
-        sb.append("");//TODO::needed?
         timeLine.setInOrderDo(new RBTree.inOrderDo() {
             //mycode
             public void dothis(RBTNode n) {
@@ -267,10 +342,23 @@ public class DBWangYiLPController {
         timeLine.inOrderDo();
         values.put(TIME_LINE, sb.toString());
         //TODO::is sb released????
-        StringBuilder sb2 = new StringBuilder();
+// 树2
+        final StringBuilder sb2 = new StringBuilder();
+        cutter_timeLine.setInOrderDo(new RBTree.inOrderDo() {
+            //mycode
+            public void dothis(RBTNode n) {
+                sb2.append(((myCpr<Integer, Integer>) n.getKey()).key)
+                        .append(" ");
+            }
+        });
+        cutter_timeLine.inOrderDo();
+        values.put(TIME_LINE2, sb2.toString());
+
+        final StringBuilder sbmy = new StringBuilder();
         for (int i = 0; i < main_lyric.size(); i++)
-            sb2.append(main_lyric.get(i)).append("\n");
-        values.put(LRC_MAIN, sb2.toString());
+            sbmy.append(main_lyric.get(i)).append("\n");
+        values.put(LRC_MAIN, sbmy.toString());
+
         if (transLyric != null) {
             StringBuilder sb3 = new StringBuilder();
             for (int i = 0; i < transLyric.size(); i++)
@@ -284,7 +372,7 @@ public class DBWangYiLPController {
             //CMN.showTT("update error");
         } else {
             database.update(TABLE_PORJECTS, values, PORJECT_CREATE + " = ?", new String[]{timeCode});
-            CMN.sh("已保存");
+            CMN.sh(CMN.a.getResources().getString(R.string.saved));
         }
     }
 

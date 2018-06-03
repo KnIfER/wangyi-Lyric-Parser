@@ -129,14 +129,6 @@
         />
 
     <android.widget.ImageView
-        android:id="@+id/play"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_above="@+id/bottomtop"
-        android:background="@drawable/ic_play_arrow_black_24dp"
-        android:clickable="true" />
-
-    <android.widget.ImageView
         android:id="@+id/splitTime"
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -157,84 +149,6 @@
         android:background="@drawable/ic_vertical_align_center_black_24dp"
         android:visibility="invisible"
         />
-
-    <RelativeLayout
-        android:id="@+id/DingLayout"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#00ff0000"
-        android:visibility="invisible"
-        >
-        <com.jaygoo.widget.RangeSeekBar
-            android:id="@+id/adjustBar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:rsb_markTextArray="@array/markArray"
-            app:rsb_lineColorSelected="@color/colorAccent"
-            app:rsb_thumbResId="@drawable/ic_smartphone_black_24dp"
-            app:rsb_lineColorEdge="@color/colorSeekBarDefault"
-            app:rsb_cellMode="number"
-            app:rsb_seekBarMode="range"
-            app:rsb_seekBarHeight="12dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            />
-        <TextView
-            android:id="@+id/jingShi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:textColor="@color/white"
-            android:text="00:00.000"
-            />
-        <ToggleButton
-            android:id="@+id/toptoggle_loop"
-            android:layout_width="15dp"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/jingShi"
-            android:layout_alignTop="@+id/jingShi"
-            android:textOff="循"
-            android:textOn="循"
-            android:textColor="#4F7FDF"
-            android:background="@drawable/toggle_selector"
-            />
-        <ToggleButton
-            android:id="@+id/toptoggle_follow"
-            android:layout_width="15dp"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/toptoggle_loop"
-            android:layout_alignTop="@+id/jingShi"
-            android:textOff="F"
-            android:textOn= "F"
-            android:textColor="#4F7FDF"
-            android:background="@drawable/toggle_selector"
-            />
-        <ToggleButton
-            android:id="@+id/toptoggle_release"
-            android:layout_width="15dp"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/toptoggle_follow"
-            android:layout_alignTop="@+id/jingShi"
-            android:textOff="R"
-            android:textOn= "R"
-            android:textColor="#4F7FDF"
-            android:background="@drawable/toggle_selector"
-            android:visibility="gone"
-            />
-        <ToggleButton
-            android:id="@+id/toptoggle_adjustAll"
-            android:layout_width="15dp"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/toptoggle_release"
-            android:layout_alignTop="@+id/jingShi"
-            android:textOff="全"
-            android:textOn= "全"
-            android:textColor="#4F7FDF"
-            android:background="@drawable/toggle_selector"
-            />
-
-    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/bottomtop"
@@ -349,19 +263,26 @@
 
     </RelativeLayout>
 
+    <!--https://stackoverflow.com/questions/4054567/android-why-is-there-no-maxheight-for-a-view>
+        from Sai Kiran's answer. Here custom maxHeight-ScrollView is somewhat not working<-->
+    <LinearLayout
+        android:id="@+id/seeksetP"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="vertical"
+        android:gravity="bottom"
+        android:layout_above="@+id/bottomtop"
+        android:layout_marginLeft= "35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginBottom="-8dp"
+        android:focusableInTouchMode="false"
+        android:visibility="visible">
     <ScrollView
         android:id="@+id/seekScroll"
         android:background="#00666666"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:maxHeight="100dp"
-        android:layout_marginLeft= "35dp"
-        android:layout_marginRight="35dp"
-        android:layout_marginBottom="-8dp"
         android:focusableInTouchMode="false"
-        android:layout_above="@+id/bottomtop"
-        android:visibility="visible"
-        android:gravity="bottom"
         >
         <com.knizha.wangYiLP.ui.ListViewmy
             android:id="@+id/lv_seekbars"
@@ -369,10 +290,10 @@
             android:layout_height="match_parent"
             android:background="@color/cst2"
             android:divider="#00000000"
-
             >
         </com.knizha.wangYiLP.ui.ListViewmy>
     </ScrollView>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/src_layout"
@@ -475,6 +396,94 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/DingLayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#00ff0000"
+        android:visibility="invisible"
+        >
+        <com.jaygoo.widget.RangeSeekBar
+            android:id="@+id/adjustBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:rsb_markTextArray="@array/markArray"
+            app:rsb_lineColorSelected="@color/colorAccent"
+            app:rsb_thumbResId="@drawable/ic_smartphone_black_24dp"
+            app:rsb_lineColorEdge="@color/colorSeekBarDefault"
+            app:rsb_cellMode="number"
+            app:rsb_seekBarMode="range"
+            app:rsb_seekBarHeight="12dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            />
+        <TextView
+            android:id="@+id/jingShi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:textColor="@color/white"
+            android:text="00:00.000"
+            />
+        <ToggleButton
+            android:id="@+id/toptoggle_loop"
+            android:layout_width="15dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/jingShi"
+            android:layout_alignTop="@+id/jingShi"
+            android:textOff="@string/ABLoop"
+            android:textOn="@string/ABLoop"
+            android:textColor="#4F7FDF"
+            android:background="@drawable/toggle_selector"
+            />
+        <ToggleButton
+            android:id="@+id/toptoggle_follow"
+            android:layout_width="15dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/toptoggle_loop"
+            android:layout_alignTop="@+id/jingShi"
+            android:textOff="@string/Follow"
+            android:textOn= "@string/Follow"
+            android:textColor="#4F7FDF"
+            android:background="@drawable/toggle_selector"
+            />
+        <ToggleButton
+            android:id="@+id/toptoggle_release"
+            android:layout_width="15dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/toptoggle_follow"
+            android:layout_alignTop="@+id/jingShi"
+            android:textOff="R"
+            android:textOn= "R"
+            android:textColor="#4F7FDF"
+            android:background="@drawable/toggle_selector"
+            android:visibility="gone"
+            />
+        <ToggleButton
+            android:id="@+id/toptoggle_confinedAdjust"
+            android:layout_width="15dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/toptoggle_release"
+            android:layout_alignTop="@+id/jingShi"
+            android:textOff="@string/Confined"
+            android:textOn= "@string/Confined"
+            android:textColor="#4F7FDF"
+            android:background="@drawable/toggle_selector"
+            />
+        <ToggleButton
+            android:id="@+id/toptoggle_adjustAll"
+            android:layout_width="15dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/toptoggle_confinedAdjust"
+            android:layout_alignTop="@+id/jingShi"
+            android:textOff="@string/All"
+            android:textOn= "@string/All"
+            android:textColor="#4F7FDF"
+            android:background="@drawable/toggle_selector"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/items_layout"
         android:background="#0a666666"
         android:layout_width="match_parent"
@@ -558,10 +567,10 @@
             android:background="@color/main_dark_blue"/>
         <TextView
             android:id="@+id/addln"
+            android:layout_above="@+id/to_cutter"
             android:layout_alignLeft="@+id/itemlets"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:paddingTop="2dp"
             android:paddingBottom="2dp"
             android:paddingLeft="8dp"
@@ -575,6 +584,49 @@
             android:layout_above="@+id/addln"
             android:layout_height="1dp"
             android:background="@color/main_dark_blue"/>
+
+        <TextView
+            android:id="@+id/to_cutter"
+            android:layout_alignLeft="@+id/itemlets"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:paddingLeft="8dp"
+            android:text="进入剪辑模式"
+            android:clickable="true"
+            android:background="@drawable/listselector1"/>
+
+        <View
+            android:layout_alignLeft="@+id/itemlets"
+            android:layout_width="match_parent"
+            android:layout_above="@+id/to_cutter"
+            android:layout_height="1dp"
+            android:background="@color/main_dark_blue"/>
     </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/frameBG"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/frame"
+        android:visibility="invisible">
+    </ImageView>
+    <ImageView
+        android:id="@+id/removeCutterEdge"
+        android:layout_width="60dp"
+        android:layout_height="28dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:background="@drawable/tixing"
+        android:visibility="invisible" />
+    <android.widget.ImageView
+        android:id="@+id/play"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_above="@+id/bottomtop"
+        android:background="@drawable/ic_play_arrow_black_24dp"
+        android:clickable="true" />
 
 </com.knizha.wangYiLP.RelativeLayoutmy>

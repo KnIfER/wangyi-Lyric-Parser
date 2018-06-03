@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <string name="cancel_button_label">取消</string>
+   <string name="choose_button_label">选择</string>
+   <string name="favor_button_label">收藏</string>
+   <string name="label_parent_directory">父级目录</string>
+   <string name="last_edit">最近修改：</string>
+   <string name="error_dir_access">无权限</string>
+</resources>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>    <string name="app_name">网易云歌词助手</string>
+
+    <string name="yes">确定</string>
+    <string name="doneg">完成!</string>
+    <string name="delete">删除</string>
+    <string name="run">运行</string>
+    <string name="stop">停止</string>
+    <string name="options">选项</string>
+    <string name="save_settigns">确认</string>
+
+
+
+    <string name="luj_wuxiao">保存路径无效，设回默认值</string>
+    <string name="luj_wuxiao2">来源路径无效，设回默认值</string>
+    <string name="luJ_wuxiao0">来源路径无效！</string>
+    <string name="wenj_fugai">文件已存在，覆盖保存？</string>
+    <string name="shenme_douMY">什么都没有，你先点运行</string>
+    <string name="queR_tiQu">确认提取</string>
+    <string name="baocun_PeiZ">当前配置另存为…</string>
+    <string name="xuanze_PeiZ">选择配置…</string>
+    <string name="load_files_from">处理目录 :</string>
+    <string name="save_lrc_file_to">Lrc文件保存到 :</string>
+    <string name="save_proj">保存项目</string>
+    <string name="open_proj">打开项目</string>
+    <string name="export_lrc">导出lrc...</string>
+    <string name="cutg">切割！</string>
+    <string name="cutterMode">进入剪辑模式</string>
+    <string name="deleteLine">删除行...</string>
+    <string name="addLine">添加行...</string>
+    <string name="lrcEditorMode">退出剪辑</string>
+    <string name="loadLrcTimeLine">载入歌词时间点</string>
+    <string name="cutEveryTwoPoints">两两模式</string>
+    <string name="cutPerPoint">间隔模式</string>
+    <string name="preveiw">预览</string>
+    <string name="mainLyrics">主歌词</string>
+    <string name="translations">翻译</string>
+    <string name="Source">源</string>
+    <string name="ABLoop">循</string>
+    <string name="Follow">跟</string>
+    <string name="Confined">限</string>
+    <string name="All">全</string>
+    <string name="new_saved">已新建</string>
+    <string name="overwriteDone">已覆盖保存</string>
+    <string name="saved">已保存</string>
+
+    <string-array name="planets_array">
+        <item>全选</item>
+        <item>全不选</item>
+        <item>反选</item>
+    </string-array>
+    <string-array name="markArray">
+        <item>0</item>
+        <item>30</item>
+        <item>60</item>
+        <item>90</item>
+        <item>100</item>
+    </string-array>
+
+    <item type="id" name="refresh_main_list"/>
+    <item type="id" name="position"/>
+</resources>
+

@@ -552,8 +552,9 @@ public class RBTree<T extends Comparable<? super T>> {
             cmp = node.key.compareTo(x.key);
             if (cmp < 0)
                 x = x.left;
-            else
+            else if(cmp > 0)
                 x = x.right;
+            else return;
         }
 
         node.parent = y;
@@ -590,6 +591,7 @@ public class RBTree<T extends Comparable<? super T>> {
         return  node;
     }
     public RBTNode<T> insertUpdate(T key) {
+        //先查查看
         RBTNode<T> tmpNode = search(key);
         if(tmpNode!=null && tmpNode.key.compareTo(key)==0) {
             ((Updatable) tmpNode.getKey()).Update((Updatable) key);

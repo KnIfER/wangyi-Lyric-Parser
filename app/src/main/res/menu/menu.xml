@@ -4,23 +4,29 @@
 
     <item
         android:id="@+id/save"
-        android:title="保存项目"
+        android:title="@string/save_proj"
         app:showAsAction="never"/>
     <item
         android:id="@+id/open"
-        android:title="打开项目"
+        android:title="@string/open_proj"
         app:showAsAction="never"/>
     <item
         android:id="@+id/export"
-        android:title="导出lrc..."
+        android:title="@string/export_lrc"
         app:showAsAction="never"/>
     <item
         android:id="@+id/loadOut"
         android:title="载入外部工程"
-        app:showAsAction="never"/>
+        app:showAsAction="never"
+        android:visible="false"/>
     <item
         android:id="@+id/exportOut"
         android:title="导出为外部工程"
-        app:showAsAction="never"/>
-
+        app:showAsAction="never"
+        android:visible="false"/>
+    <item
+        android:id="@+id/test"
+        android:title="test"
+        app:showAsAction="never"
+        android:visible="false"/>
 </menu>

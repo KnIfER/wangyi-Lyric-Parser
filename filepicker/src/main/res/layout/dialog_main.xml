@@ -9,7 +9,16 @@
     <include
         layout="@layout/dialog_header"
         android:id="@+id/header"/>
-
+    <ImageView
+        android:layout_marginLeft= "24dp"
+        android:layout_marginTop="21dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_star_black_24dp"
+        android:scaleType="centerInside"
+        android:background="@null"
+        android:foreground="@drawable/ic_stars_black_24dp"
+        android:id="@+id/star" /><!-->哟哟哟我真牛D！<-->
     <include
         layout="@layout/dialog_file_list"
         android:layout_width="match_parent"
@@ -20,7 +29,20 @@
         android:layout_below="@+id/header"
         tools:listitem="@layout/dialog_file_list_item"/>
 
+
     <include
         layout="@layout/dialog_footer"
         android:id="@+id/footer" />
+    <ListView
+        android:id="@+id/favorList"
+        android:layout_below="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:layout_gravity="center_horizontal"
+        tools:listitem="@layout/drawer_list_item"
+        android:visibility="invisible"
+        android:divider="#889999"
+        android:dividerHeight="1dp"
+        />
 </RelativeLayout>

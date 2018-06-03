@@ -44,7 +44,9 @@ import com.github.angads25.filepicker.utils.Utility;
 import com.github.angads25.filepicker.widget.MaterialCheckbox;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -54,6 +56,10 @@ import java.util.List;
  */
 
 public class FilePickerDialog extends Dialog implements AdapterView.OnItemClickListener {
+    ArrayList<String> mDrawerEntrys;
+    private ArrayAdaptermy<String> mDrawerAdapter;
+    private ListView mDrawerList;
+
     private Context context;
     private ListView listView;
     private TextView dname, dir_path, title;
@@ -62,7 +68,9 @@ public class FilePickerDialog extends Dialog implements AdapterView.OnItemClickL
     private ArrayList<FileListItem> internalList;
     private ExtensionFilter filter;
     private FileListAdapter mFileListAdapter;
+    private Button favorite;
     private Button select;
+    private View star;
     private String titleStr = null;
     private String positiveBtnNameStr = null;
     private String negativeBtnNameStr = null;
@@ -100,9 +108,63 @@ public class FilePickerDialog extends Dialog implements AdapterView.OnItemClickL
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_main);
         listView = (ListView) findViewById(R.id.fileList);
+        mDrawerList = (ListView) findViewById(R.id.favorList);
+        star = findViewById(R.id.star);
         select = (Button) findViewById(R.id.select);
+        favorite = (Button) findViewById(R.id.favorite);
+        //参见：SCHIVO
+        mDrawerList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View v, int position, long id) {
+                String fn = mDrawerEntrys.get(position);
+                if(dir_path.getText().toString().equals(fn.replace("OVIHCS","/")))//TODO try File.equals
+                    star.setVisibility(View.INVISIBLE);
+                new File(properties.opt_dir.getAbsolutePath()+"/"+fn).delete();
+                mDrawerEntrys.remove(position);
+                mDrawerAdapter.notifyDataSetChanged();
+                return true;
+            }
+        });
+        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parentView, View v, int position, long id) {
+                File currLoc = new File(((TextView)v).getText().toString());
+                dname.setText(currLoc.getName());
+                setTitle();
+                dir_path.setText(currLoc.getAbsolutePath());
+                internalList.clear();
+                if (!currLoc.getName().equals(properties.root.getName())) {
+                    FileListItem parent = new FileListItem();
+                    parent.setFilename(context.getString(R.string.label_parent_dir));
+                    parent.setDirectory(true);
+                    parent.setLocation(currLoc.getParentFile().getAbsolutePath());
+                    parent.setTime(currLoc.lastModified());
+                    internalList.add(parent);
+                }
+                internalList = Utility.prepareFileListEntries(internalList, currLoc, filter);
+                mFileListAdapter.notifyDataSetChanged();
+                if(new File(properties.opt_dir.getAbsolutePath()+"/"+currLoc.getAbsolutePath().replace("/","OVIHCS")).exists())
+                    star.setVisibility(View.VISIBLE);
+                else
+                    star.setVisibility(View.INVISIBLE);
+                mDrawerList.setVisibility(View.INVISIBLE);
+            }
+        });
+        findViewById(R.id.header).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mDrawerList.getVisibility()!=View.VISIBLE){
+                    mDrawerList.setVisibility(View.VISIBLE);
+                    mDrawerEntrys = new ArrayList<>(Arrays.asList(properties.opt_dir.list()));
+                    mDrawerAdapter = new ArrayAdaptermy<String>(getContext(),R.layout.drawer_list_item, mDrawerEntrys);
+                    mDrawerList.setAdapter(mDrawerAdapter);
+                }else{
+                    mDrawerList.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
         int size = MarkedItemList.getFileCount();
-        if (size == 0) {
+        if (properties.selection_type==DialogConfigs.FILE_SELECT && size == 0) {
             select.setEnabled(false);
             int color;
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
@@ -125,12 +187,37 @@ public class FilePickerDialog extends Dialog implements AdapterView.OnItemClickL
                 /*  Select Button is clicked. Get the array of all selected items
                  *  from MarkedItemList singleton.
                  */
-                String paths[] = MarkedItemList.getSelectedPaths();
+                String[] paths;
+                if(MarkedItemList.getFileCount()==0){
+                    paths = new String[]{String.valueOf(dir_path.getText())};
+                }else
+                    paths = MarkedItemList.getSelectedPaths();
                 //NullPointerException fixed in v1.0.2
+
                 if (callbacks != null) {
                     callbacks.onSelectedFilePaths(paths);
                 }
                 dismiss();
+            }
+        });
+        favorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String fn = properties.opt_dir.getAbsolutePath()+"/"+dir_path.getText().toString().replace("/","OVIHCS");
+                File f = new File(fn);
+                if(!f.exists())
+                    try {
+                        f.createNewFile();
+                        star.setVisibility(View.VISIBLE);
+                        //Toast.makeText(getContext(),"已收藏",Toast.LENGTH_SHORT).show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                else{
+                    f.delete();
+                    star.setVisibility(View.INVISIBLE);
+                    //Toast.makeText(getContext(),"已取消收藏",Toast.LENGTH_SHORT).show();
+                }
             }
         });
         cancel.setOnClickListener(new View.OnClickListener() {
@@ -149,7 +236,7 @@ public class FilePickerDialog extends Dialog implements AdapterView.OnItemClickL
                 positiveBtnNameStr = positiveBtnNameStr == null ?
                         context.getResources().getString(R.string.choose_button_label) : positiveBtnNameStr;
                 int size = MarkedItemList.getFileCount();
-                if (size == 0) {
+                if (properties.selection_type==DialogConfigs.FILE_SELECT && size == 0) {
                     select.setEnabled(false);
                     int color;
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
@@ -237,8 +324,13 @@ public class FilePickerDialog extends Dialog implements AdapterView.OnItemClickL
             dname.setText(currLoc.getName());
             dir_path.setText(currLoc.getAbsolutePath());
             setTitle();
+            //start
             internalList = Utility.prepareFileListEntries(internalList, currLoc, filter);
             mFileListAdapter.notifyDataSetChanged();
+            if(new File(properties.opt_dir.getAbsolutePath()+"/"+currLoc.getAbsolutePath().replace("/","OVIHCS")).exists())
+                star.setVisibility(View.VISIBLE);
+            else
+                star.setVisibility(View.INVISIBLE);
             listView.setOnItemClickListener(this);
         }
     }
@@ -270,6 +362,10 @@ public class FilePickerDialog extends Dialog implements AdapterView.OnItemClickL
                     }
                     internalList = Utility.prepareFileListEntries(internalList, currLoc, filter);
                     mFileListAdapter.notifyDataSetChanged();
+                    if(new File(properties.opt_dir.getAbsolutePath()+"/"+currLoc.getAbsolutePath().replace("/","OVIHCS")).exists())
+                        star.setVisibility(View.VISIBLE);
+                    else
+                        star.setVisibility(View.INVISIBLE);
                 } else {
                     Toast.makeText(context, R.string.error_dir_access, Toast.LENGTH_SHORT).show();
                 }
@@ -432,7 +528,7 @@ public class FilePickerDialog extends Dialog implements AdapterView.OnItemClickL
     public void onBackPressed() {
         //currentDirName is dependent on dname
         String currentDirName = dname.getText().toString();
-        if (internalList.size() > 0) {
+        if (false && internalList.size() > 0) {
             FileListItem fitem = internalList.get(0);
             File currLoc = new File(fitem.getLocation());
             if (currentDirName.equals(properties.root.getName()) ||
@@ -452,6 +548,7 @@ public class FilePickerDialog extends Dialog implements AdapterView.OnItemClickL
                 }
                 internalList = Utility.prepareFileListEntries(internalList, currLoc, filter);
                 mFileListAdapter.notifyDataSetChanged();
+                //废弃
             }
             setTitle();
         } else {

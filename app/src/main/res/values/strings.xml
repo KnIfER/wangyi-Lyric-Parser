@@ -1,12 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources>    <string name="app_name">Lyric Assistant</string>
+    <string name="doneg">done!</string>
+    <string name="yes">YES</string>
+    <string name="delete">DELETE</string>
+    <string name="run">RUN</string>
+    <string name="stop">STOP</string>
+    <string name="options">OPTIONS</string>
+    <string name="save_settigns">SAVE</string>
 
-    <string name="app_name">网易云歌词助手</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="luj_wuxiao">Invaid save file path,reverting to default</string>
+    <string name="luj_wuxiao2">Invaid source file path,reverting to default</string>
+    <string name="luJ_wuxiao0">Source file path invaid！</string>
+    <string name="wenj_fugai">File exists already:Over write？</string>
+    <string name="shenme_douMY">Please RUN first</string>
+    <string name="queR_tiQu">Extract</string>
+    <string name="baocun_PeiZ">Save Current Settings...</string>
+    <string name="xuanze_PeiZ">Choose Settings...</string>
+    <string name="load_files_from">Load files from :</string>
+    <string name="save_lrc_file_to">Save lrc file to :</string>
+    <string name="save_proj">Save Project</string>
+    <string name="open_proj">Open Project</string>
+    <string name="export_lrc">export lrc...</string>
+    <string name="cutg">cut!!!</string>
+    <string name="cutterMode">Enter Cutter Mode</string>
+    <string name="deleteLine">Delete lines...</string>
+    <string name="addLine">Add lines...</string>
+    <string name="lrcEditorMode">Enter lrc editor Mode</string>
+    <string name="loadLrcTimeLine">Load lrc time marks</string>
+    <string name="cutEveryTwoPoints">Cut every 2 points</string>
+    <string name="cutPerPoint">Cut per point</string>
+    <string name="preveiw">Preveiw</string>
+    <string name="mainLyrics">Main_lines</string>
+    <string name="translations">Translate</string>
+    <string name="Source">Sources</string>
+    <string name="ABLoop">L</string>
+    <string name="Follow">F</string>
+    <string name="Confined">C</string>
+    <string name="All">A</string>
+    <string name="new_saved">new proj saved</string>
+    <string name="overwriteDone">proj overwrite done</string>
+    <string name="saved">saved</string>
+
+
     <string-array name="planets_array">
-        <item>全选</item>
-        <item>全不选</item>
-        <item>反选</item>
+        <item>Select All</item>
+        <item>Select None</item>
+        <item>Reverse Selection</item>
     </string-array>
     <string-array name="markArray">
         <item>0</item>

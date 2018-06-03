@@ -4,6 +4,9 @@ import android.animation.ValueAnimator;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.graphics.LightingColorFilter;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,14 +24,12 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
-
-import com.fenwjian.sdcardutil.myCpr;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -156,10 +157,11 @@ public class Main_extractor_Fragment extends Fragment{
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		final View main_list_layout= inflater.inflate(R.layout.main_list_layout, container,false);
-		opt = CMN.a.opt;
+		final View main_list_layout= inflater.inflate(R.layout.main_extractor_layout, container,false);
+		opt = CMN.opt;
 		main=(RelativeLayout)main_list_layout.findViewById(R.id.main_layout);
 		viewpager_locker=(ToggleButton)main_list_layout.findViewById(R.id.viewpager_locker);
+		viewpager_locker.getBackground().setColorFilter(new PorterDuffColorFilter(Color.parseColor("#1D9DFF"), PorterDuff.Mode.MULTIPLY));
 		ettoptop = (EditText) main_list_layout.findViewById(R.id.ettoptop);
 		topBlurView = (BlurView) main_list_layout.findViewById(R.id.topBlurView);
 		bottomBlurView = (BlurView) main_list_layout.findViewById(R.id.bottomBlurView);
@@ -194,18 +196,18 @@ public class Main_extractor_Fragment extends Fragment{
 			public void onClick(View p1)
 			{
 				Button btn = (Button)p1;
-				if("运行".equals(btn.getText())){
+				if(getResources().getString(R.string.run).equals(btn.getText())){
 					if(!new File(opt.load_path).exists()){
-						CMN.sh("来源路径无效！");
+						CMN.sh(getString(R.string.luJ_wuxiao0));
 						return;
 					}
-					btn.setText("停止");
+					btn.setText(R.string.stop);
 					manager=new LPWorkerThreadManager(CMN.a);
 					manager.start();
 
 					//模糊特效
 					//set background, if your root layout doesn't have one
-					final Drawable windowBackground = CMN.a.getWindow().getDecorView().getBackground();
+					final Drawable windowBackground = getActivity().getWindow().getDecorView().getBackground();
 					final RelativeLayout root = (RelativeLayout) main_list_layout.findViewById(R.id.main_layout);
 //
 					topViewSettings = topBlurView.setupWith(root).windowBackground(windowBackground).blurRadius(0.1f);
@@ -222,7 +224,7 @@ public class Main_extractor_Fragment extends Fragment{
 					animator.setDuration(500); animator.start();
 				}else{
 					manager.interrupt();
-					btn.setText("运行");
+					btn.setText(R.string.run);
 				}
 			}
 		});
@@ -239,7 +241,7 @@ public class Main_extractor_Fragment extends Fragment{
 			@Override public void onClick(View v)
 			{
 				if(adaptermymymymy.list.size()<=0){
-					CMN.showT("什么都没有，你先点运行");
+					CMN.showT(getString(R.string.shenme_douMY));
 					return;
 				}
 
@@ -309,7 +311,7 @@ public class Main_extractor_Fragment extends Fragment{
 								}
 								d.dismiss();
 								Looper.prepare();
-								CMN.showT("done!");
+								CMN.showT(getResources().getString(R.string.doneg));
 								//System.out.println("done!!!!!!!!!!!str = ");
 								Looper.loop();
 							}});
@@ -461,6 +463,7 @@ public class Main_extractor_Fragment extends Fragment{
 			//Toast.makeText(getApplicationContext(), "添加歌词预览视图", Toast.LENGTH_SHORT).show();
 			TextView tv = (TextView)lyric_layout.findViewById(R.id.lrc_text);
 			Button to_editor = (Button)lyric_layout.findViewById(R.id.to_editor);
+			to_editor.getBackground().setColorFilter(new PorterDuffColorFilter(Color.parseColor("#1D9DFF"), PorterDuff.Mode.MULTIPLY));
 			JSONArray jsonArray = new JSONArray("["+str+"]");
 			JSONObject ducoj = jsonArray.getJSONObject(0);
 			String lyrics = ducoj.optString("lyric");
@@ -530,6 +533,14 @@ public class Main_extractor_Fragment extends Fragment{
 		try {
 			//获取文件名
 			String fn = it.Songname;
+			//舍弃末尾的括号标注
+			if(true) {
+				if (fn.endsWith("）.lrc")) {
+					int idxA = fn.lastIndexOf("（");
+					if (idxA != -1)
+						fn = fn.substring(0, idxA)+".lrc";
+				}
+			}
 			File outFile = new File(opt.save_path + fn);
 			if(outFile.exists()&&!opt.Overwrite)//存在并且不覆写
 				return;
@@ -631,12 +642,9 @@ public class Main_extractor_Fragment extends Fragment{
 				//TODO 复用测试
 				oufi.close();
 			}
-		} catch (FileNotFoundException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (JSONException e) {
-			e.printStackTrace();
+			Toast.makeText(getActivity(),"出错：ERROR:"+e.getLocalizedMessage(),Toast.LENGTH_LONG).show();
 		}
 	}
 
@@ -715,23 +723,6 @@ public class Main_extractor_Fragment extends Fragment{
 }
 ///[fragment END]
 
-//class myCpr implements Comparable<myCpr>{
-//	public int key;
-//	public String value;
-//	public myCpr(int k,String v){
-//		key=k;value=v;
-//	}
-//
-//	public int compareTo(myCpr other) {
-//		return this.key-other.key;
-//	}
-
-//
-//	public String toString(){
-//		return key+"_"+value;
-//	}
-//
-//}
 
 class Item{
 	int color;

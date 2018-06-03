@@ -27,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="18sp"
-        android:text="之后共:"
+        android:text="之前共:"
         />
     <NumberPicker
         android:id="@+id/number2"

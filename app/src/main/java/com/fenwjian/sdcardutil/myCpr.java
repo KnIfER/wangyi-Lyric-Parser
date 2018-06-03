@@ -34,4 +34,8 @@ public class myCpr<T1 extends Comparable<T1>,T2 extends Comparable<T2>> implemen
     public int compareTo(@NonNull Updatable o) {
         return compareTo((myCpr<T1,T2> )o);
     }
+
+    public myCpr<T1,T2> copy() {
+        return new myCpr<T1,T2>(key,value);
+    }
 }

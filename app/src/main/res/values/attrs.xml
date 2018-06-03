@@ -104,8 +104,6 @@
         <attr name="rsb_lineRadius" format="dimension"/>
     </declare-styleable>
 
-
-
     <!-- Don't touch this -->
     <attr name="numberPickerStyle" format="reference" />
 

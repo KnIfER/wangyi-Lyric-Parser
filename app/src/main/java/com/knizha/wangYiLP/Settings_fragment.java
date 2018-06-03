@@ -171,6 +171,7 @@ public class Settings_fragment extends Fragment {
                 properties.root = new File(DialogConfigs.DEFAULT_DIR);
                 properties.error_dir = new File(DialogConfigs.DEFAULT_DIR);
                 properties.offset = new File(CMN.opt.save_path);
+                properties.opt_dir=CMN.opt.favourite_dirs;
                 properties.extensions = null;
                 FilePickerDialog dialog = new FilePickerDialog(CMN.a, properties);
                 dialog.setTitle("请选择保存目录");
@@ -195,7 +196,7 @@ public class Settings_fragment extends Fragment {
                 properties.root = new File(DialogConfigs.DEFAULT_DIR);
                 properties.error_dir = new File(DialogConfigs.DEFAULT_DIR);
                 properties.offset = new File(CMN.opt.load_path);
-
+                properties.opt_dir=CMN.opt.favourite_dirs;
                 properties.extensions = null;
                 FilePickerDialog dialog = new FilePickerDialog(CMN.a, properties);
                 dialog.setTitle("请选择来源目录");
@@ -225,7 +226,7 @@ public class Settings_fragment extends Fragment {
         CMN.opt.load_path = ((TextView) option_Layout.findViewById(R.id.load_path_text)).getText().toString();
         File f = new File(CMN.opt.save_path);
         if (!f.exists() || !f.isDirectory()) {
-            Toast.makeText(CMN.a, "invaid save file path,reverting to default", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CMN.a, getResources().getString(R.string.luj_wuxiao), Toast.LENGTH_SHORT).show();
             ((TextView) option_Layout.findViewById(R.id.save_path_text)).setText(MainActivity.DefaultSavePath);
             CMN.opt.save_path = MainActivity.DefaultSavePath;
         } else {
@@ -234,7 +235,7 @@ public class Settings_fragment extends Fragment {
         f = new File(CMN.opt.load_path);
         if (!f.exists() || !f.isDirectory()) {
             ((TextView) option_Layout.findViewById(R.id.load_path_text)).setText(MainActivity.DefaultLoadPath);
-            Toast.makeText(CMN.a, "invaid source file path,reverting to default", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CMN.a,  getResources().getString(R.string.luj_wuxiao2), Toast.LENGTH_SHORT).show();
             CMN.opt.load_path = MainActivity.DefaultLoadPath;
         } else {
             CMN.opt.load_path = f.getAbsolutePath() + "/";
@@ -397,7 +398,7 @@ public class Settings_fragment extends Fragment {
             lv.setAdapter(chooseSettingsAdapter_);
             builder.setView(dialog);
             builder.setIcon(R.mipmap.ic_directory_parent);
-            builder.setNeutralButton("删除",null);
+            builder.setNeutralButton(R.string.delete,null);
             d = builder.create();
             d.show();
             d.getButton(AlertDialog.BUTTON_NEUTRAL).setOnClickListener(new View.OnClickListener() {
@@ -445,8 +446,8 @@ public class Settings_fragment extends Fragment {
                     if(f.exists()){
                         View dialog = CMN.inflater.inflate(R.layout.dialog,(ViewGroup) CMN.a.findViewById(R.id.dialog));
                         AlertDialog.Builder builder = new AlertDialog.Builder(CMN.a);
-                        builder.setTitle("文件已存在，覆盖保存？");
-                        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        builder.setTitle(R.string.wenj_fugai);
+                        builder.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 copyFileToPath(new File(CMN.opt.dataDir + "/shared_prefs/lock.xml"),f);

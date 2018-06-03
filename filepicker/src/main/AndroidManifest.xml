@@ -1,7 +1,8 @@
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.github.angads25.filepicker">
-
+    <uses-sdk android:minSdkVersion="16"
+        android:targetSdkVersion="22"/>
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 </manifest>

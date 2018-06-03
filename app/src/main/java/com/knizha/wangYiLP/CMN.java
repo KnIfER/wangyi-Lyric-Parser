@@ -20,6 +20,8 @@ import java.util.Locale;
  */
 
 public class CMN {
+    public static final boolean building4Play=false;
+    public static final int dbVersionCode=2;
     public static String[] charsetNames;
     public static long curr_proj_timecode=-1;
     public static LP_Option opt;
@@ -116,4 +118,8 @@ public class CMN {
         }
         return result;
     }
+
+    public static final String[] audioSuffixs = new String[]{"mp3","acc","m4a"};
+    public static final String[] lyricSuffixs = new String[]{"lrc","txt","json"};
+
 }

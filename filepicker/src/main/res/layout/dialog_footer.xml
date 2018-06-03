@@ -9,13 +9,21 @@
     style="?android:attr/background"
     android:id="@+id/linearLayout">
 
-    <View
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
+    <Button
         android:layout_weight="1"
-        android:background="@null"/>
+        style="?android:attr/buttonStyle"
+        android:background="@null"
+        android:text="@string/favor_button_label"
+        android:textStyle="bold"
+        android:id="@+id/favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorAccent"
+        android:layout_margin="8dp"
+        android:padding="4dp"/>
 
     <Button
+        android:layout_weight="1"
         style="?android:attr/buttonStyle"
         android:background="@null"
         android:text="@string/cancel_button_label"
@@ -28,6 +36,7 @@
         android:padding="4dp"/>
 
     <Button
+        android:layout_weight="1"
         style="?android:attr/buttonStyle"
         android:background="@null"
         android:text="@string/choose_button_label"
@@ -35,7 +44,7 @@
         android:id="@+id/select"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/colorHeader"
         android:layout_margin="8dp"
         android:padding="4dp"/>
 </LinearLayout>

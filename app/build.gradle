@@ -15,8 +15,8 @@ android {
         applicationId "com.knizha.wangYiLP2"
         minSdkVersion 16
         targetSdkVersion 24
-        versionCode 5
-        versionName "2.0"
+        versionCode 9
+        versionName "2.1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         compileOptions {
             sourceCompatibility JavaVersion.VERSION_1_7

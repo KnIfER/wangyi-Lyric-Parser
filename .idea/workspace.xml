@@ -15,14 +15,14 @@
           <device id="wear_round" />
           <device id="tv_720p" />
         </devices>
-        <locale>zh-rTW</locale>
+        <locale>zh</locale>
         <target>android-25</target>
       </config>
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="fatal" />
-    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Firebase" />
     <option name="TOOL_WINDOW_REGEXP_FILTER" value="false" />
   </component>
   <component name="ChangeListManager">
@@ -74,45 +74,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Main_extractor_Fragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/Main_extractor_Fragment.java">
+      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="161">
-              <caret line="717" column="13" lean-forward="false" selection-start-line="717" selection-start-column="8" selection-end-line="717" selection-end-column="13" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#selectAll#0;class#Main_extractor_Fragment#0" expanded="false" />
-                <element signature="e#2074#2078#0" expanded="false" />
-                <element signature="method#deSelectAll#0;class#Main_extractor_Fragment#0" expanded="false" />
-                <element signature="method#reversionSelect#0;class#Main_extractor_Fragment#0" expanded="false" />
-                <element signature="e#3240#3286#0" expanded="false" />
-                <element signature="class#tk_gross#0;class#Main_extractor_Fragment#0" expanded="false" />
-                <element signature="method#tk_gross#0;class#tk_gross#0;class#Main_extractor_Fragment#0" expanded="false" />
-                <element signature="e#5602#5628#0" expanded="false" />
-                <element signature="e#6060#6066#0" expanded="false" />
-                <element signature="class#ResultListAdapter#0;class#Main_extractor_Fragment#0" expanded="false" />
-                <element signature="method#clear#0;class#ResultListAdapter#0;class#Main_extractor_Fragment#0" expanded="false" />
-                <element signature="method#ResultListAdapter#0;class#ResultListAdapter#0;class#Main_extractor_Fragment#0" expanded="false" />
-                <element signature="method#addItem#0;class#ResultListAdapter#0;class#Main_extractor_Fragment#0" expanded="false" />
-                <element signature="method#getView#0;class#ResultListAdapter#0;class#Main_extractor_Fragment#0" expanded="false" />
-                <element signature="class#11685:11809" expanded="false" />
-                <element signature="class#viewHolder#0;class#Main_extractor_Fragment#0" expanded="false" />
-                <element signature="e#18438#18446#0" expanded="false" />
-                <element signature="e#18763#18814#0" expanded="false" />
-                <element signature="method#HSVtoRGB#0;class#Main_extractor_Fragment#0" expanded="false" />
-                <element signature="method#makeColor#0;class#Main_extractor_Fragment#0" expanded="false" />
-                <element signature="method#deleteOne#0;class#Main_extractor_Fragment#0" expanded="false" />
-                <element signature="class#Item#0" expanded="false" />
-              </folding>
+            <state relative-caret-position="195">
+              <caret line="17" column="21" lean-forward="false" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="21" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="myCpr.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/fenwjian/sdcardutil/myCpr.java">
+      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-180">
-              <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+            <state relative-caret-position="399">
+              <caret line="55" column="70" lean-forward="false" selection-start-line="55" selection-start-column="37" selection-end-line="55" selection-end-column="70" />
               <folding />
             </state>
           </provider>
@@ -121,65 +97,54 @@
       <file leaf-file-name="Main_editor_Fragment.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/Main_editor_Fragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="693">
-              <caret line="468" column="37" lean-forward="false" selection-start-line="468" selection-start-column="37" selection-end-line="468" selection-end-column="37" />
+            <state relative-caret-position="78">
+              <caret line="1141" column="19" lean-forward="false" selection-start-line="1141" selection-start-column="19" selection-end-line="1141" selection-end-column="19" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#onStartTrackingTouch#0;class#10675:14697" expanded="false" />
-                <element signature="method#onStopTrackingTouch#0;class#10675:14697" expanded="false" />
-                <element signature="e#16696#16699#0" expanded="false" />
-                <element signature="e#17641#17704#0" expanded="false" />
-                <element signature="class#18569:19620" expanded="false" />
-                <element signature="method#onTouch#0;class#18569:19620" expanded="false" />
-                <element signature="class#19743:20242" expanded="false" />
-                <element signature="method#onProgressChanged#0;class#19743:20242" expanded="false" />
-                <element signature="method#onStartTrackingTouch#0;class#19743:20242" expanded="false" />
-                <element signature="method#onStopTrackingTouch#0;class#19743:20242" expanded="false" />
-                <element signature="e#21449#21486#0" expanded="false" />
-                <element signature="method#scale#0;class#Main_editor_Fragment#0" expanded="false" />
-                <element signature="method#scale#1;class#Main_editor_Fragment#0" expanded="false" />
-                <element signature="e#24195#24257#0" expanded="false" />
-                <element signature="method#init_yuan#0;class#Main_editor_Fragment#0" expanded="false" />
-                <element signature="e#31577#31672#0" expanded="false" />
-                <element signature="e#31791#31798#0" expanded="false" />
-                <element signature="e#32190#32215#0" expanded="false" />
-                <element signature="e#33273#33350#0" expanded="false" />
-                <element signature="e#36913#36929#0" expanded="false" />
-                <element signature="class#43217:43360" expanded="false" />
-                <element signature="method#onClick#0;class#43217:43360" expanded="false" />
-                <element signature="class#46015:46158" expanded="false" />
-                <element signature="method#onClick#0;class#46015:46158" expanded="false" />
-                <element signature="method#show_adjustBar_toggle#0;class#Main_editor_Fragment#0" expanded="false" />
-                <element signature="e#48408#48471#0" expanded="false" />
-                <element signature="method#resumePlayer#0;class#Main_editor_Fragment#0" expanded="false" />
-                <element signature="method#play#0;class#Main_editor_Fragment#0" expanded="false" />
+                <element signature="method#onActivityCreated#0;class#Main_editor_Fragment#0" expanded="false" />
+                <element signature="method#onStartTrackingTouch#0;class#12872:17978" expanded="false" />
+                <element signature="method#onStopTrackingTouch#0;class#12872:17978" expanded="false" />
+                <element signature="e#18927#18951#0" expanded="false" />
+                <element signature="e#22390#22393#0" expanded="false" />
+                <element signature="e#23335#23398#0" expanded="false" />
+                <element signature="class#24263:25314" expanded="false" />
+                <element signature="method#onTouch#0;class#24263:25314" expanded="false" />
+                <element signature="class#25437:25936" expanded="false" />
+                <element signature="method#onProgressChanged#0;class#25437:25936" expanded="false" />
+                <element signature="method#onStartTrackingTouch#0;class#25437:25936" expanded="false" />
+                <element signature="method#onStopTrackingTouch#0;class#25437:25936" expanded="false" />
+                <element signature="method#initSeekers#0;class#Main_editor_Fragment#0" expanded="false" />
                 <element signature="class#tk_gross#0;class#Main_editor_Fragment#0" expanded="false" />
                 <element signature="method#tk_gross#0;class#tk_gross#0;class#Main_editor_Fragment#0" expanded="false" />
+                <element signature="method#onTabSelected#0;class#Main_editor_Fragment#0" expanded="false" />
                 <element signature="method#onFocusChange#0;class#Main_editor_Fragment#0" expanded="false" />
                 <element signature="class#OnItemClickListener#0;class#Main_editor_Fragment#0" expanded="false" />
                 <element signature="class#OnItemLongClickListener#0;class#Main_editor_Fragment#0" expanded="false" />
                 <element signature="class#MyViewHolder#0;class#Main_editor_Fragment#0" expanded="false" />
                 <element signature="method#MyViewHolder#0;class#MyViewHolder#0;class#Main_editor_Fragment#0" expanded="false" />
-                <element signature="e#56707#56756#0" expanded="false" />
+                <element signature="e#75684#75733#0" expanded="false" />
                 <element signature="class#main_list_Adapter#0;class#Main_editor_Fragment#0" expanded="false" />
-                <element signature="e#57210#57272#0" expanded="false" />
+                <element signature="e#76187#76249#0" expanded="false" />
                 <element signature="method#setOnItemClickListener#0;class#main_list_Adapter#0;class#Main_editor_Fragment#0" expanded="false" />
                 <element signature="method#setOnItemLongClickListener#0;class#main_list_Adapter#0;class#Main_editor_Fragment#0" expanded="false" />
                 <element signature="method#onCreateViewHolder#0;class#main_list_Adapter#0;class#Main_editor_Fragment#0" expanded="false" />
                 <element signature="method#onBindViewHolder#0;class#main_list_Adapter#0;class#Main_editor_Fragment#0" expanded="false" />
-                <element signature="class#59646:60127" expanded="false" />
-                <element signature="method#beforeTextChanged#0;class#59646:60127" expanded="false" />
-                <element signature="method#onTextChanged#0;class#59646:60127" expanded="false" />
-                <element signature="method#afterTextChanged#0;class#59646:60127" expanded="false" />
-                <element signature="e#60415#60470#0" expanded="false" />
-                <element signature="e#60592#60595#0" expanded="false" />
-                <element signature="e#61003#61023#0" expanded="false" />
+                <element signature="class#78621:79062" expanded="false" />
+                <element signature="method#beforeTextChanged#0;class#78621:79062" expanded="false" />
+                <element signature="method#onTextChanged#0;class#78621:79062" expanded="false" />
+                <element signature="method#afterTextChanged#0;class#78621:79062" expanded="false" />
+                <element signature="e#79350#79405#0" expanded="false" />
+                <element signature="e#79527#79530#0" expanded="false" />
+                <element signature="e#79938#79958#0" expanded="false" />
                 <element signature="method#removeSelected#0;class#main_list_Adapter#0;class#Main_editor_Fragment#0" expanded="false" />
                 <element signature="class#viewHolder#0;class#Main_editor_Fragment#0" expanded="false" />
+                <element signature="class#SeekSetAdapter#0;class#Main_editor_Fragment#0" expanded="false" />
                 <element signature="method#onProgressChanged#0;class#SeekSetAdapter#0;class#Main_editor_Fragment#0" expanded="false" />
                 <element signature="method#onStartTrackingTouch#0;class#SeekSetAdapter#0;class#Main_editor_Fragment#0" expanded="false" />
                 <element signature="method#onStopTrackingTouch#0;class#SeekSetAdapter#0;class#Main_editor_Fragment#0" expanded="false" />
-                <element signature="e#63144#63198#0" expanded="false" />
+                <element signature="method#setProgress#0;class#SeekSetAdapter#0;class#Main_editor_Fragment#0" expanded="false" />
+                <element signature="e#82079#82133#0" expanded="false" />
+                <element signature="e#83152#83189#0" expanded="false" />
+                <element signature="method#notifyDataSetChanged#0;class#SeekSetAdapter#0;class#Main_editor_Fragment#0" expanded="false" />
                 <element signature="method#getItem#0;class#SeekSetAdapter#0;class#Main_editor_Fragment#0" expanded="false" />
                 <element signature="method#getItemId#0;class#SeekSetAdapter#0;class#Main_editor_Fragment#0" expanded="false" />
                 <element signature="method#getView#0;class#SeekSetAdapter#0;class#Main_editor_Fragment#0" expanded="false" />
@@ -189,18 +154,157 @@
                 <element signature="method#getItemId#0;class#daProjsAdapter#0;class#Main_editor_Fragment#0" expanded="false" />
                 <element signature="method#getCount#0;class#daProjsAdapter#0;class#Main_editor_Fragment#0" expanded="false" />
                 <element signature="method#getItem#0;class#daProjsAdapter#0;class#Main_editor_Fragment#0" expanded="false" />
-                <element signature="e#68248#68262#0" expanded="false" />
+                <element signature="e#87589#87603#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="78">
-              <caret line="14" column="43" lean-forward="true" selection-start-line="14" selection-start-column="23" selection-end-line="14" selection-end-column="43" />
+            <state relative-caret-position="-117">
+              <caret line="12" column="20" lean-forward="false" selection-start-line="12" selection-start-column="20" selection-end-line="12" selection-end-column="20" />
+              <folding>
+                <element signature="e#718#736#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+          <provider editor-type-id="android-manifest">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main_extractor_layout.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/main_extractor_layout.xml">
+          <provider editor-type-id="android-designer2">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="702">
+              <caret line="18" column="24" lean-forward="false" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="24" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="lyric.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/lyric.xml">
+          <provider editor-type-id="android-designer2">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="234">
+              <caret line="27" column="38" lean-forward="false" selection-start-line="21" selection-start-column="8" selection-end-line="27" selection-end-column="38" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Main_extractor_Fragment.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/Main_extractor_Fragment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-248">
+              <caret line="99" column="0" lean-forward="false" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
+              <folding>
+                <element signature="method#selectAll#0;class#Main_extractor_Fragment#0" expanded="false" />
+                <element signature="e#2156#2160#0" expanded="false" />
+                <element signature="method#deSelectAll#0;class#Main_extractor_Fragment#0" expanded="false" />
+                <element signature="method#reversionSelect#0;class#Main_extractor_Fragment#0" expanded="false" />
+                <element signature="e#3322#3368#0" expanded="false" />
+                <element signature="class#tk_gross#0;class#Main_extractor_Fragment#0" expanded="false" />
+                <element signature="method#tk_gross#0;class#tk_gross#0;class#Main_extractor_Fragment#0" expanded="false" />
+                <element signature="method#onCreateView#0;class#Main_extractor_Fragment#0" expanded="false" />
+                <element signature="e#5820#5846#0" expanded="false" />
+                <element signature="e#6343#6349#0" expanded="false" />
+                <element signature="class#ResultListAdapter#0;class#Main_extractor_Fragment#0" expanded="false" />
+                <element signature="method#clear#0;class#ResultListAdapter#0;class#Main_extractor_Fragment#0" expanded="false" />
+                <element signature="method#ResultListAdapter#0;class#ResultListAdapter#0;class#Main_extractor_Fragment#0" expanded="false" />
+                <element signature="method#addItem#0;class#ResultListAdapter#0;class#Main_extractor_Fragment#0" expanded="false" />
+                <element signature="method#getView#0;class#ResultListAdapter#0;class#Main_extractor_Fragment#0" expanded="false" />
+                <element signature="class#12036:12160" expanded="false" />
+                <element signature="class#viewHolder#0;class#Main_extractor_Fragment#0" expanded="false" />
+                <element signature="method#showLyricsPreview#0;class#Main_extractor_Fragment#0" expanded="false" />
+                <element signature="e#19087#19095#0" expanded="false" />
+                <element signature="e#19412#19463#0" expanded="false" />
+                <element signature="method#ms2ffmTime#0;class#Main_extractor_Fragment#0" expanded="false" />
+                <element signature="method#makeColor#0;class#Main_extractor_Fragment#0" expanded="false" />
+                <element signature="method#deleteOne#0;class#Main_extractor_Fragment#0" expanded="false" />
+                <element signature="class#Item#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Settings_fragment.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/Settings_fragment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="311">
+              <caret line="229" column="104" lean-forward="false" selection-start-line="229" selection-start-column="104" selection-end-line="229" selection-end-column="104" />
+              <folding>
+                <element signature="docComment;class#Settings_fragment#0" expanded="false" />
+                <element signature="method#onCreateView#0;class#Settings_fragment#0" expanded="false" />
+                <element signature="e#2608#2641#0" expanded="false" />
+                <element signature="e#11055#11100#0" expanded="true" />
+                <element signature="method#scanSettings#0;class#Settings_fragment#0" expanded="false" />
+                <element signature="method#onDestroyView#0;class#Settings_fragment#0" expanded="false" />
+                <element signature="method#onDetach#0;class#Settings_fragment#0" expanded="false" />
+                <element signature="method#onSaveInstanceState#0;class#Settings_fragment#0" expanded="false" />
+                <element signature="method#onActivityCreated#0;class#Settings_fragment#0" expanded="false" />
+                <element signature="method#onAttach#0;class#Settings_fragment#0" expanded="false" />
+                <element signature="method#onDestroy#0;class#Settings_fragment#0" expanded="false" />
+                <element signature="method#onStop#0;class#Settings_fragment#0" expanded="false" />
+                <element signature="method#onStart#0;class#Settings_fragment#0" expanded="false" />
+                <element signature="method#onPause#0;class#Settings_fragment#0" expanded="false" />
+                <element signature="method#onResume#0;class#Settings_fragment#0" expanded="false" />
+                <element signature="class#adaptermy2#0;class#Settings_fragment#0" expanded="false" />
+                <element signature="method#adaptermy2#0;class#adaptermy2#0;class#Settings_fragment#0" expanded="false" />
+                <element signature="method#getItemId#0;class#adaptermy2#0;class#Settings_fragment#0" expanded="false" />
+                <element signature="method#getCount#0;class#adaptermy2#0;class#Settings_fragment#0" expanded="false" />
+                <element signature="method#getItem#0;class#adaptermy2#0;class#Settings_fragment#0" expanded="false" />
+                <element signature="method#getView#0;class#adaptermy2#0;class#Settings_fragment#0" expanded="false" />
+                <element signature="class#16852:18300" expanded="false" />
+                <element signature="method#onTouch#0;class#16852:18300" expanded="false" />
+                <element signature="e#18044#18079#0" expanded="false" />
+                <element signature="method#copyFileToPath#0;class#Settings_fragment#0" expanded="false" />
+                <element signature="class#SubOnItemClickListener#0;class#Settings_fragment#0" expanded="false" />
+                <element signature="class#chooseSettingsAdapter#0;class#Settings_fragment#0" expanded="false" />
+                <element signature="method#chooseSettingsAdapter#0;class#chooseSettingsAdapter#0;class#Settings_fragment#0" expanded="false" />
+                <element signature="method#refresh#0;class#chooseSettingsAdapter#0;class#Settings_fragment#0" expanded="false" />
+                <element signature="method#getItemId#0;class#chooseSettingsAdapter#0;class#Settings_fragment#0" expanded="false" />
+                <element signature="method#getCount#0;class#chooseSettingsAdapter#0;class#Settings_fragment#0" expanded="false" />
+                <element signature="method#getItem#0;class#chooseSettingsAdapter#0;class#Settings_fragment#0" expanded="false" />
+                <element signature="method#getView#0;class#chooseSettingsAdapter#0;class#Settings_fragment#0" expanded="false" />
+                <element signature="e#25330#25353#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LPWorkerThreadManager.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/LPWorkerThreadManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3198">
+              <caret line="97" column="37" lean-forward="false" selection-start-line="97" selection-start-column="37" selection-end-line="97" selection-end-column="37" />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#564#565#0" expanded="false" />
+                <element signature="e#608#609#0" expanded="false" />
+                <element signature="e#1314#1315#0" expanded="false" />
+                <element signature="e#1409#1410#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LPWorkerThread.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/LPWorkerThread.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1794">
+              <caret line="62" column="50" lean-forward="false" selection-start-line="62" selection-start-column="50" selection-end-line="62" selection-end-column="50" />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -219,36 +323,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>to_</find>
-      <find>lock</find>
-      <find>viewpa</find>
-      <find>export</find>
-      <find>startCandidate=-1</find>
-      <find>open</find>
-      <find>getchil</find>
-      <find>(e.</find>
-      <find>lv.se</find>
-      <find>to</find>
-      <find>搜寻</find>
-      <find>AdaptermySeekSet.setProgress(0);</find>
-      <find>to_edi</find>
-      <find>ondraw</find>
-      <find>locked</find>
-      <find>run_</find>
-      <find>scan</find>
-      <find>extra</find>
-      <find>你先点</find>
-      <find>onkey</find>
-      <find>to_ed</find>
-      <find>有种</find>
-      <find>mycpr</find>
-      <find>//todo</find>
-      <find>//todo:</find>
-      <find>onResize</find>
-      <find>resize</find>
-      <find>myCpr</find>
-      <find>todo:xxx</find>
-      <find>点击事件</find>
+      <find>dele</find>
+      <find>last</find>
+      <find>.export</find>
+      <find>lastindex</find>
+      <find>viewpager</find>
+      <find>src</find>
+      <find>源</find>
+      <find>tabl</find>
+      <find>preview</find>
+      <find>to_d</find>
+      <find>getBackground().setCol</find>
+      <find>locker</find>
+      <find>run</find>
+      <find>GetTagFromNet</find>
+      <find>#1D9DFF1D9DFF</find>
+      <find>expr</find>
+      <find>tablay</find>
+      <find>color</find>
+      <find>rFilter(new</find>
+      <find>fragments</find>
+      <find>·</find>
+      <find>oncreate</find>
+      <find>title</find>
+      <find>prepare</find>
+      <find>prepareLyric</find>
+      <find>try</find>
+      <find>TextView</find>
+      <find>defaul</find>
+      <find>default</find>
+      <find>rev</find>
     </findStrings>
     <replaceStrings>
       <replace>opt.</replace>
@@ -270,6 +374,10 @@
       <replace>daProjsAdapter_</replace>
       <replace>daProjsAdapter</replace>
       <replace>CMN.curr_proj_timecode</replace>
+      <replace>CMN.opt.coupledCut</replace>
+      <replace>CMN.opt.cutterMode</replace>
+      <replace>speedFakingMoulator</replace>
+      <replace>getResources().getString(R.string.stop)</replace>
     </replaceStrings>
   </component>
   <component name="GenerateSignedApkSettings">
@@ -3704,65 +3812,65 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/xuxian.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/toggle_selector_item1.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/toggle_selector_item2.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/toggle_selector_item3.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/toggle_selector_item4.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable-v21/listselector1.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/attrs.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/shawnlin/numberpicker/NumberPicker.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/dialog_double_number_picker.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/dialog_double_number_picker_addln.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/ic_close_black_24dp.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/listview_item1.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/menu/menu.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/fenwjian/sdcardutil/SplitSeekBarmy.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/ic_mode_edit_black_24dp.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/ic_check_black_24dp.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/Settings_fragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/ic_keyboard_return_black_24dp.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/main_list_layout.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/lyric.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/settings_dumping_dialog.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/ui/EditTextmy.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/settings_choosing_dialog.xml" />
-        <option value="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values/values.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/list_item3.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/main_edit_layout.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/CMN.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/db/DBWangYiLPController.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/fenwjian/sdcardutil/RBTree.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/fenwjian/sdcardutil/TextViewmy.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/jaygoo/widget/RangeSeekBar.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/shixian.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/rectanglsmy.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/shangxia2.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/shangxia.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/toggle_selector.xml" />
-        <option value="$PROJECT_DIR$/app/build.gradle" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/listselector1.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/ic_folder_black_24dp.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/ic_folder_red_24dp.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/folder_selector.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/color.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/option_layout.xml" />
+        <option value="$PROJECT_DIR$/filepicker/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/filepicker/src/main/java/com/github/angads25/filepicker/view/ArrayAdaptermy.java" />
+        <option value="$PROJECT_DIR$/filepicker/src/main/res/drawable/shixian.xml" />
+        <option value="$PROJECT_DIR$/filepicker/src/main/res/drawable/shixian2.xml" />
+        <option value="$PROJECT_DIR$/filepicker/src/main/res/layout-v11/dialog_footer.xml" />
+        <option value="$PROJECT_DIR$/filepicker/src/main/res/layout/dialog_footer.xml" />
+        <option value="$PROJECT_DIR$/filepicker/src/main/res/drawable/ic_star_black_24dp.xml" />
+        <option value="$PROJECT_DIR$/filepicker/src/main/res/drawable/ic_stars_black_24dp.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/Filemy.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/fenwjian/sdcardutil/chatsetDec.java" />
+        <option value="$PROJECT_DIR$/filepicker/src/main/java/com/github/angads25/filepicker/view/FilePickerDialog.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/audio_trimmer/CheapAAC.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/db/dbFiles.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/db/dbFields.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/db/DBHelper.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/fenwjian/sdcardutil/myCpr.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/LP_Option.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/RelativeLayoutmy.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/123.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/dialog_double_number_picker_addln.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/ui/ViewUtil.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/ui/ScrollViewmy.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/ui/asddg.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/ui/InputTextFilter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/ic_indeterminate_check_box_black_24dp.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/tixing.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/fenwjian/sdcardutil/RBTree.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/Settings_fragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/main_list_layout.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/option_layout.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/db/DBWangYiLPController.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values-zh/strings.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/menu/menu.xml" />
+        <option value="$PROJECT_DIR$/filepicker/src/main/res/layout/dialog_header.xml" />
+        <option value="$PROJECT_DIR$/filepicker/src/main/res/layout/drawer_list_item.xml" />
+        <option value="$PROJECT_DIR$/filepicker/src/main/res/layout/dialog_main.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/CMN.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/main_edit_layout.xml" />
+        <option value="$PROJECT_DIR$/filepicker/src/main/res/values/styles.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/main.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/fenwjian/sdcardutil/SplitSeekBarmy.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/LPWorkerThreadManager.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/Lrc_Parser.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/main_extractor_layout.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/MainActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/ArrayAdaptermy.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/ui/ArrayAdaptermy.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/Main_extractor_Fragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/Main_editor_Fragment.java" />
+        <option value="$PROJECT_DIR$/app/build.gradle" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/lyric.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/Main_extractor_Fragment.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1382" />
-    <option name="height" value="744" />
+    <option name="x" value="1" />
+    <option name="y" value="1" />
+    <option name="width" value="1364" />
+    <option name="height" value="726" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -3779,74 +3887,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="wangyi-Lyric-Parser2" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Gradle Scripts" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidBuildScriptsGroupNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="wangyi-Lyric-Parser2" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="filepicker" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="wangyi-Lyric-Parser2" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="wangyi-Lyric-Parser2" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="drawable" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidResFolderTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="wangyi-Lyric-Parser2" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -4121,119 +4161,81 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="wangYiLP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="ui" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="wangyi-Lyric-Parser2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="wangyi-Lyric-Parser2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="knizha" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="wangyi-Lyric-Parser2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="wangyi-Lyric-Parser2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="widget" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="wangyi-Lyric-Parser2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="wangyi-Lyric-Parser2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sdcardutil" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="Scratches" />
+      <pane id="AndroidView">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wangyi-Lyric-Parser2" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Gradle Scripts" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidBuildScriptsGroupNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wangyi-Lyric-Parser2" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="filepicker" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wangyi-Lyric-Parser2" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wangyi-Lyric-Parser2" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="drawable" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidResFolderTypeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wangyi-Lyric-Parser2" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -4245,10 +4247,10 @@
     <property name="ExportApk.ApkPath" value="F:\scrhashing_music\wangyi-Lyric-Parser2\app" />
     <property name="ExportApk.Flavors" value="" />
     <property name="ExportApk.BuildType" value="release" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Documents/keynew3.jks" />
+    <property name="last_opened_file_path" value="C:/ankihelper" />
     <property name="ExportApk.SignV1" value="true" />
     <property name="ExportApk.SignV2" value="true" />
-    <property name="sync.plugin.last.upgrade.timestamp" value="1524379822776" />
+    <property name="sync.plugin.last.upgrade.timestamp" value="1527995719312" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/java/com" />
     <property name="android.profiler.active" value="true" />
     <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/app/src/main/res/drawable/toggle_selector.xml" />
@@ -4256,15 +4258,16 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.knizha.wangYiLP" />
       <recent name="com.fenwjian.sdcardutil" />
+      <recent name="com.github.angads25.filepicker.view" />
+      <recent name="com.knizha.wangYiLP" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="F:\scrhashing_music\wangyi-Lyric-Parser2\app\src\main\res\drawable" />
-      <recent name="F:\scrhashing_music\wangyi-Lyric-Parser2\app\src\main\res\layout" />
-      <recent name="F:\scrhashing_music\wangyi-Lyric-Parser2\app\src\main\java" />
-      <recent name="F:\scrhashing_music\wangyi-Lyric-Parser2\app\src\main\res\drawable-hdpi" />
-      <recent name="F:\scrhashing_music\wangyi-Lyric-Parser2\app\src\main\res\drawable-v21" />
+      <recent name="F:\scrhashing_music\wangyi-Lyric-Parser2\app\src\main\res\drawable-xxhdpi" />
+      <recent name="F:\scrhashing_music\wangyi-Lyric-Parser2\app\src\main\res\values-zh" />
+      <recent name="F:\scrhashing_music\wangyi-Lyric-Parser2\app\src\main\java\com\knizha\wangYiLP\ui" />
+      <recent name="F:\scrhashing_music\wangyi-Lyric-Parser2\app\src\main\java\com" />
+      <recent name="F:\scrhashing_music\wangyi-Lyric-Parser2\filepicker\src\main\res\drawable" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -4350,7 +4353,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1524470394430" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1528004732932" />
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -4398,7 +4401,7 @@
       </Profilers>
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1524470394430" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1528004732932" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -4581,7 +4584,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1524470394432" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1528004732937" />
       </method>
     </configuration>
     <configuration default="false" name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
@@ -4630,7 +4633,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1524470394432" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1528004732939" />
       </method>
     </configuration>
     <list size="2">
@@ -4670,32 +4673,30 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
-    <editor active="true" />
+    <frame x="1" y="1" width="1364" height="726" extended-state="1" />
     <layout>
       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32764506" sideWeight="0.4969743" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32982457" sideWeight="0.5030675" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.834471" sideWeight="0.64977306" order="14" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962063" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32991454" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17576791" sideWeight="0.47881997" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6830986" sideWeight="0.47881997" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32982457" sideWeight="0.5030675" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32852808" sideWeight="0.49317408" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.48122868" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32982457" sideWeight="0.4969325" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2940141" sideWeight="0.64977306" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5607639" sideWeight="0.5060698" order="10" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2655068" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34812286" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.55972695" sideWeight="0.5060698" order="10" side_tool="true" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3535276" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290469" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962063" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -4707,6 +4708,7 @@
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32852808" sideWeight="0.5068259" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" x="92" y="92" width="1182" height="544" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34812286" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -4722,656 +4724,433 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="52" />
+      <option name="time" value="58" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://F:/COD/NVPACK/android-sdk-windows/sources/android-24/android/widget/TextView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="4305" column="22" lean-forward="false" selection-start-line="4305" selection-start-column="22" selection-end-line="4305" selection-end-column="22" />
-          <folding>
-            <element signature="e#154738#154739#0" expanded="false" />
-            <element signature="e#154780#154781#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://F:/COD/NVPACK/android-sdk-windows/sources/android-24/android/widget/NumberPicker.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="271" column="16" lean-forward="false" selection-start-line="271" selection-start-column="16" selection-end-line="271" selection-end-column="16" />
-          <folding />
+        <state relative-caret-position="200">
+          <caret line="2136" column="5" lean-forward="false" selection-start-line="2072" selection-start-column="4" selection-end-line="2136" selection-end-column="5" />
         </state>
       </provider>
     </entry>
-    <entry file="file://F:/COD/NVPACK/android-sdk-windows/sources/android-24/java/util/AbstractList.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/ui/InputTextFilter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="538">
-          <caret line="146" column="16" lean-forward="false" selection-start-line="146" selection-start-column="16" selection-end-line="146" selection-end-column="16" />
-          <folding>
-            <element signature="e#6015#6016#0" expanded="false" />
-            <element signature="e#6072#6073#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="226">
+          <caret line="16" column="63" lean-forward="false" selection-start-line="16" selection-start-column="63" selection-end-line="16" selection-end-column="63" />
         </state>
       </provider>
     </entry>
-    <entry file="file://F:/COD/NVPACK/android-sdk-windows/sources/android-24/java/util/ArrayList.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/frame.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_indeterminate_check_box_black_24dp.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="421">
-          <caret line="454" column="16" lean-forward="false" selection-start-line="454" selection-start-column="16" selection-end-line="454" selection-end-column="16" />
-          <folding />
+        <state relative-caret-position="273">
+          <caret line="7" column="127" lean-forward="false" selection-start-line="7" selection-start-column="121" selection-end-line="7" selection-end-column="127" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/tixing.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="11" column="67" lean-forward="false" selection-start-line="11" selection-start-column="67" selection-end-line="11" selection-end-column="67" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/fenwjian/sdcardutil/RBTree.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="701" column="31" lean-forward="false" selection-start-line="701" selection-start-column="16" selection-end-line="701" selection-end-column="31" />
-          <folding>
-            <element signature="e#7193#7194#0" expanded="true" />
-            <element signature="e#7234#7235#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_double_number_picker_addln.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="46" column="34" lean-forward="false" selection-start-line="46" selection-start-column="32" selection-end-line="46" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/fenwjian/sdcardutil/TextViewmy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="93">
-          <caret line="163" column="38" lean-forward="false" selection-start-line="163" selection-start-column="38" selection-end-line="163" selection-end-column="38" />
-          <folding>
-            <element signature="method#init#0;class#TextViewmy#0" expanded="false" />
-            <element signature="method#restoreLastSelection#0;class#TextViewmy#0" expanded="false" />
-            <element signature="method#ShowTvSelecionHandle#0;class#TextViewmy#0" expanded="false" />
-            <element signature="method#hideTvSelecionHandle#0;class#TextViewmy#0" expanded="false" />
-            <element signature="method#hideAM#0;class#TextViewmy#0" expanded="false" />
-            <element signature="method#setCursorPosition#0;class#TextViewmy#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/toggle_selector_item1.xml">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/shixian.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="8" column="8" lean-forward="true" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/shangxia2.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="78">
-          <caret line="2" column="29" lean-forward="false" selection-start-line="2" selection-start-column="4" selection-end-line="2" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/shangxia.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="12" column="30" lean-forward="false" selection-start-line="12" selection-start-column="30" selection-end-line="12" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/toggle_selector.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="5" column="47" lean-forward="false" selection-start-line="5" selection-start-column="47" selection-end-line="5" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jaygoo/widget/RangeSeekBar.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="297" column="35" lean-forward="false" selection-start-line="297" selection-start-column="35" selection-end-line="297" selection-end-column="35" />
-          <folding>
-            <element signature="method#RangeSeekBar#1;class#RangeSeekBar#0" expanded="false" />
-            <element signature="e#6929#7026#0" expanded="false" />
-            <element signature="e#7768#7826#0" expanded="false" />
-            <element signature="method#onMeasure#0;class#RangeSeekBar#0" expanded="false" />
-            <element signature="e#9363#9388#0" expanded="false" />
-            <element signature="e#10172#10174#0" expanded="false" />
-            <element signature="e#10245#10277#0" expanded="false" />
-            <element signature="docComment;method#initPaint#0;class#RangeSeekBar#0" expanded="false" />
-            <element signature="method#initPaint#0;class#RangeSeekBar#0" expanded="false" />
-            <element signature="e#12235#12244#0" expanded="false" />
-            <element signature="docComment;method#initBitmap#0;class#RangeSeekBar#0" expanded="false" />
-            <element signature="method#initBitmap#0;class#RangeSeekBar#0" expanded="false" />
-            <element signature="method#SeekBar#0;class#SeekBar#0;class#RangeSeekBar#0" expanded="false" />
-            <element signature="docComment;method#onSizeChanged#0;class#SeekBar#0;class#RangeSeekBar#0" expanded="false" />
-            <element signature="method#onSizeChanged#0;class#SeekBar#0;class#RangeSeekBar#0" expanded="false" />
-            <element signature="e#15276#15326#0" expanded="false" />
-            <element signature="docComment;method#draw#0;class#SeekBar#0;class#RangeSeekBar#0" expanded="false" />
-            <element signature="e#16469#16510#0" expanded="false" />
-            <element signature="e#18490#18540#0" expanded="false" />
-            <element signature="docComment;method#drawDefault#0;class#SeekBar#0;class#RangeSeekBar#0" expanded="false" />
-            <element signature="method#drawDefault#0;class#SeekBar#0;class#RangeSeekBar#0" expanded="false" />
-            <element signature="docComment;method#collide#0;class#SeekBar#0;class#RangeSeekBar#0" expanded="false" />
-            <element signature="method#collide#0;class#SeekBar#0;class#RangeSeekBar#0" expanded="false" />
-            <element signature="method#materialRestore#0;class#SeekBar#0;class#RangeSeekBar#0" expanded="false" />
-            <element signature="method#setValue#0;class#RangeSeekBar#0" expanded="false" />
-            <element signature="method#setLineColor#0;class#RangeSeekBar#0" expanded="false" />
-            <element signature="method#setThumbPrimaryColor#0;class#RangeSeekBar#0" expanded="false" />
-            <element signature="method#setThumbSecondaryColor#0;class#RangeSeekBar#0" expanded="false" />
-            <element signature="method#setProgressHintMode#0;class#RangeSeekBar#0" expanded="false" />
-            <element signature="method#setProgressHintBGId#0;class#RangeSeekBar#0" expanded="false" />
-            <element signature="method#setRules#0;class#RangeSeekBar#0" expanded="false" />
-            <element signature="method#setEnabled#0;class#RangeSeekBar#0" expanded="false" />
-            <element signature="method#isShowProgressHint#0;class#RangeSeekBar#0" expanded="false" />
-            <element signature="e#29360#29367#0" expanded="false" />
-            <element signature="e#31845#31900#0" expanded="false" />
-            <element signature="method#drawableToBitmap#0;class#RangeSeekBar#0" expanded="false" />
-            <element signature="method#onSaveInstanceState#0;class#RangeSeekBar#0" expanded="false" />
-            <element signature="method#onRestoreInstanceState#0;class#RangeSeekBar#0" expanded="false" />
-            <element signature="class#SavedState#0;class#RangeSeekBar#0" expanded="false" />
-            <element signature="method#SavedState#1;class#SavedState#0;class#RangeSeekBar#0" expanded="false" />
-            <element signature="method#writeToParcel#0;class#SavedState#0;class#RangeSeekBar#0" expanded="false" />
-            <element signature="class#37084:37358" expanded="false" />
-            <element signature="docComment;method#dp2px#0;class#RangeSeekBar#0" expanded="false" />
-            <element signature="method#dp2px#0;class#RangeSeekBar#0" expanded="false" />
-            <element signature="method#setActiveColor#0;class#RangeSeekBar#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/list_item3.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="36" column="19" lean-forward="false" selection-start-line="36" selection-start-column="12" selection-end-line="36" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_folder_red_24dp.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="7" column="20" lean-forward="false" selection-start-line="7" selection-start-column="20" selection-end-line="7" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_folder_black_24dp.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="6" column="34" lean-forward="false" selection-start-line="6" selection-start-column="34" selection-end-line="6" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/folder_selector.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="117">
-          <caret line="3" column="54" lean-forward="false" selection-start-line="3" selection-start-column="54" selection-end-line="3" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/listselector1.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="117">
-          <caret line="3" column="31" lean-forward="false" selection-start-line="3" selection-start-column="31" selection-end-line="3" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://F:/COD/NVPACK/android-sdk-windows/platforms/android-24/data/res/values/attrs.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="978" column="20" lean-forward="false" selection-start-line="978" selection-start-column="20" selection-end-line="978" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://F:/COD/NVPACK/android-sdk-windows/extras/android/m2repository/com/android/support/support-v4/24.1.0/support-v4-24.1.0-sources.jar!/android/support/v4/view/ViewPager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="161" column="16" lean-forward="false" selection-start-line="161" selection-start-column="16" selection-end-line="161" selection-end-column="16" />
-          <folding>
-            <element signature="e#23998#23999#0" expanded="false" />
-            <element signature="e#24029#24030#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://F:/COD/NVPACK/android-sdk-windows/sources/android-24/android/app/Activity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3378">
-          <caret line="5210" column="7" lean-forward="true" selection-start-line="5210" selection-start-column="7" selection-end-line="5210" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://F:/COD/NVPACK/android-sdk-windows/sources/android-24/android/view/View.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="8290" column="19" lean-forward="false" selection-start-line="8290" selection-start-column="19" selection-end-line="8290" selection-end-column="19" />
-          <folding>
-            <element signature="e#326835#326836#0" expanded="false" />
-            <element signature="e#326877#326878#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/ResultUpdateRunnable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="117">
-          <caret line="3" column="13" lean-forward="false" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/ScrollLinearLayoutManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/Settings_fragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-398">
-          <caret line="53" column="13" lean-forward="false" selection-start-line="53" selection-start-column="13" selection-end-line="53" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/rectanglsmy.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="10" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/db/DBWangYiLPController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="171" column="26" lean-forward="false" selection-start-line="171" selection-start-column="26" selection-end-line="171" selection-end-column="26" />
-          <folding>
-            <element signature="method#createProjectsTable#0;class#DBWangYiLPController#0" expanded="false" />
-            <element signature="method#DBWangYiLPController#0;class#DBWangYiLPController#0" expanded="false" />
-            <element signature="method#close#0;class#DBWangYiLPController#0" expanded="false" />
-            <element signature="method#newProj#0;class#DBWangYiLPController#0" expanded="false" />
-            <element signature="method#renameProj#0;class#DBWangYiLPController#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/option_layout.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-206">
-          <caret line="362" column="16" lean-forward="false" selection-start-line="362" selection-start-column="16" selection-end-line="362" selection-end-column="16" />
-          <folding>
-            <element signature="e#9714#10343#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/color.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="8" column="25" lean-forward="false" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="87" column="33" lean-forward="false" selection-start-line="87" selection-start-column="33" selection-end-line="87" selection-end-column="33" />
-          <folding>
-            <element signature="class#6600:7019" expanded="false" />
-            <element signature="e#8286#8447#0" expanded="true" />
-            <element signature="e#8446#8447#0" expanded="true" />
-            <element signature="e#8710#8711#0" expanded="true" />
-            <element signature="e#8753#8754#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/LPWorkerThreadManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
-          <caret line="80" column="22" lean-forward="false" selection-start-line="80" selection-start-column="22" selection-end-line="80" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/LPWorkerThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="64" column="16" lean-forward="false" selection-start-line="64" selection-start-column="16" selection-end-line="64" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/CMN.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="100" column="11" lean-forward="false" selection-start-line="100" selection-start-column="9" selection-end-line="100" selection-end-column="11" />
-          <folding>
-            <element signature="docComment;class#CMN#0" expanded="false" />
-            <element signature="method#show#0;class#CMN#0" expanded="false" />
-            <element signature="e#885#897#0" expanded="false" />
-            <element signature="method#sh#0;class#CMN#0" expanded="false" />
-            <element signature="method#showTT#0;class#CMN#0" expanded="false" />
-            <element signature="method#readParse#0;class#CMN#0" expanded="false" />
-            <element signature="method#getStatusBarHeight#0;class#CMN#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/ui/EditTextmy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="39">
-          <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/ui/ListViewmy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="117">
-          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/ui/main_list_Adapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="40" column="6" lean-forward="false" selection-start-line="40" selection-start-column="6" selection-end-line="40" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/ui/OnItemClickListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="5" column="17" lean-forward="false" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/ui/OnItemLongClickListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="4" column="17" lean-forward="false" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/ui/ZoomImageView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-6443">
-          <caret line="16" column="13" lean-forward="false" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/ui/ArrayAdaptermy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="39">
-          <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/FragAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding />
+        <state relative-caret-position="174">
+          <caret line="592" column="42" lean-forward="false" selection-start-line="592" selection-start-column="42" selection-end-line="592" selection-end-column="42" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/LP_Option.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="41" column="22" lean-forward="false" selection-start-line="41" selection-start-column="12" selection-end-line="41" selection-end-column="22" />
+        <state relative-caret-position="1599">
+          <caret line="44" column="25" lean-forward="false" selection-start-line="44" selection-start-column="25" selection-end-line="44" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://F:/COD/NVPACK/android-sdk-windows/sources/android-24/android/media/MediaPlayer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="278">
+          <caret line="1182" column="16" lean-forward="false" selection-start-line="1182" selection-start-column="16" selection-end-line="1182" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://F:/COD/NVPACK/android-sdk-windows/sources/android-24/android/media/PlaybackParams.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="204" column="26" lean-forward="false" selection-start-line="204" selection-start-column="26" selection-end-line="204" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="4" column="26" lean-forward="false" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/local.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/settings.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values-zh/styles.xml" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/option_layout.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="151">
+          <caret line="116" column="48" lean-forward="false" selection-start-line="116" selection-start-column="48" selection-end-line="116" selection-end-column="48" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/db/DBWangYiLPController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="16" column="24" lean-forward="false" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="8" column="46" lean-forward="false" selection-start-line="8" selection-start-column="46" selection-end-line="8" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_crop_free_black_24dp.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/menu.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1170">
+          <caret line="30" column="30" lean-forward="false" selection-start-line="30" selection-start-column="30" selection-end-line="30" selection-end-column="30" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="6" column="56" lean-forward="false" selection-start-line="6" selection-start-column="8" selection-end-line="6" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/filepicker/src/main/res/layout/dialog_header.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="8" column="29" lean-forward="true" selection-start-line="8" selection-start-column="29" selection-end-line="8" selection-end-column="29" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/filepicker/src/main/java/com/github/angads25/filepicker/view/FilePickerDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="91">
+          <caret line="104" column="36" lean-forward="true" selection-start-line="104" selection-start-column="36" selection-end-line="104" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/app-release.apk">
+      <provider selected="true" editor-type-id="apk-viewer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/filepicker/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/filepicker/build/intermediates/bundles/default/res/values/values.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/filepicker/src/main/res/values/styles.xml" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/CMN.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="123" column="0" lean-forward="false" selection-start-line="123" selection-start-column="0" selection-end-line="123" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/fenwjian/sdcardutil/chineseNumber/cnn.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-21885">
-          <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-          <folding />
+        <state relative-caret-position="-897">
+          <caret line="31" column="53" lean-forward="false" selection-start-line="31" selection-start-column="53" selection-end-line="31" selection-end-column="53" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/fenwjian/sdcardutil/Updatable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="78">
-          <caret line="2" column="17" lean-forward="false" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/fenwjian/sdcardutil/myCpr.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-180">
-          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/fenwjian/sdcardutil/NoScrollViewPager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-429">
-          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/Main_extractor_Fragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="717" column="13" lean-forward="false" selection-start-line="717" selection-start-column="8" selection-end-line="717" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#selectAll#0;class#Main_extractor_Fragment#0" expanded="false" />
-            <element signature="e#2074#2078#0" expanded="false" />
-            <element signature="method#deSelectAll#0;class#Main_extractor_Fragment#0" expanded="false" />
-            <element signature="method#reversionSelect#0;class#Main_extractor_Fragment#0" expanded="false" />
-            <element signature="e#3240#3286#0" expanded="false" />
-            <element signature="class#tk_gross#0;class#Main_extractor_Fragment#0" expanded="false" />
-            <element signature="method#tk_gross#0;class#tk_gross#0;class#Main_extractor_Fragment#0" expanded="false" />
-            <element signature="e#5602#5628#0" expanded="false" />
-            <element signature="e#6060#6066#0" expanded="false" />
-            <element signature="class#ResultListAdapter#0;class#Main_extractor_Fragment#0" expanded="false" />
-            <element signature="method#clear#0;class#ResultListAdapter#0;class#Main_extractor_Fragment#0" expanded="false" />
-            <element signature="method#ResultListAdapter#0;class#ResultListAdapter#0;class#Main_extractor_Fragment#0" expanded="false" />
-            <element signature="method#addItem#0;class#ResultListAdapter#0;class#Main_extractor_Fragment#0" expanded="false" />
-            <element signature="method#getView#0;class#ResultListAdapter#0;class#Main_extractor_Fragment#0" expanded="false" />
-            <element signature="class#11685:11809" expanded="false" />
-            <element signature="class#viewHolder#0;class#Main_extractor_Fragment#0" expanded="false" />
-            <element signature="e#18438#18446#0" expanded="false" />
-            <element signature="e#18763#18814#0" expanded="false" />
-            <element signature="method#HSVtoRGB#0;class#Main_extractor_Fragment#0" expanded="false" />
-            <element signature="method#makeColor#0;class#Main_extractor_Fragment#0" expanded="false" />
-            <element signature="method#deleteOne#0;class#Main_extractor_Fragment#0" expanded="false" />
-            <element signature="class#Item#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/RelativeLayoutmy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-125">
-          <caret line="31" column="0" lean-forward="true" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/main_edit_layout.xml">
+    <entry file="file://$PROJECT_DIR$/filepicker/src/main/res/layout/dialog_file_list_item.xml">
       <provider editor-type-id="text-editor">
-        <state relative-caret-position="39">
-          <caret line="1" column="21" lean-forward="false" selection-start-line="1" selection-start-column="21" selection-end-line="1" selection-end-column="21" />
-          <folding>
-            <element signature="e#427#712#0" expanded="false" />
-            <element signature="e#718#1190#0" expanded="false" />
-            <element signature="e#1196#2588#0" expanded="false" />
-            <element signature="e#1610#2544#0" expanded="false" />
-            <element signature="e#1736#2040#0" expanded="false" />
-            <element signature="e#2053#2518#0" expanded="false" />
-            <element signature="e#2594#4481#0" expanded="false" />
-            <element signature="e#2964#3389#0" expanded="false" />
-            <element signature="e#3399#3741#0" expanded="false" />
-            <element signature="e#3751#4040#0" expanded="false" />
-            <element signature="e#4050#4458#0" expanded="false" />
-            <element signature="e#4487#4895#0" expanded="false" />
-            <element signature="e#4901#5176#0" expanded="false" />
-            <element signature="e#5182#5575#0" expanded="false" />
-            <element signature="e#5581#5986#0" expanded="false" />
-            <element signature="e#6222#6907#0" expanded="false" />
-            <element signature="e#6916#7209#0" expanded="false" />
-            <element signature="e#7654#8091#0" expanded="false" />
-            <element signature="e#9059#10556#0" expanded="false" />
-            <element signature="e#9388#9708#0" expanded="false" />
-            <element signature="e#9717#10206#0" expanded="false" />
-            <element signature="e#10215#10534#0" expanded="false" />
-            <element signature="e#10562#13582#0" expanded="false" />
-            <element signature="e#10854#11623#0" expanded="false" />
-            <element signature="e#11633#12035#0" expanded="false" />
-            <element signature="e#12045#12446#0" expanded="false" />
-            <element signature="e#12456#12861#0" expanded="false" />
-            <element signature="e#12871#13559#0" expanded="false" />
-            <element signature="e#13588#14441#0" expanded="false" />
-            <element signature="e#14105#14423#0" expanded="false" />
-            <element signature="e#14447#18333#0" expanded="false" />
-            <element signature="e#14960#16002#0" expanded="false" />
-            <element signature="e#15192#15568#0" expanded="false" />
-            <element signature="e#15582#15978#0" expanded="false" />
-            <element signature="e#16011#17008#0" expanded="false" />
-            <element signature="e#16195#16575#0" expanded="false" />
-            <element signature="e#16588#16984#0" expanded="false" />
-            <element signature="e#17018#17826#0" expanded="false" />
-            <element signature="e#17201#17541#0" expanded="false" />
-            <element signature="e#17555#17802#0" expanded="false" />
-            <element signature="e#17836#18313#0" expanded="false" />
-            <element signature="e#17958#18291#0" expanded="false" />
-            <element signature="e#18614#20863#0" expanded="false" />
-            <element signature="e#18980#19406#0" expanded="false" />
-            <element signature="e#19419#19883#0" expanded="false" />
-            <element signature="e#19896#20360#0" expanded="false" />
-            <element signature="e#20373#20837#0" expanded="false" />
-            <element signature="e#20872#21360#0" expanded="false" />
-            <element signature="e#21370#21621#0" expanded="false" />
-            <element signature="e#21630#22122#0" expanded="false" />
-            <element signature="e#22132#22381#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="273">
+          <caret line="7" column="4" lean-forward="false" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="56" />
         </state>
       </provider>
       <provider selected="true" editor-type-id="android-designer2">
         <state />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/main_edit_layout.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="970">
+          <caret line="320" column="27" lean-forward="false" selection-start-line="320" selection-start-column="24" selection-end-line="320" selection-end-column="27" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values-zh/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="37" column="18" lean-forward="false" selection-start-line="37" selection-start-column="18" selection-end-line="37" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/fenwjian/sdcardutil/SplitSeekBarmy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="160" column="63" lean-forward="false" selection-start-line="160" selection-start-column="63" selection-end-line="160" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/main.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="122">
+          <caret line="30" column="16" lean-forward="false" selection-start-line="30" selection-start-column="16" selection-end-line="30" selection-end-column="16" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/Lrc_Parser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="756">
+          <caret line="62" column="46" lean-forward="false" selection-start-line="62" selection-start-column="27" selection-end-line="62" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/filepicker/src/main/res/layout/drawer_list_item.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="4" column="35" lean-forward="false" selection-start-line="4" selection-start-column="35" selection-end-line="4" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/filepicker/src/main/res/layout/dialog_main.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1755">
+          <caret line="45" column="22" lean-forward="false" selection-start-line="45" selection-start-column="22" selection-end-line="45" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/main_extractor_layout.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="702">
+          <caret line="18" column="24" lean-forward="false" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/LPWorkerThreadManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3198">
+          <caret line="97" column="37" lean-forward="false" selection-start-line="97" selection-start-column="37" selection-end-line="97" selection-end-column="37" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#564#565#0" expanded="false" />
+            <element signature="e#608#609#0" expanded="false" />
+            <element signature="e#1314#1315#0" expanded="false" />
+            <element signature="e#1409#1410#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/LPWorkerThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1794">
+          <caret line="62" column="50" lean-forward="false" selection-start-line="62" selection-start-column="50" selection-end-line="62" selection-end-column="50" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/lyric.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="27" column="38" lean-forward="false" selection-start-line="21" selection-start-column="8" selection-end-line="27" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/blurView/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-351">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/blurView/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-manifest">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/filepicker/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/filepicker/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-manifest">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-117">
+          <caret line="12" column="20" lean-forward="false" selection-start-line="12" selection-start-column="20" selection-end-line="12" selection-end-column="20" />
+          <folding>
+            <element signature="e#718#736#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+      <provider editor-type-id="android-manifest">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="17" column="21" lean-forward="false" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/android/mipmap-xhdpi/ic_launcher.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/android/mipmap-hdpi/ic_launcher.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/Main_editor_Fragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="693">
-          <caret line="468" column="37" lean-forward="false" selection-start-line="468" selection-start-column="37" selection-end-line="468" selection-end-column="37" />
+        <state relative-caret-position="78">
+          <caret line="1141" column="19" lean-forward="false" selection-start-line="1141" selection-start-column="19" selection-end-line="1141" selection-end-column="19" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#onStartTrackingTouch#0;class#10675:14697" expanded="false" />
-            <element signature="method#onStopTrackingTouch#0;class#10675:14697" expanded="false" />
-            <element signature="e#16696#16699#0" expanded="false" />
-            <element signature="e#17641#17704#0" expanded="false" />
-            <element signature="class#18569:19620" expanded="false" />
-            <element signature="method#onTouch#0;class#18569:19620" expanded="false" />
-            <element signature="class#19743:20242" expanded="false" />
-            <element signature="method#onProgressChanged#0;class#19743:20242" expanded="false" />
-            <element signature="method#onStartTrackingTouch#0;class#19743:20242" expanded="false" />
-            <element signature="method#onStopTrackingTouch#0;class#19743:20242" expanded="false" />
-            <element signature="e#21449#21486#0" expanded="false" />
-            <element signature="method#scale#0;class#Main_editor_Fragment#0" expanded="false" />
-            <element signature="method#scale#1;class#Main_editor_Fragment#0" expanded="false" />
-            <element signature="e#24195#24257#0" expanded="false" />
-            <element signature="method#init_yuan#0;class#Main_editor_Fragment#0" expanded="false" />
-            <element signature="e#31577#31672#0" expanded="false" />
-            <element signature="e#31791#31798#0" expanded="false" />
-            <element signature="e#32190#32215#0" expanded="false" />
-            <element signature="e#33273#33350#0" expanded="false" />
-            <element signature="e#36913#36929#0" expanded="false" />
-            <element signature="class#43217:43360" expanded="false" />
-            <element signature="method#onClick#0;class#43217:43360" expanded="false" />
-            <element signature="class#46015:46158" expanded="false" />
-            <element signature="method#onClick#0;class#46015:46158" expanded="false" />
-            <element signature="method#show_adjustBar_toggle#0;class#Main_editor_Fragment#0" expanded="false" />
-            <element signature="e#48408#48471#0" expanded="false" />
-            <element signature="method#resumePlayer#0;class#Main_editor_Fragment#0" expanded="false" />
-            <element signature="method#play#0;class#Main_editor_Fragment#0" expanded="false" />
+            <element signature="method#onActivityCreated#0;class#Main_editor_Fragment#0" expanded="false" />
+            <element signature="method#onStartTrackingTouch#0;class#12872:17978" expanded="false" />
+            <element signature="method#onStopTrackingTouch#0;class#12872:17978" expanded="false" />
+            <element signature="e#18927#18951#0" expanded="false" />
+            <element signature="e#22390#22393#0" expanded="false" />
+            <element signature="e#23335#23398#0" expanded="false" />
+            <element signature="class#24263:25314" expanded="false" />
+            <element signature="method#onTouch#0;class#24263:25314" expanded="false" />
+            <element signature="class#25437:25936" expanded="false" />
+            <element signature="method#onProgressChanged#0;class#25437:25936" expanded="false" />
+            <element signature="method#onStartTrackingTouch#0;class#25437:25936" expanded="false" />
+            <element signature="method#onStopTrackingTouch#0;class#25437:25936" expanded="false" />
+            <element signature="method#initSeekers#0;class#Main_editor_Fragment#0" expanded="false" />
             <element signature="class#tk_gross#0;class#Main_editor_Fragment#0" expanded="false" />
             <element signature="method#tk_gross#0;class#tk_gross#0;class#Main_editor_Fragment#0" expanded="false" />
+            <element signature="method#onTabSelected#0;class#Main_editor_Fragment#0" expanded="false" />
             <element signature="method#onFocusChange#0;class#Main_editor_Fragment#0" expanded="false" />
             <element signature="class#OnItemClickListener#0;class#Main_editor_Fragment#0" expanded="false" />
             <element signature="class#OnItemLongClickListener#0;class#Main_editor_Fragment#0" expanded="false" />
             <element signature="class#MyViewHolder#0;class#Main_editor_Fragment#0" expanded="false" />
             <element signature="method#MyViewHolder#0;class#MyViewHolder#0;class#Main_editor_Fragment#0" expanded="false" />
-            <element signature="e#56707#56756#0" expanded="false" />
+            <element signature="e#75684#75733#0" expanded="false" />
             <element signature="class#main_list_Adapter#0;class#Main_editor_Fragment#0" expanded="false" />
-            <element signature="e#57210#57272#0" expanded="false" />
+            <element signature="e#76187#76249#0" expanded="false" />
             <element signature="method#setOnItemClickListener#0;class#main_list_Adapter#0;class#Main_editor_Fragment#0" expanded="false" />
             <element signature="method#setOnItemLongClickListener#0;class#main_list_Adapter#0;class#Main_editor_Fragment#0" expanded="false" />
             <element signature="method#onCreateViewHolder#0;class#main_list_Adapter#0;class#Main_editor_Fragment#0" expanded="false" />
             <element signature="method#onBindViewHolder#0;class#main_list_Adapter#0;class#Main_editor_Fragment#0" expanded="false" />
-            <element signature="class#59646:60127" expanded="false" />
-            <element signature="method#beforeTextChanged#0;class#59646:60127" expanded="false" />
-            <element signature="method#onTextChanged#0;class#59646:60127" expanded="false" />
-            <element signature="method#afterTextChanged#0;class#59646:60127" expanded="false" />
-            <element signature="e#60415#60470#0" expanded="false" />
-            <element signature="e#60592#60595#0" expanded="false" />
-            <element signature="e#61003#61023#0" expanded="false" />
+            <element signature="class#78621:79062" expanded="false" />
+            <element signature="method#beforeTextChanged#0;class#78621:79062" expanded="false" />
+            <element signature="method#onTextChanged#0;class#78621:79062" expanded="false" />
+            <element signature="method#afterTextChanged#0;class#78621:79062" expanded="false" />
+            <element signature="e#79350#79405#0" expanded="false" />
+            <element signature="e#79527#79530#0" expanded="false" />
+            <element signature="e#79938#79958#0" expanded="false" />
             <element signature="method#removeSelected#0;class#main_list_Adapter#0;class#Main_editor_Fragment#0" expanded="false" />
             <element signature="class#viewHolder#0;class#Main_editor_Fragment#0" expanded="false" />
+            <element signature="class#SeekSetAdapter#0;class#Main_editor_Fragment#0" expanded="false" />
             <element signature="method#onProgressChanged#0;class#SeekSetAdapter#0;class#Main_editor_Fragment#0" expanded="false" />
             <element signature="method#onStartTrackingTouch#0;class#SeekSetAdapter#0;class#Main_editor_Fragment#0" expanded="false" />
             <element signature="method#onStopTrackingTouch#0;class#SeekSetAdapter#0;class#Main_editor_Fragment#0" expanded="false" />
-            <element signature="e#63144#63198#0" expanded="false" />
+            <element signature="method#setProgress#0;class#SeekSetAdapter#0;class#Main_editor_Fragment#0" expanded="false" />
+            <element signature="e#82079#82133#0" expanded="false" />
+            <element signature="e#83152#83189#0" expanded="false" />
+            <element signature="method#notifyDataSetChanged#0;class#SeekSetAdapter#0;class#Main_editor_Fragment#0" expanded="false" />
             <element signature="method#getItem#0;class#SeekSetAdapter#0;class#Main_editor_Fragment#0" expanded="false" />
             <element signature="method#getItemId#0;class#SeekSetAdapter#0;class#Main_editor_Fragment#0" expanded="false" />
             <element signature="method#getView#0;class#SeekSetAdapter#0;class#Main_editor_Fragment#0" expanded="false" />
@@ -5381,15 +5160,91 @@
             <element signature="method#getItemId#0;class#daProjsAdapter#0;class#Main_editor_Fragment#0" expanded="false" />
             <element signature="method#getCount#0;class#daProjsAdapter#0;class#Main_editor_Fragment#0" expanded="false" />
             <element signature="method#getItem#0;class#daProjsAdapter#0;class#Main_editor_Fragment#0" expanded="false" />
-            <element signature="e#68248#68262#0" expanded="false" />
+            <element signature="e#87589#87603#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/Main_extractor_Fragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="78">
-          <caret line="14" column="43" lean-forward="true" selection-start-line="14" selection-start-column="23" selection-end-line="14" selection-end-column="43" />
+        <state relative-caret-position="-248">
+          <caret line="99" column="0" lean-forward="false" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
+          <folding>
+            <element signature="method#selectAll#0;class#Main_extractor_Fragment#0" expanded="false" />
+            <element signature="e#2156#2160#0" expanded="false" />
+            <element signature="method#deSelectAll#0;class#Main_extractor_Fragment#0" expanded="false" />
+            <element signature="method#reversionSelect#0;class#Main_extractor_Fragment#0" expanded="false" />
+            <element signature="e#3322#3368#0" expanded="false" />
+            <element signature="class#tk_gross#0;class#Main_extractor_Fragment#0" expanded="false" />
+            <element signature="method#tk_gross#0;class#tk_gross#0;class#Main_extractor_Fragment#0" expanded="false" />
+            <element signature="method#onCreateView#0;class#Main_extractor_Fragment#0" expanded="false" />
+            <element signature="e#5820#5846#0" expanded="false" />
+            <element signature="e#6343#6349#0" expanded="false" />
+            <element signature="class#ResultListAdapter#0;class#Main_extractor_Fragment#0" expanded="false" />
+            <element signature="method#clear#0;class#ResultListAdapter#0;class#Main_extractor_Fragment#0" expanded="false" />
+            <element signature="method#ResultListAdapter#0;class#ResultListAdapter#0;class#Main_extractor_Fragment#0" expanded="false" />
+            <element signature="method#addItem#0;class#ResultListAdapter#0;class#Main_extractor_Fragment#0" expanded="false" />
+            <element signature="method#getView#0;class#ResultListAdapter#0;class#Main_extractor_Fragment#0" expanded="false" />
+            <element signature="class#12036:12160" expanded="false" />
+            <element signature="class#viewHolder#0;class#Main_extractor_Fragment#0" expanded="false" />
+            <element signature="method#showLyricsPreview#0;class#Main_extractor_Fragment#0" expanded="false" />
+            <element signature="e#19087#19095#0" expanded="false" />
+            <element signature="e#19412#19463#0" expanded="false" />
+            <element signature="method#ms2ffmTime#0;class#Main_extractor_Fragment#0" expanded="false" />
+            <element signature="method#makeColor#0;class#Main_extractor_Fragment#0" expanded="false" />
+            <element signature="method#deleteOne#0;class#Main_extractor_Fragment#0" expanded="false" />
+            <element signature="class#Item#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/Settings_fragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="311">
+          <caret line="229" column="104" lean-forward="false" selection-start-line="229" selection-start-column="104" selection-end-line="229" selection-end-column="104" />
+          <folding>
+            <element signature="docComment;class#Settings_fragment#0" expanded="false" />
+            <element signature="method#onCreateView#0;class#Settings_fragment#0" expanded="false" />
+            <element signature="e#2608#2641#0" expanded="false" />
+            <element signature="e#11055#11100#0" expanded="true" />
+            <element signature="method#scanSettings#0;class#Settings_fragment#0" expanded="false" />
+            <element signature="method#onDestroyView#0;class#Settings_fragment#0" expanded="false" />
+            <element signature="method#onDetach#0;class#Settings_fragment#0" expanded="false" />
+            <element signature="method#onSaveInstanceState#0;class#Settings_fragment#0" expanded="false" />
+            <element signature="method#onActivityCreated#0;class#Settings_fragment#0" expanded="false" />
+            <element signature="method#onAttach#0;class#Settings_fragment#0" expanded="false" />
+            <element signature="method#onDestroy#0;class#Settings_fragment#0" expanded="false" />
+            <element signature="method#onStop#0;class#Settings_fragment#0" expanded="false" />
+            <element signature="method#onStart#0;class#Settings_fragment#0" expanded="false" />
+            <element signature="method#onPause#0;class#Settings_fragment#0" expanded="false" />
+            <element signature="method#onResume#0;class#Settings_fragment#0" expanded="false" />
+            <element signature="class#adaptermy2#0;class#Settings_fragment#0" expanded="false" />
+            <element signature="method#adaptermy2#0;class#adaptermy2#0;class#Settings_fragment#0" expanded="false" />
+            <element signature="method#getItemId#0;class#adaptermy2#0;class#Settings_fragment#0" expanded="false" />
+            <element signature="method#getCount#0;class#adaptermy2#0;class#Settings_fragment#0" expanded="false" />
+            <element signature="method#getItem#0;class#adaptermy2#0;class#Settings_fragment#0" expanded="false" />
+            <element signature="method#getView#0;class#adaptermy2#0;class#Settings_fragment#0" expanded="false" />
+            <element signature="class#16852:18300" expanded="false" />
+            <element signature="method#onTouch#0;class#16852:18300" expanded="false" />
+            <element signature="e#18044#18079#0" expanded="false" />
+            <element signature="method#copyFileToPath#0;class#Settings_fragment#0" expanded="false" />
+            <element signature="class#SubOnItemClickListener#0;class#Settings_fragment#0" expanded="false" />
+            <element signature="class#chooseSettingsAdapter#0;class#Settings_fragment#0" expanded="false" />
+            <element signature="method#chooseSettingsAdapter#0;class#chooseSettingsAdapter#0;class#Settings_fragment#0" expanded="false" />
+            <element signature="method#refresh#0;class#chooseSettingsAdapter#0;class#Settings_fragment#0" expanded="false" />
+            <element signature="method#getItemId#0;class#chooseSettingsAdapter#0;class#Settings_fragment#0" expanded="false" />
+            <element signature="method#getCount#0;class#chooseSettingsAdapter#0;class#Settings_fragment#0" expanded="false" />
+            <element signature="method#getItem#0;class#chooseSettingsAdapter#0;class#Settings_fragment#0" expanded="false" />
+            <element signature="method#getView#0;class#chooseSettingsAdapter#0;class#Settings_fragment#0" expanded="false" />
+            <element signature="e#25330#25353#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/knizha/wangYiLP/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="55" column="70" lean-forward="false" selection-start-line="55" selection-start-column="37" selection-end-line="55" selection-end-column="70" />
           <folding />
         </state>
       </provider>
